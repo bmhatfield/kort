@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Jotunheim - Map</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+    <canvas id="map" width="1500" height="1500"></canvas>
+</body>
+
+<script>
+    let cache = null;
+    let scale = 0.25;
+
+    async function load() {
+        if (cache !== null) {
+            return cache
+        }
+        const res = await fetch("http://localhost:3000/tables.json");
+        cache = await res.json();
+        return cache
+    }
+
+    async function render(c) {
+        tables = await load();
+        var ctx = c.getContext("2d");
+
+        const W = ctx.canvas.width, H = ctx.canvas.height;
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // resets the transform to clear
+        ctx.clearRect(0, 0, W, H); // clears the canvas
+        ctx.setTransform(1, 0, 0, -1, W / 2, H / 2); // moves the origin to the center of the canvas
+
+        ctx.save();
+        ctx.scale(scale, scale);
+
+        ctx.beginPath();
+        tables.map(table => {
+            const x = Number(table[0][0]);
+            const y = Number(table[0][1]);
+            ctx.moveTo(x, y);
+
+            table.map((r, i) => {
+                const x = Number(r[0]);
+                const y = Number(r[1]);
+                ctx.lineTo(x, y);
+            });
+        })
+
+        ctx.restore();
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 1.1;
+        ctx.stroke();
+    }
+
+    function zoom(ev) {
+        event.preventDefault();
+        let d = (ev.deltaY > 0) ? -.05 : .03;
+        let n = scale + d;
+        if (n > 0.05 && n < 1) {
+            scale = n;
+            render(ev.target);
+        }
+    }
+
+    const c = document.getElementById("map");
+    c.onwheel = zoom;
+
+    render(c);    
+</script>
+
+</html>
