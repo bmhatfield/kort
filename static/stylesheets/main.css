@@ -3,6 +3,11 @@
     src: url("/type/Norse.otf");
 }
 
+@font-face {
+    font-family: valheim-bold;
+    src: url("/type/NorseBold.otf");
+}
+
 body {
     font-family: valheim;
 }
@@ -15,14 +20,15 @@ body {
 #fcontainer {
     display: inline-block;
     vertical-align: top;
+    font-size: x-large;
 }
 
 #x, #y {
-    width: 40px;
+    width: 50px;
 }
 
 #label {
-    width: 100px;
+    width: 120px;
 }
 
 label {
@@ -35,19 +41,56 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input {
+input, select {
     border: none;
     border-bottom: 1px black solid;
+    background: none;
+    font-size: inherit;
+    font-family: inherit;
+    margin: 10px;
 }
+
+input:required:invalid {
+    border-bottom-color: indianred;
+    border-bottom-style: dashed;
+}
+
+form:invalid>.sub-mode {
+    border-color: salmon;
+    border-width: 1px;
+    border-style: solid;
+    color: lightgray;
+}
+
+input:required:valid {
+    border-bottom-color: olivedrab;
+}
+
+label {
+    color:darkslategrey;
+}
+
+input[type=submit] {
+    color: lightslategray;
+    border: none;
+    font-family: valheim-bold;
+    background-color: snow;
+    border-radius: 5px;
+}
+
+.sub-mode:focus, .sub-mode:hover {
+    color: darkslategray;
+}
+
 
 input:focus {
     outline: none;
 }
 
 #points {
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 138px;
-    border: red 1px solid;
+    width: 203px;
 }

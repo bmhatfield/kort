@@ -39,9 +39,9 @@ const App = () => {
             <Cartograph tables={tables} />
             <div id="fcontainer">
                 <form id="points" onSubmit={handleSubmit}>
-                    <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" /></div>
-                    <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" /></div>
-                    <div><label htmlFor="label">label</label><input type="text" id="label" name="label" /></div>
+                    <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
+                    <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
+                    <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" /></div>
                     <div><label htmlFor="biome">biome</label>
                         <select id="biome" name="biome">
                             <option value="meadows">Meadows</option>
@@ -55,8 +55,8 @@ const App = () => {
                             <option value="ashlands">Ashlands</option>
                         </select>
                     </div>
-                    <input type="submit" value="Append" onClick={(() => setMode("append"))} />
-                    <input type="submit" value="New" onClick={(() => setMode("new"))} />
+                    <input type="submit" value="Append" className="sub-mode" onClick={(() => setMode("append"))} />
+                    <input type="submit" value="New" className="sub-mode" style={{marginRight: 25}} onClick={(() => setMode("new"))} />
                 </form>
             </div>
         </div>
