@@ -4,7 +4,7 @@ const App = () => {
     const [mode, setMode] = React.useState("new");
 
     React.useEffect(() => {
-        fetch("http://localhost:3000/tables.json").then(res => {
+        fetch("http://localhost:3000/tables").then(res => {
             return res.json();
         }).then(json => {
             setTables(json);

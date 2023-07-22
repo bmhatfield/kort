@@ -21,6 +21,9 @@ func (o *Object[T]) New(obj T) (string, error) {
 	id := ""
 	if err := o.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
+		if bucket == nil {
+			return ErrNoBucket
+		}
 
 		seq, err := bucket.NextSequence()
 		if err != nil {
@@ -46,6 +49,9 @@ func (o *Object[T]) New(obj T) (string, error) {
 func (o *Object[T]) Replace(obj T) error {
 	return o.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
+		if bucket == nil {
+			return ErrNoBucket
+		}
 
 		b, err := json.Marshal(obj)
 		if err != nil {
@@ -60,6 +66,10 @@ func (o *Object[T]) Get(id string) (T, error) {
 	var obj T
 	if err := o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
+		if bucket == nil {
+			return ErrNoBucket
+		}
+
 		b := bucket.Get(Key(id))
 		if b == nil {
 			return ErrNotFound
@@ -77,6 +87,10 @@ func (o *Object[T]) List() ([]T, error) {
 	out := make([]T, 0)
 	if err := o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
+		if bucket == nil {
+			return ErrNoBucket
+		}
+
 		return bucket.ForEach(func(k, v []byte) error {
 			var obj T
 			if err := json.Unmarshal(v, obj); err != nil {

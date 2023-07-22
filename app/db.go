@@ -9,6 +9,7 @@ import (
 
 var (
 	ErrNotFound = errors.New("not found")
+	ErrNoBucket = errors.New("no bucket")
 )
 
 func Key(k string) []byte {
@@ -33,7 +34,7 @@ func (s *Store) Users() *Object[*User] {
 func (s *Store) Tables() *Object[*Table] {
 	return &Object[*Table]{
 		db:     s.db,
-		bucket: "table",
+		bucket: "tables",
 	}
 }
 
