@@ -1,0 +1,23 @@
+package app
+
+type Point struct {
+	X int `json:"x"`
+	Y int `json:"y"`
+
+	Label string `json:"label"`
+	Biome Biome  `json:"biome,omitempty"`
+}
+
+func NewPoint(x, y int, label, biome string) Point {
+	b := Biome(biome)
+	if !b.Valid() {
+		b = Biome("")
+	}
+
+	return Point{
+		X:     x,
+		Y:     y,
+		Label: label,
+		Biome: b,
+	}
+}
