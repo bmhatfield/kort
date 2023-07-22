@@ -7,17 +7,18 @@ import (
 	bolt "go.etcd.io/bbolt"
 )
 
-type Identifer interface {
+type Identifer[T any] interface {
 	ID() string
 	SetID(string)
+	*T
 }
 
-type Object[T Identifer] struct {
+type Object[T any, P Identifer[T]] struct {
 	db     *bolt.DB
 	bucket string
 }
 
-func (o *Object[T]) New(obj T) (string, error) {
+func (o *Object[T, P]) New(obj P) (string, error) {
 	id := ""
 	if err := o.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
@@ -46,7 +47,7 @@ func (o *Object[T]) New(obj T) (string, error) {
 	return id, nil
 }
 
-func (o *Object[T]) Replace(obj T) error {
+func (o *Object[T, P]) Replace(obj P) error {
 	return o.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
 		if bucket == nil {
@@ -62,7 +63,7 @@ func (o *Object[T]) Replace(obj T) error {
 	})
 }
 
-func (o *Object[T]) Get(id string) (T, error) {
+func (o *Object[T, P]) Get(id string) (P, error) {
 	var obj T
 	if err := o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
@@ -75,16 +76,16 @@ func (o *Object[T]) Get(id string) (T, error) {
 			return ErrNotFound
 		}
 
-		return json.Unmarshal(b, obj)
+		return json.Unmarshal(b, &obj)
 	}); err != nil {
-		return obj, err
+		return nil, err
 	}
 
-	return obj, nil
+	return &obj, nil
 }
 
-func (o *Object[T]) List() ([]T, error) {
-	out := make([]T, 0)
+func (o *Object[T, P]) List() ([]P, error) {
+	out := make([]P, 0)
 	if err := o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
 		if bucket == nil {
@@ -93,11 +94,11 @@ func (o *Object[T]) List() ([]T, error) {
 
 		return bucket.ForEach(func(k, v []byte) error {
 			var obj T
-			if err := json.Unmarshal(v, obj); err != nil {
+			if err := json.Unmarshal(v, &obj); err != nil {
 				return err
 			}
 
-			out = append(out, obj)
+			out = append(out, &obj)
 			return nil
 		})
 	}); err != nil {

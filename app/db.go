@@ -24,15 +24,15 @@ func (s *Store) Cleanup() {
 	s.db.Close()
 }
 
-func (s *Store) Users() *Object[*User] {
-	return &Object[*User]{
+func (s *Store) Users() *Object[User, *User] {
+	return &Object[User, *User]{
 		db:     s.db,
 		bucket: "users",
 	}
 }
 
-func (s *Store) Tables() *Object[*Table] {
-	return &Object[*Table]{
+func (s *Store) Tables() *Object[Table, *Table] {
+	return &Object[Table, *Table]{
 		db:     s.db,
 		bucket: "tables",
 	}

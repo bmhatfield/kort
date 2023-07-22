@@ -11,27 +11,56 @@ const App = () => {
         })
     }, []);
 
+    function append(point) {
+        const update = {
+            id: tables[tables.length - 1].id,
+            points: [point],
+        };
+
+        fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "PATCH" })
+        .then(res => {
+            setTables(prev => {
+                let last = prev[prev.length - 1];
+                last.points.push(point);
+                console.log(last);
+                return [...prev.slice(0, -1), last];
+            });
+        });
+    }
+
+    function create(point) {
+        let update = {
+            points: [point],
+        };
+
+        fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "POST" }
+        ).then(res => {
+            return res.json();
+        }).then(json => {
+            update.id = json.id;
+            setTables([...tables, update]);
+        });
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
 
         const data = new FormData(e.target);
-        data.append("mode", mode);
+        const point = {
+            x: data.get("x"),
+            y: data.get("y"),
+            label: data.get("label"),
+            biome: data.get("biome"),
+        };
 
-        fetch("http://localhost:3000/savepoint", { body: data, method: "POST" })
-            .then(() => {
-                const point = [data.get("x"), data.get("y")];
-
-                if (mode === "append") {
-                    setTables(prev => {
-                        let last = prev[prev.length-1];
-                        last.push(point);
-                        console.log(last);
-                        return [...prev.slice(0,-1), last];
-                    });
-                } else {
-                    setTables([...tables, [point]]);
-                }
-            });
+        switch (mode) {
+            case "new":
+                create(point);
+                break;
+            case "append":
+                append(point);
+                break;
+        };
     }
 
     return (
@@ -56,7 +85,7 @@ const App = () => {
                         </select>
                     </div>
                     <input type="submit" value="Append" className="sub-mode" onClick={(() => setMode("append"))} />
-                    <input type="submit" value="New" className="sub-mode" style={{marginRight: 25}} onClick={(() => setMode("new"))} />
+                    <input type="submit" value="New" className="sub-mode" style={{ marginRight: 25 }} onClick={(() => setMode("new"))} />
                 </form>
             </div>
         </div>

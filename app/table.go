@@ -26,3 +26,11 @@ type TableUpdate struct {
 	TableID string  `json:"id"`
 	Points  []Point `json:"points"`
 }
+
+func NewTable(from TableUpdate) *Table {
+	return &Table{
+		Points:  from.Points,
+		Created: time.Now(),
+		UserID:  "system",
+	}
+}

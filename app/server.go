@@ -85,14 +85,15 @@ func (s *Server) Table(w http.ResponseWriter, r *http.Request) {
 		t, err := s.store.Tables().Get(id)
 		s.encode(w, t, err)
 	case http.MethodPost:
-		var t Table
-		err := s.decode(r, &t)
+		var up TableUpdate
+		err := s.decode(r, &up)
 		if err != nil {
 			s.error(w, err)
 			return
 		}
 
-		id, err := s.store.Tables().New(&t)
+		t := NewTable(up)
+		id, err := s.store.Tables().New(t)
 		s.encode(w, Identifier{ID: id}, err)
 	case http.MethodPatch:
 		var up TableUpdate

@@ -1,8 +1,8 @@
 package app
 
 type Point struct {
-	X int `json:"x"`
-	Y int `json:"y"`
+	X int `json:"x,string"`
+	Y int `json:"y,string"`
 
 	Label string `json:"label"`
 	Biome Biome  `json:"biome,omitempty"`

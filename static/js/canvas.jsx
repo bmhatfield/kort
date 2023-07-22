@@ -26,20 +26,17 @@ const Cartograph = ({tables}) => {
 
             // Build table path
             ctx.beginPath();
-            table.map((r, i) => {
-                const x = Number(r[0]);
-                const y = Number(r[1]);
-
+            table.points.map((p, i) => {
                 if (i === 0) {
-                    ctx.moveTo(x, y);
+                    ctx.moveTo(p.x, p.y);
                 }
 
-                if (table.length > 1) {
-                    ctx.lineTo(x, y);
+                if (table.points.length > 1) {
+                    ctx.lineTo(p.x, p.y);
                 }
 
                 let pt = new Path2D();
-                pt.arc(x, y, 3, 0, 2 * Math.PI);
+                pt.arc(p.x, p.y, 3, 0, 2 * Math.PI);
                 ctx.fill(pt);
             });
 
