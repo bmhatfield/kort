@@ -10,11 +10,14 @@
 
 body {
     font-family: valheim;
+    background: linear-gradient(90deg, floralwhite 0%, linen 35%, snow 100%);
 }
 
 #map {
-    outline: 1px black solid;
     display: inline-block;
+    border-radius: 25px;
+    background:radial-gradient(circle, snow 0%, floralwhite 45%, linen 100%);
+    outline: 2px linen solid;
 }
 
 #fcontainer {
