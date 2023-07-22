@@ -1,17 +1,7 @@
-const Cartograph = () => {
-    const [tables, setTables] = React.useState();
-
+const Cartograph = ({tables}) => {
     const [scale, setScale] = React.useState(0.25);
 
     const canvasRef = React.useRef();
-
-    React.useEffect(() => {
-        fetch("http://localhost:3000/tables.json").then(res => {
-            return res.json();
-        }).then(json => {
-            setTables(json);
-        })
-    }, []);
 
     React.useEffect(() => {
         if (tables === undefined) {
@@ -24,14 +14,17 @@ const Cartograph = () => {
         const w = ctx.canvas.width;
         const h = ctx.canvas.height;
 
+        // Reset everything
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, w, h);
         ctx.setTransform(1, 0, 0, -1, w / 2, h / 2);
 
+        // Render tables
         tables.map((table, i) => {
             ctx.save();
             ctx.scale(scale, scale);
 
+            // Build table path
             ctx.beginPath();
             table.map((r, i) => {
                 const x = Number(r[0]);
@@ -40,34 +33,23 @@ const Cartograph = () => {
                 if (i === 0) {
                     ctx.moveTo(x, y);
                 }
-                ctx.lineTo(x, y);
+
+                if (table.length > 1) {
+                    ctx.lineTo(x, y);
+                }
 
                 let pt = new Path2D();
                 pt.arc(x, y, 3, 0, 2 * Math.PI);
                 ctx.fill(pt);
             });
 
+            // Stroke
             ctx.restore();
-            ctx.strokeStyle = color(i);
+            ctx.strokeStyle = "#000000";
             ctx.lineWidth = 1.1;
             ctx.stroke();
         });
     }, [tables, scale, canvasRef])
-
-    function color(i) {
-        switch (i) {
-            case 1:
-                return "#F00000"
-            case 2:
-                return "#0F0000"
-            case 3:
-                return "#00F000"
-            case 4:
-                return "#0000F0"
-            default:
-                return "#000000"
-        }
-    }
 
     function zoom(ev) {
         let d = (ev.deltaY > 0) ? -.05 : .03;

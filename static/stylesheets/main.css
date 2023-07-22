@@ -8,12 +8,12 @@ body {
 }
 
 #map {
-    outline: 1px black solid; 
+    outline: 1px black solid;
     display: inline-block;
 }
 
 #fcontainer {
-    display: inline-block; 
+    display: inline-block;
     vertical-align: top;
 }
 
@@ -48,6 +48,6 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 138px; 
+    width: 138px;
     border: red 1px solid;
 }
