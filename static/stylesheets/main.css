@@ -1,3 +1,53 @@
+@font-face {
+    font-family: valheim;
+    src: url("/type/Norse.otf");
+}
+
 body {
-    overflow: hidden;
+    font-family: valheim;
+}
+
+#map {
+    outline: 1px black solid; 
+    display: inline-block;
+}
+
+#fcontainer {
+    display: inline-block; 
+    vertical-align: top;
+}
+
+#x, #y {
+    width: 40px;
+}
+
+#label {
+    width: 100px;
+}
+
+label {
+    margin-right: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input {
+    border: none;
+    border-bottom: 1px black solid;
+}
+
+input:focus {
+    outline: none;
+}
+
+#points {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 138px; 
+    border: red 1px solid;
 }
