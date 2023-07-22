@@ -24,12 +24,13 @@ func savePoint() http.Handler {
 		y := r.FormValue("y")
 		label := r.FormValue("label")
 		biome := r.FormValue("biome")
+		mode := r.FormValue("mode")
 
 		if x == "" || y == "" {
 			http.Error(rw, "missing coordinates", http.StatusBadRequest)
 		}
 
-		log.Printf("(%s, %s) %s %s", x, y, label, biome)
+		log.Printf("(%s, %s) %s %s %s", x, y, label, biome, mode)
 	})
 }
 

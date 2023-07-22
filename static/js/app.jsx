@@ -1,6 +1,7 @@
 
 const App = () => {
     const [tables, setTables] = React.useState();
+    const [mode, setMode] = React.useState("new");
 
     React.useEffect(() => {
         fetch("http://localhost:3000/tables.json").then(res => {
@@ -13,11 +14,23 @@ const App = () => {
     function handleSubmit(e) {
         e.preventDefault();
 
-        const data = new FormData(e.target)
+        const data = new FormData(e.target);
+        data.append("mode", mode);
 
         fetch("http://localhost:3000/savepoint", { body: data, method: "POST" })
             .then(() => {
-                setTables([...tables, [[data.get("x"), data.get("y")]]]);
+                const point = [data.get("x"), data.get("y")];
+
+                if (mode === "append") {
+                    setTables(prev => {
+                        let last = prev[prev.length-1];
+                        last.push(point);
+                        console.log(last);
+                        return [...prev.slice(0,-1), last];
+                    });
+                } else {
+                    setTables([...tables, [point]]);
+                }
             });
     }
 
@@ -42,7 +55,8 @@ const App = () => {
                             <option value="ashlands">Ashlands</option>
                         </select>
                     </div>
-                    <input type="submit" />
+                    <input type="submit" value="Append" onClick={(() => setMode("append"))} />
+                    <input type="submit" value="New" onClick={(() => setMode("new"))} />
                 </form>
             </div>
         </div>
