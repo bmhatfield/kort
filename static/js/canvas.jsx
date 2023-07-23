@@ -1,89 +1,117 @@
 const Cartograph = ({ tables }) => {
-    const [scale, setScale] = React.useState(0.25);
+    const [canvas, setCanvas] = React.useState();
 
-    const canvasRef = React.useRef();
+    const cRef = React.useRef();
 
     React.useEffect(() => {
         if (tables === undefined) {
             return
         }
 
-        const canvas = canvasRef.current;
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        const scale = 0.25;
 
+        const height = window.innerHeight;
+        const width = window.innerWidth
+        var canvas = new fabric.StaticCanvas(cRef.current, {
+            height: height,
+            width: width,
+            viewportTransform: [scale, 0, 0, scale, (width / 2), (height / 2)]
+        });
+        setCanvas(canvas);
 
-        var ctx = canvas.getContext("2d");
+        const ptRadius = 1 / canvas.getZoom();
 
-        const w = ctx.canvas.width;
-        const h = ctx.canvas.height;
-
-        // Reset everything
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, w, h);
-        ctx.setTransform(1, 0, 0, -1, w / 2, h / 2);
-        ctx.translate(0.5, 0.5);
-        ctx.save();
-
-        // World boundary
-        ctx.beginPath();
-        ctx.scale(scale, scale);
-        ctx.arc(0, 0, 10000, 0, 2 * Math.PI);
-        ctx.restore();
-        ctx.strokeStyle = "slategray";
-        ctx.stroke();
-        ctx.save();
+        let border = new fabric.Circle({
+            radius: 10000,
+            stroke: "slategray",
+            fill: "",
+            left: -10000,
+            top: -10000,
+            strokeWidth: 1 / canvas.getZoom(),
+        });
+        canvas.add(border);
 
         // Render tables
         tables.map((table, i) => {
             // Draw points
-            table.points.map((p, i) => {
-                ctx.scale(scale, scale);
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 3, 0, 2 * Math.PI);
-                ctx.restore();
-                ctx.fill();
-                ctx.save();
-            });
-
             // Draw lines
-            ctx.beginPath();
-            ctx.scale(scale, scale);
-            table.points.map((p, i) => {
-                if (i === 0) {
-                    ctx.moveTo(p.x, p.y);
+            let pts = table.points.map((p, i) => {
+                const x = Number(p.x);
+                const y = -Number(p.y);
+
+                let pt = new fabric.Circle({
+                    radius: ptRadius,
+                    fill: "slategray",
+                    left: x - ptRadius,
+                    top: y - ptRadius,
+                });
+                canvas.add(pt);
+
+                if (p.label.length > 0) {
+                    var l = new fabric.Text(p.label, {
+                        fill: 'black',
+                        // left:group.left-(group.width/2),
+                        // top:group.top-(group.height/2),
+                        // left: x+10,
+                        // top: y-10,
+                        left: 3,
+                        fontFamily: "valheim",
+                        fontSize: 20,
+                    });
+                    var lp = new fabric.Text(`(${x}, ${y})`, {
+                        fill: 'midnightblue',
+                        // left: x+10,
+                        // top: y+10,
+                        top: 20,
+                        left: 3,
+                        fontFamily: "valheim",
+                        fontSize: 15,
+                    });
+                    var bg = new fabric.Rect({
+                        fill: "snow",
+                        rx: 5,
+                        ry: 5,
+                        width: Math.max(l.width, lp.width)+5,
+                        height:37,
+                    });
+                    var group = new fabric.Group([ bg, l, lp ], {
+                        left: x+10,
+                        top: y-20,
+                    });
+                    canvas.add(group);
                 }
 
-                if (table.points.length > 1) {
-                    ctx.lineTo(p.x, p.y);
-                }
+                return { x: x, y: y };
             });
-            ctx.restore();
-            ctx.strokeStyle = "black";
-            ctx.stroke();
-            ctx.save();
+
+            let line = new fabric.Polyline(pts, {
+                stroke: "slategray",
+                strokeWidth: 1 / canvas.getZoom(),
+                fill: "",
+            });
+            canvas.add(line);
         });
-    }, [tables, scale, canvasRef])
+    }, [tables, cRef]);
 
     function zoom(ev) {
+        let scale = canvas.getZoom();
         let d = (ev.deltaY > 0) ? -.05 : .03;
         let n = scale + d;
-        if (n < 0.05 && scale > 0.05) {
-            setScale(0.05);
-            return;
-        }
+        let pt = {x: ev.clientX, y: ev.clientY};
 
-        if (n > 1.1 && scale < 1.1) {
-            setScale(1.1);
-            return;
-        }
+        if (n > 1.5) n = 1.5;
+        if (n < 0.1) n = 0.1;
 
-        if (n >= 0.05 && n < 1.1) {
-            setScale(n);
+        canvas.zoomToPoint(pt, n);
+    };
+
+    function pan(ev) {
+        if (ev.buttons === 1) {
+            canvas.relativePan({x: ev.movementX, y: ev.movementY});
         }
     }
 
     return (
-        <canvas ref={canvasRef} id="map" onWheel={zoom}></canvas>
+        <canvas ref={cRef} onMouseMove={pan} id="map" onWheel={zoom}></canvas>
     )
 }
