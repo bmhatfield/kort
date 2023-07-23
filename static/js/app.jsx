@@ -12,12 +12,10 @@ const App = () => {
         }).then(json => {
             setTables(json);
 
-            var newest = json.reduce(
-                function (a, b) {
-                    return Number(a.id) > Number(b.id) ? a : b;
-                }
-            );
-            setActiveTableId(newest.id);
+            if (json.length > 0) {
+                let newest = tables.reduce((a, b) => { Number(a.id) > Number(b.id) ? a : b });
+                setActiveTableId(newest.id);
+            }
         })
     }, []);
 
