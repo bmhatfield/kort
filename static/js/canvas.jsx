@@ -30,7 +30,7 @@ const Cartograph = ({ tables }) => {
         ctx.scale(scale, scale);
         ctx.arc(0, 0, 10000, 0, 2 * Math.PI);
         ctx.restore();
-        ctx.strokeStyle="slategray";
+        ctx.strokeStyle = "slategray";
         ctx.stroke();
         ctx.save();
 
@@ -59,7 +59,7 @@ const Cartograph = ({ tables }) => {
                 }
             });
             ctx.restore();
-            ctx.strokeStyle="black";
+            ctx.strokeStyle = "black";
             ctx.stroke();
             ctx.save();
         });

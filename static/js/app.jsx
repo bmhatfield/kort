@@ -18,14 +18,14 @@ const App = () => {
         };
 
         fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "PATCH" })
-        .then(res => {
-            setTables(prev => {
-                let last = prev[prev.length - 1];
-                last.points.push(point);
-                console.log(last);
-                return [...prev.slice(0, -1), last];
+            .then(res => {
+                setTables(prev => {
+                    let last = prev[prev.length - 1];
+                    last.points.push(point);
+                    console.log(last);
+                    return [...prev.slice(0, -1), last];
+                });
             });
-        });
     }
 
     function create(point) {
