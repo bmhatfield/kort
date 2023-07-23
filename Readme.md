@@ -1,7 +1,7 @@
 # Migrate Tables
 
 ```js
-fetch("http://localhost:3000/tables.json").then(res => res.json()).then(tables => tables.map(table => {
+fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json()).then(tables => tables.map(table => {
     let points = table.map(pt => ({x: pt[0], y: pt[1]}));
 
     const update = {
@@ -15,7 +15,7 @@ fetch("http://localhost:3000/tables.json").then(res => res.json()).then(tables =
 # Migrate Points
 
 ```js
-fetch("http://localhost:3000/points.json").then(res => res.json()).then(pts => pts.map(pt => {
+fetch("http://localhost:3000/points/desmos-points.json").then(res => res.json()).then(pts => pts.map(pt => {
     let [x,y] = pt.pos.split(",");
     const point = {
         x: x,
@@ -29,4 +29,14 @@ fetch("http://localhost:3000/points.json").then(res => res.json()).then(pts => p
 
     fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "POST" });
 }));
+```
+
+# Export Points
+
+```js
+fetch("http://localhost:3000/tables").then(res => {
+    return res.json();
+}).then(json => {
+    console.log(json);
+});
 ```
