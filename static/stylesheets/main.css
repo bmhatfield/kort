@@ -9,12 +9,12 @@
 }
 
 @font-face {
-    font-family:ptserif-bold;
+    font-family: ptserif-bold;
     src: url("/type/PTSerif-Bold.ttf");
 }
 
 @font-face {
-    font-family:ptserif;
+    font-family: ptserif;
     src: url("/type/PTSerif-Regular.ttf");
 }
 
@@ -31,15 +31,24 @@ body {
     background: radial-gradient(circle, linen 0%, floralwhite 80%);
 }
 
-#fcontainer {
+#pointformcontainer {
     margin-left: 3%;
     margin-top: 1%;
     padding-left: 5px;
     position: absolute;
     font-size: x-large;
-    background-color: rgba(141, 202, 50, 0.301);
-    border: 1px rgb(141, 202, 50) solid;
+    background-color: rgba(185, 198, 162, 0.5);
+    border: 1px rgb(139, 202, 50) solid;
     border-radius: 15px;
+}
+
+#pointform {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 195px;
+    backdrop-filter: blur(4px);
 }
 
 #x,
@@ -83,6 +92,14 @@ form:invalid>.sub-mode {
     color: lightgray;
 }
 
+form:invalid>.sub-mode:hover {
+    color: lightgray;
+}
+
+.sub-mode:disabled, .sub-mode:disabled:hover {
+    color: ghostwhite;
+}
+
 input:required:valid {
     border-bottom-color: olivedrab;
 }
@@ -108,16 +125,90 @@ input[type=submit] {
     color: darkblue;
 }
 
+#list {
+    position: absolute;
+    margin-left: 3%;
+    margin-top: 275px;
+    padding-left: 5px;
+    overflow-y: auto;
+    height: 600px;
+}
+
+#list::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.listli {
+    list-style-type: none;
+}
+
+.tableitem {
+    width: 195px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 250, 240, .7);
+    margin: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px snow solid;
+    backdrop-filter: blur(4px);
+}
+
+.tableitem:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.tablesize {
+    background-color: lightgrey;
+    width: 25px;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 2px;
+}
+
+.pointset {
+    font-size: 0.7em;
+    display: block;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
 input:focus {
     outline: none;
 }
 
-#points {
-    padding: 10px;
+.pointitem {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 195px;
-    backdrop-filter: blur(4px);
+    border-radius: 2px;
 }
+
+.pointitem:hover {
+    background-color: lightgray !important;
+}
+
+.pointitem { background-color: snow; }
+.pointitem:nth-child(odd) { background-color: rgb(255, 252, 245); }
