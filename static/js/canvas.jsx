@@ -48,7 +48,7 @@ const Cartograph = ({ tables }) => {
                 canvas.add(pt);
 
                 // Point label
-                if (p.label !== undefined) {
+                if (p.label !== undefined && p.label.length > 0) {
                     var l = new fabric.Text(p.label, {
                         fill: 'black',
                         left: 3,
@@ -88,7 +88,9 @@ const Cartograph = ({ tables }) => {
                     stroke: "slategray",
                     strokeWidth: 1,
                     fill: "",
+                    strokeDashArray: (table.kind === "track") ? [6, 3] : undefined,
                 });
+
                 canvas.add(line);
             }
         });

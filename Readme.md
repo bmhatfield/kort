@@ -1,10 +1,13 @@
 # Migrate Tables
 
 ```js
-fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json()).then(tables => tables.map(table => {
+fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json()).then(tables => tables.map((table, i) => {
     let points = table.map(pt => ({x: pt[0], y: pt[1]}));
 
+    if ([3].includes(i)) return;
+
     const update = {
+        kind: ([5, 8, 11].includes(i) ) ? "outline" : "track",
         points: points,
     };
 

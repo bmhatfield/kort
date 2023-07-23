@@ -104,6 +104,10 @@ input[type=submit] {
     color: darkslategray;
 }
 
+.sub-mode:active {
+    color: darkblue;
+}
+
 
 input:focus {
     outline: none;

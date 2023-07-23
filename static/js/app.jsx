@@ -22,14 +22,14 @@ const App = () => {
                 setTables(prev => {
                     let last = prev[prev.length - 1];
                     last.points.push(point);
-                    console.log(last);
                     return [...prev.slice(0, -1), last];
                 });
             });
     }
 
-    function create(point) {
+    function create(point, kind) {
         let update = {
+            kind: kind,
             points: [point],
         };
 
@@ -55,7 +55,7 @@ const App = () => {
 
         switch (mode) {
             case "new":
-                create(point);
+                create(point, data.get("tableKind"));
                 break;
             case "append":
                 append(point);
@@ -72,7 +72,7 @@ const App = () => {
                     <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
                     <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" /></div>
                     <div><label htmlFor="biome">biome</label>
-                        <select id="biome" name="biome">
+                        <select id="biome" name="biome" defaultValue={"ocean"}>
                             <option value="">None</option>
                             <option value="meadows">Meadows</option>
                             <option value="forest">Black Forest</option>
@@ -83,6 +83,13 @@ const App = () => {
                             <option value="mistlands">Mistlands</option>
                             <option value="north">Deep North</option>
                             <option value="ashlands">Ashlands</option>
+                        </select>
+                    </div>
+                    <div><label htmlFor="tableKind">kind</label>
+                        <select id="tableKind" name="tableKind" defaultValue={"track"}>
+                            <option value="">None</option>
+                            <option value="outline">Outline</option>
+                            <option value="track">Track</option>
                         </select>
                     </div>
                     <input type="submit" value="Append" className="sub-mode" onClick={(() => setMode("append"))} />
