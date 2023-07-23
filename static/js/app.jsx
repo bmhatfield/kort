@@ -13,7 +13,8 @@ const App = () => {
             setTables(json);
 
             if (json.length > 0) {
-                let newest = tables.reduce((a, b) => { Number(a.id) > Number(b.id) ? a : b });
+                console.log(json);
+                let newest = json.reduce((a, b) => { return Number(a.id) > Number(b.id) ? a : b });
                 setActiveTableId(newest.id);
             }
         })

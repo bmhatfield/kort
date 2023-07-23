@@ -14,7 +14,7 @@ const TableList = ({ tables, activeTableId, setActiveTableId }) => {
 
     let newest;
     if (tables.length > 0) {
-        newest = tables.reduce((a, b) => {Number(a.id) > Number(b.id) ? a : b});
+        newest = tables.reduce((a, b) => {return Number(a.id) > Number(b.id) ? a : b});
     }
 
     let items = tables.filter(table => table.points.length > 1 || table.id === newest.id).map(table => {
