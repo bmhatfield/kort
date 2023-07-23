@@ -19,7 +19,7 @@ const Cartograph = ({ tables }) => {
         });
         setCanvas(canvas);
 
-        const ptRadius = 1 / canvas.getZoom();
+        const ptRadius = 1;
 
         let border = new fabric.Circle({
             radius: 10000,
@@ -27,17 +27,18 @@ const Cartograph = ({ tables }) => {
             fill: "",
             left: -10000,
             top: -10000,
-            strokeWidth: 1 / canvas.getZoom(),
+            strokeWidth: 1,
         });
         canvas.add(border);
 
         // Render tables
         tables.map((table, i) => {
-            // Draw points
+            // Draw Points
             let pts = table.points.map((p, i) => {
                 const x = Number(p.x);
                 const y = -Number(p.y);
 
+                // Point dot
                 let pt = new fabric.Circle({
                     radius: ptRadius,
                     fill: "slategray",
@@ -46,7 +47,8 @@ const Cartograph = ({ tables }) => {
                 });
                 canvas.add(pt);
 
-                if (p.label.length > 0) {
+                // Point label
+                if (p.label !== undefined) {
                     var l = new fabric.Text(p.label, {
                         fill: 'black',
                         left: 3,
@@ -54,22 +56,24 @@ const Cartograph = ({ tables }) => {
                         fontSize: 20,
                     });
                     var lp = new fabric.Text(`(${x}, ${y})`, {
-                        fill: 'midnightblue',
+                        fill: 'darkslategray',
                         top: 20,
                         left: 3,
-                        fontFamily: "valheim",
-                        fontSize: 15,
+                        fontFamily: "ptserif",
+                        fontSize: 11,
                     });
                     var bg = new fabric.Rect({
-                        fill: "snow",
+                        fill: "rgba(255,250,250,.7)",
+                        stroke: "rgba(255,250,250,.9)",
+                        strokeWidth: 2,
                         rx: 5,
                         ry: 5,
-                        width: Math.max(l.width, lp.width)+5,
-                        height:37,
+                        width: Math.max(l.width, lp.width+5) + 5,
+                        height: 32,
                     });
-                    var group = new fabric.Group([ bg, l, lp ], {
-                        left: x+10,
-                        top: y-20,
+                    var group = new fabric.Group([bg, l, lp], {
+                        left: x + 10,
+                        top: y - 20,
                     });
                     canvas.add(group);
                 }
@@ -79,12 +83,14 @@ const Cartograph = ({ tables }) => {
             });
 
             // Draw lines
-            let line = new fabric.Polyline(pts, {
-                stroke: "slategray",
-                strokeWidth: 1 / canvas.getZoom(),
-                fill: "",
-            });
-            canvas.add(line);
+            if (pts.length > 1) {
+                let line = new fabric.Polyline(pts, {
+                    stroke: "slategray",
+                    strokeWidth: 1,
+                    fill: "",
+                });
+                canvas.add(line);
+            }
         });
     }, [tables, cRef]);
 
@@ -92,7 +98,7 @@ const Cartograph = ({ tables }) => {
         let scale = canvas.getZoom();
         let d = (ev.deltaY > 0) ? -.05 : .03;
         let n = scale + d;
-        let pt = {x: ev.clientX, y: ev.clientY};
+        let pt = { x: ev.clientX, y: ev.clientY };
 
         if (n > 1.5) n = 1.5;
         if (n < 0.1) n = 0.1;
@@ -102,7 +108,7 @@ const Cartograph = ({ tables }) => {
 
     function pan(ev) {
         if (ev.buttons === 1) {
-            canvas.relativePan({x: ev.movementX, y: ev.movementY});
+            canvas.relativePan({ x: ev.movementX, y: ev.movementY });
         }
     }
 

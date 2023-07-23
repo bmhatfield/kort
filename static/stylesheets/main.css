@@ -8,6 +8,17 @@
     src: url("/type/NorseBold.otf");
 }
 
+@font-face {
+    font-family:ptserif-bold;
+    src: url("/type/PTSerif-Bold.ttf");
+}
+
+@font-face {
+    font-family:ptserif;
+    src: url("/type/PTSerif-Regular.ttf");
+}
+
+
 body {
     font-family: valheim;
     margin: 0;
@@ -103,5 +114,5 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 194px;
+    width: 195px;
 }

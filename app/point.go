@@ -4,7 +4,7 @@ type Point struct {
 	X int `json:"x,string"`
 	Y int `json:"y,string"`
 
-	Label string `json:"label"`
+	Label string `json:"label,omitempty"`
 	Biome Biome  `json:"biome,omitempty"`
 }
 

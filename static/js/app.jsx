@@ -73,6 +73,7 @@ const App = () => {
                     <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" /></div>
                     <div><label htmlFor="biome">biome</label>
                         <select id="biome" name="biome">
+                            <option value="">None</option>
                             <option value="meadows">Meadows</option>
                             <option value="forest">Black Forest</option>
                             <option value="swamp">Swamp</option>
