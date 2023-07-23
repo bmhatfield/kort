@@ -43,3 +43,10 @@ fetch("http://localhost:3000/tables").then(res => {
     console.log(json);
 });
 ```
+
+# Restore Points
+```js
+fetch("http://localhost:3000/points/export.json").then(res => res.json()).then(tables => tables.map((table, i) => {
+   fetch("http://localhost:3000/table", { body: JSON.stringify(table), method: "POST" });
+}));
+```
