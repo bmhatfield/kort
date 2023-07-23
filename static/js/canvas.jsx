@@ -34,7 +34,6 @@ const Cartograph = ({ tables }) => {
         // Render tables
         tables.map((table, i) => {
             // Draw points
-            // Draw lines
             let pts = table.points.map((p, i) => {
                 const x = Number(p.x);
                 const y = -Number(p.y);
@@ -50,18 +49,12 @@ const Cartograph = ({ tables }) => {
                 if (p.label.length > 0) {
                     var l = new fabric.Text(p.label, {
                         fill: 'black',
-                        // left:group.left-(group.width/2),
-                        // top:group.top-(group.height/2),
-                        // left: x+10,
-                        // top: y-10,
                         left: 3,
                         fontFamily: "valheim",
                         fontSize: 20,
                     });
                     var lp = new fabric.Text(`(${x}, ${y})`, {
                         fill: 'midnightblue',
-                        // left: x+10,
-                        // top: y+10,
                         top: 20,
                         left: 3,
                         fontFamily: "valheim",
@@ -81,9 +74,11 @@ const Cartograph = ({ tables }) => {
                     canvas.add(group);
                 }
 
+                // For line drawing
                 return { x: x, y: y };
             });
 
+            // Draw lines
             let line = new fabric.Polyline(pts, {
                 stroke: "slategray",
                 strokeWidth: 1 / canvas.getZoom(),
