@@ -89,6 +89,7 @@ const Cartograph = ({ tables }) => {
                     strokeWidth: 1,
                     fill: "",
                     strokeDashArray: (table.kind === "track") ? [6, 3] : undefined,
+                    objectCaching: false,
                 });
 
                 canvas.add(line);
