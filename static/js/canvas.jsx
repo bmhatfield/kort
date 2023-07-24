@@ -1,10 +1,10 @@
-const Cartograph = ({ tables }) => {
+const Cartograph = ({ polys }) => {
     const [canvas, setCanvas] = React.useState();
 
     const cRef = React.useRef();
 
     React.useEffect(() => {
-        if (tables === undefined) {
+        if (polys === undefined) {
             return
         }
 
@@ -31,10 +31,10 @@ const Cartograph = ({ tables }) => {
         });
         canvas.add(border);
 
-        // Render tables
-        tables.map((table, i) => {
+        // Render polys
+        polys.map((poly, i) => {
             // Draw Points
-            let pts = table.points.map((p, i) => {
+            let pts = poly.points.map((p, i) => {
                 const x = Number(p.x);
                 const y = -Number(p.y); // Inverted for drawing due to canvas coords
 
@@ -88,14 +88,14 @@ const Cartograph = ({ tables }) => {
                     stroke: "slategray",
                     strokeWidth: 1,
                     fill: "",
-                    strokeDashArray: (table.kind === "track") ? [6, 3] : undefined,
+                    strokeDashArray: (poly.kind === "track") ? [6, 3] : undefined,
                     objectCaching: false,
                 });
 
                 canvas.add(line);
             }
         });
-    }, [tables, cRef]);
+    }, [polys, cRef]);
 
     function zoom(ev) {
         let scale = canvas.getZoom();

@@ -1,8 +1,8 @@
 # Migrate Tables
 
 ```js
-fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json()).then(tables => tables.map((table, i) => {
-    let points = table.map(pt => ({x: pt[0], y: pt[1]}));
+fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
+    let points = poly.map(pt => ({x: pt[0], y: pt[1]}));
 
     if ([3].includes(i)) return;
 
@@ -11,7 +11,7 @@ fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json())
         points: points,
     };
 
-    fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "POST" });
+    fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "POST" });
 }));
 ```
 
@@ -30,14 +30,14 @@ fetch("http://localhost:3000/points/desmos-points.json").then(res => res.json())
         points: [point],
     };
 
-    fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "POST" });
+    fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "POST" });
 }));
 ```
 
 # Export Points
 
 ```js
-fetch("http://localhost:3000/tables").then(res => {
+fetch("http://localhost:3000/polys").then(res => {
     return res.json();
 }).then(json => {
     console.log(json);
@@ -46,7 +46,7 @@ fetch("http://localhost:3000/tables").then(res => {
 
 # Restore Points
 ```js
-fetch("http://localhost:3000/points/export.json").then(res => res.json()).then(tables => tables.map((table, i) => {
-   fetch("http://localhost:3000/table", { body: JSON.stringify(table), method: "POST" });
+fetch("http://localhost:3000/points/export.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
+   fetch("http://localhost:3000/poly", { body: JSON.stringify(poly), method: "POST" });
 }));
 ```

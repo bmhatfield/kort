@@ -31,15 +31,15 @@ func (s *Store) Users() *Object[User, *User] {
 	}
 }
 
-func (s *Store) Tables() *Object[Table, *Table] {
-	return &Object[Table, *Table]{
+func (s *Store) Polys() *Object[Poly, *Poly] {
+	return &Object[Poly, *Poly]{
 		db:     s.db,
-		bucket: "tables",
+		bucket: "polys",
 	}
 }
 
 func NewStore(path string, buckets ...string) *Store {
-	db, err := bolt.Open("points.db", 0600, nil)
+	db, err := bolt.Open(path, 0o600, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

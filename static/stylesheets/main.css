@@ -157,7 +157,7 @@ input[type=submit] {
     list-style-type: none;
 }
 
-.tableitem {
+.polyitem {
     width: 195px;
     height: 20px;
     border-radius: 5px;
@@ -174,11 +174,11 @@ input[type=submit] {
     backdrop-filter: blur(4px);
 }
 
-.tableitem:hover {
+.polyitem:hover {
     background-color: rgba(255, 255, 255, 0.95);
 }
 
-.tablesize {
+.polysize {
     background-color: lightgrey;
     width: 25px;
     border-radius: 10px;

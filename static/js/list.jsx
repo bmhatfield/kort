@@ -1,29 +1,29 @@
-const TableList = ({ tables, activeTableId, setActiveTableId }) => {
-    if (tables === undefined) {
+const PolyList = ({ polys, activePolyId, setActivePolyId }) => {
+    if (polys === undefined) {
         return
     }
 
-    function listliClick(tableId) {
-        if (activeTableId === tableId) {
-            setActiveTableId("");
+    function listliClick(polyId) {
+        if (activePolyId === polyId) {
+            setActivePolyId("");
             return
         }
 
-        setActiveTableId(tableId);
+        setActivePolyId(polyId);
     }
 
     let newest;
-    if (tables.length > 0) {
-        newest = tables.reduce((a, b) => {return Number(a.id) > Number(b.id) ? a : b});
+    if (polys.length > 0) {
+        newest = polys.reduce((a, b) => {return Number(a.id) > Number(b.id) ? a : b});
     }
 
-    let items = tables.filter(table => table.points.length > 1 || table.id === newest.id).map(table => {
-        let showPoints = (activeTableId === table.id);
+    let items = polys.filter(poly => poly.points.length > 1 || poly.id === newest.id).map(poly => {
+        let showPoints = (activePolyId === poly.id);
         let points;
 
-        // Get list of points, if active for this table
+        // Get list of points, if active for this poly
         if (showPoints) {
-            points = table.points.map((point, i) => {
+            points = poly.points.map((point, i) => {
                 let label = (point.label !== undefined) ? <div>{point.label}</div> : null;
                 return (
                     <li className={"pointitem listli"} key={i}>
@@ -34,12 +34,12 @@ const TableList = ({ tables, activeTableId, setActiveTableId }) => {
             })
         }
 
-        // Return table
+        // Return poly
         return (
-            <li className={"listli"} key={table.id} onClick={()=>{listliClick(table.id)}}>
-                <div className={"tableitem"}>
-                    <div className={"tablesize"}>{table.points.length}</div>
-                    <div>{table.kind}</div>
+            <li className={"listli"} key={poly.id} onClick={()=>{listliClick(poly.id)}}>
+                <div className={"polyitem"}>
+                    <div className={"polysize"}>{poly.points.length}</div>
+                    <div>{poly.kind}</div>
                 </div>
                 {showPoints && <ul className={"pointset"}>{points}</ul>}
             </li>

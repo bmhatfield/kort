@@ -19,7 +19,7 @@ func Logger(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func main() {
-	store := app.NewStore("points.db", "users", "tables")
+	store := app.NewStore("points.db", "users", "polys")
 	defer store.Cleanup()
 
 	server := app.NewServer(store, Logger)

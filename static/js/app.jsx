@@ -1,35 +1,35 @@
 
 const App = () => {
-    const [tables, setTables] = React.useState();
+    const [polys, setPolys] = React.useState();
     const [mode, setMode] = React.useState("new");
-    const [activeTableId, setActiveTableId] = React.useState("");
+    const [activePolyId, setActivePolyId] = React.useState("");
 
     const [ptLabel, setPtLabel] = React.useState("");
 
     React.useEffect(() => {
-        fetch("http://localhost:3000/tables").then(res => {
+        fetch("http://localhost:3000/polys").then(res => {
             return res.json();
         }).then(json => {
-            setTables(json);
+            setPolys(json);
 
             if (json.length > 0) {
                 console.log(json);
                 let newest = json.reduce((a, b) => { return Number(a.id) > Number(b.id) ? a : b });
-                setActiveTableId(newest.id);
+                setActivePolyId(newest.id);
             }
         })
     }, []);
 
     function append(point) {
         const update = {
-            id: activeTableId,
+            id: activePolyId,
             points: [point],
         };
 
-        fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "PATCH" })
+        fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "PATCH" })
             .then(res => {
-                setTables(prev => {
-                    let active = prev.find(table => table.id === activeTableId)
+                setPolys(prev => {
+                    let active = prev.find(poly => poly.id === activePolyId)
                     active.points.push(point);
                     return [...prev];
                 });
@@ -43,13 +43,13 @@ const App = () => {
             points: [point],
         };
 
-        fetch("http://localhost:3000/table", { body: JSON.stringify(update), method: "POST" }
+        fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "POST" }
         ).then(res => {
             return res.json();
         }).then(json => {
             update.id = json.id;
-            setTables([...tables, update]);
-            setActiveTableId(json.id);
+            setPolys([...polys, update]);
+            setActivePolyId(json.id);
             setPtLabel("");
         });
     }
@@ -67,7 +67,7 @@ const App = () => {
 
         switch (mode) {
             case "new":
-                create(point, data.get("tableKind"));
+                create(point, data.get("polyKind"));
                 break;
             case "append":
                 append(point);
@@ -76,12 +76,12 @@ const App = () => {
     }
 
     function canAppend() {
-        return activeTableId === undefined || activeTableId === ""
+        return activePolyId === undefined || activePolyId === ""
     }
 
     return (
         <div>
-            <Cartograph tables={tables} />
+            <Cartograph polys={polys} />
             <div id="pointformcontainer">
                 <form id="pointform" onSubmit={handleSubmit}>
                     <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
@@ -101,18 +101,19 @@ const App = () => {
                             <option value="ashlands">Ashlands</option>
                         </select>
                     </div>
-                    <div><label htmlFor="tableKind">kind</label>
-                        <select id="tableKind" name="tableKind" defaultValue={"track"}>
+                    <div><label htmlFor="polyKind">kind</label>
+                        <select id="polyKind" name="polyKind" defaultValue={"track"}>
                             <option value="">None</option>
                             <option value="outline">Outline</option>
                             <option value="track">Track</option>
+                            <option value="marker">Marker</option>
                         </select>
                     </div>
                     <input type="submit" value="Append" className="sub-mode" disabled={canAppend()} onClick={(() => setMode("append"))} />
                     <input type="submit" value="New" className="sub-mode" style={{ marginRight: 25 }} onClick={(() => setMode("new"))} />
                 </form>
             </div>
-            <TableList tables={tables} activeTableId={activeTableId} setActiveTableId={setActiveTableId} />
+            <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} />
         </div>
     )
 }

@@ -46,10 +46,10 @@ func (s *Server) error(w http.ResponseWriter, err error) {
 
 func (s *Server) Serve(mux *http.ServeMux) {
 	for route, handler := range map[string]http.HandlerFunc{
-		"/user":   s.User,
-		"/users":  s.Users,
-		"/table":  s.Table,
-		"/tables": s.Tables,
+		"/user":  s.User,
+		"/users": s.Users,
+		"/poly":  s.Poly,
+		"/polys": s.Polys,
 	} {
 		mux.HandleFunc(route, s.chain(handler))
 	}
@@ -78,39 +78,39 @@ func (s *Server) Users(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *Server) Table(w http.ResponseWriter, r *http.Request) {
+func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		id := r.FormValue("tableId")
-		t, err := s.store.Tables().Get(id)
+		id := r.FormValue("polyId")
+		t, err := s.store.Polys().Get(id)
 		s.encode(w, t, err)
 	case http.MethodPost:
-		var up TableUpdate
+		var up PolyUpdate
 		err := s.decode(r, &up)
 		if err != nil {
 			s.error(w, err)
 			return
 		}
 
-		t := NewTable(up)
-		id, err := s.store.Tables().New(t)
+		t := NewPoly(up)
+		id, err := s.store.Polys().New(t)
 		s.encode(w, Identifier{ID: id}, err)
 	case http.MethodPatch:
-		var up TableUpdate
+		var up PolyUpdate
 		err := s.decode(r, &up)
 		if err != nil {
 			s.error(w, err)
 			return
 		}
 
-		t, err := s.store.Tables().Get(up.TableID)
+		t, err := s.store.Polys().Get(up.PolyID)
 		if err != nil {
 			s.error(w, err)
 			return
 		}
 
 		t.Add(up.Points...)
-		if err := s.store.Tables().Replace(t); err != nil {
+		if err := s.store.Polys().Replace(t); err != nil {
 			s.error(w, err)
 			return
 		}
@@ -119,10 +119,10 @@ func (s *Server) Table(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *Server) Tables(w http.ResponseWriter, r *http.Request) {
+func (s *Server) Polys(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		t, err := s.store.Tables().List()
+		t, err := s.store.Polys().List()
 		s.encode(w, t, err)
 	default:
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
