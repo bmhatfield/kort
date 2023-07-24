@@ -1,4 +1,4 @@
-module github.com/bmhatfield/jotunheim-plot
+module github.com/bmhatfield/kort
 
 go 1.20
 

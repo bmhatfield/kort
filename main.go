@@ -5,12 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/bmhatfield/jotunheim-plot/app"
+	"github.com/bmhatfield/kort/app"
 )
 
-var (
-	fs = http.FileServer(http.Dir("static"))
-)
+var fs = http.FileServer(http.Dir("static"))
 
 func Logger(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
