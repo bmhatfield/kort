@@ -1,8 +1,11 @@
 package main
 
 import (
+        "flag"
 	"log"
+        "net"
 	"net/http"
+        "strconv"
 	"time"
 
 	"github.com/bmhatfield/kort/app"
@@ -28,8 +31,13 @@ func main() {
 	mux.Handle("/", Logger(fs.ServeHTTP))
 	server.Serve(mux)
 
-	log.Print("Listening on 127.0.0.1:3000...")
-	if err := http.ListenAndServe("127.0.0.1:3000", mux); err != nil {
+	listenAddr := flag.String("listen_address", "127.0.0.1", "address to listen on")
+        port := flag.Int("listen_port", 3000, "port to listen on")
+        flag.Parse()
+        listenString := net.JoinHostPort(*listenAddr, strconv.Itoa(*port))
+
+	log.Printf("Listening on %s...", listenString)
+	if err := http.ListenAndServe(listenString, mux); err != nil {
 		log.Fatal(err)
 	}
 }
