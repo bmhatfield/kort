@@ -36,7 +36,7 @@ const Cartograph = ({ tables }) => {
             // Draw Points
             let pts = table.points.map((p, i) => {
                 const x = Number(p.x);
-                const y = -Number(p.y);
+                const y = -Number(p.y); // Inverted for drawing due to canvas coords
 
                 // Point dot
                 let pt = new fabric.Circle({
@@ -55,7 +55,7 @@ const Cartograph = ({ tables }) => {
                         fontFamily: "valheim",
                         fontSize: 20,
                     });
-                    var lp = new fabric.Text(`(${x}, ${y})`, {
+                    var lp = new fabric.Text(`(${x}, ${-y})`, {
                         fill: 'darkslategray',
                         top: 20,
                         left: 3,
