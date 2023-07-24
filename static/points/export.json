@@ -2863,6 +2863,319 @@
         ]
     },
     {
+        "id": "80",
+        "created": "2023-07-23T23:04:47.6896347-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "-513",
+                "y": "550",
+                "label": "Norse Network Bridge Entrance",
+                "biome": "forest"
+            },
+            {
+                "x": "-663",
+                "y": "550",
+                "biome": "forest"
+            },
+            {
+                "x": "-737",
+                "y": "550",
+                "biome": "forest"
+            },
+            {
+                "x": "-815",
+                "y": "550",
+                "biome": "forest"
+            },
+            {
+                "x": "-873",
+                "y": "550",
+                "biome": "forest"
+            },
+            {
+                "x": "-1013",
+                "y": "550",
+                "biome": "forest"
+            },
+            {
+                "x": "-1126",
+                "y": "550",
+                "label": "Norse NEtwork Bridge Entrance",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "81",
+        "created": "2023-07-23T23:17:39.2595181-04:00",
+        "userId": "system",
+        "kind": "outline",
+        "points": [
+            {
+                "x": "-1084",
+                "y": "540",
+                "biome": "forest"
+            },
+            {
+                "x": "-1088",
+                "y": "567",
+                "biome": "forest"
+            },
+            {
+                "x": "-1125",
+                "y": "595",
+                "biome": "forest"
+            },
+            {
+                "x": "-1121",
+                "y": "646",
+                "biome": "forest"
+            },
+            {
+                "x": "-1121",
+                "y": "690",
+                "biome": "forest"
+            },
+            {
+                "x": "-1147",
+                "y": "712",
+                "biome": "forest"
+            },
+            {
+                "x": "-1167",
+                "y": "743",
+                "biome": "forest"
+            },
+            {
+                "x": "-1189",
+                "y": "753",
+                "biome": "forest"
+            },
+            {
+                "x": "-1261",
+                "y": "751",
+                "biome": "forest"
+            },
+            {
+                "x": "-1292",
+                "y": "725",
+                "biome": "forest"
+            },
+            {
+                "x": "-1304",
+                "y": "708",
+                "biome": "forest"
+            },
+            {
+                "x": "-1298",
+                "y": "688",
+                "label": "Trader/Elder sign",
+                "biome": "forest"
+            },
+            {
+                "x": "-1341",
+                "y": "590",
+                "biome": "forest"
+            },
+            {
+                "x": "-1385",
+                "y": "555",
+                "biome": "forest"
+            },
+            {
+                "x": "-1428",
+                "y": "539",
+                "biome": "forest"
+            },
+            {
+                "x": "-1450",
+                "y": "535",
+                "biome": "forest"
+            },
+            {
+                "x": "-1451",
+                "y": "495",
+                "biome": "forest"
+            },
+            {
+                "x": "-1451",
+                "y": "460",
+                "biome": "forest"
+            },
+            {
+                "x": "-1461",
+                "y": "451",
+                "biome": "forest"
+            },
+            {
+                "x": "-1419",
+                "y": "436",
+                "biome": "forest"
+            },
+            {
+                "x": "-1408",
+                "y": "415",
+                "biome": "forest"
+            },
+            {
+                "x": "-1426",
+                "y": "397",
+                "biome": "forest"
+            },
+            {
+                "x": "-1426",
+                "y": "368",
+                "biome": "forest"
+            },
+            {
+                "x": "-1394",
+                "y": "309",
+                "biome": "forest"
+            },
+            {
+                "x": "-1394",
+                "y": "260",
+                "biome": "forest"
+            },
+            {
+                "x": "-1380",
+                "y": "238",
+                "biome": "forest"
+            },
+            {
+                "x": "-1407",
+                "y": "197",
+                "biome": "forest"
+            },
+            {
+                "x": "-1404",
+                "y": "157",
+                "biome": "forest"
+            },
+            {
+                "x": "-1448",
+                "y": "114",
+                "biome": "forest"
+            },
+            {
+                "x": "-1483",
+                "y": "114",
+                "biome": "forest"
+            },
+            {
+                "x": "-1516",
+                "y": "145",
+                "biome": "forest"
+            },
+            {
+                "x": "-1561",
+                "y": "131",
+                "biome": "forest"
+            },
+            {
+                "x": "-1582",
+                "y": "104",
+                "biome": "forest"
+            },
+            {
+                "x": "-1607",
+                "y": "114",
+                "biome": "forest"
+            },
+            {
+                "x": "-1630",
+                "y": "130",
+                "biome": "forest"
+            },
+            {
+                "x": "-1623",
+                "y": "159",
+                "biome": "forest"
+            },
+            {
+                "x": "-1644",
+                "y": "181",
+                "biome": "forest"
+            },
+            {
+                "x": "-1675",
+                "y": "187",
+                "biome": "forest"
+            },
+            {
+                "x": "-1701",
+                "y": "209",
+                "biome": "forest"
+            },
+            {
+                "x": "-1778",
+                "y": "232",
+                "biome": "forest"
+            },
+            {
+                "x": "-1822",
+                "y": "249",
+                "biome": "forest"
+            },
+            {
+                "x": "-1857",
+                "y": "235",
+                "biome": "forest"
+            },
+            {
+                "x": "-1898",
+                "y": "225",
+                "biome": "forest"
+            },
+            {
+                "x": "-1915",
+                "y": "220",
+                "biome": "forest"
+            },
+            {
+                "x": "-1941",
+                "y": "222",
+                "biome": "forest"
+            },
+            {
+                "x": "-1974",
+                "y": "228",
+                "biome": "forest"
+            },
+            {
+                "x": "-2000",
+                "y": "215",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "82",
+        "created": "2023-07-23T23:23:01.6323678-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "-1207",
+                "y": "671",
+                "label": "Admin Bridge",
+                "biome": "forest"
+            },
+            {
+                "x": "-1207",
+                "y": "753",
+                "biome": "forest"
+            },
+            {
+                "x": "-1207",
+                "y": "822",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
         "id": "9",
         "created": "2023-07-23T16:06:42.185895-04:00",
         "userId": "system",
