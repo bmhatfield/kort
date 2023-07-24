@@ -2300,6 +2300,284 @@
                 "y": "-1881",
                 "label": "died",
                 "biome": "plains"
+            },
+            {
+                "x": "3041",
+                "y": "-2024",
+                "biome": "plains"
+            },
+            {
+                "x": "3122",
+                "y": "-2197",
+                "biome": "plains"
+            },
+            {
+                "x": "3170",
+                "y": "-2274",
+                "biome": "meadows"
+            },
+            {
+                "x": "3151",
+                "y": "-2331",
+                "biome": "meadows"
+            },
+            {
+                "x": "3145",
+                "y": "-2408",
+                "biome": "meadows"
+            },
+            {
+                "x": "3191",
+                "y": "-2489",
+                "biome": "meadows"
+            },
+            {
+                "x": "3190",
+                "y": "-2574",
+                "biome": "meadows"
+            },
+            {
+                "x": "3124",
+                "y": "-2669",
+                "biome": "meadows"
+            },
+            {
+                "x": "3013",
+                "y": "-2698",
+                "biome": "forest"
+            },
+            {
+                "x": "3006",
+                "y": "-2640",
+                "biome": "forest"
+            },
+            {
+                "x": "2959",
+                "y": "-2592",
+                "biome": "forest"
+            },
+            {
+                "x": "2969",
+                "y": "-2565",
+                "biome": "forest"
+            },
+            {
+                "x": "2978",
+                "y": "-2529",
+                "biome": "forest"
+            },
+            {
+                "x": "2954",
+                "y": "-2485",
+                "biome": "forest"
+            },
+            {
+                "x": "2937",
+                "y": "-2424",
+                "label": "Tower",
+                "biome": "forest"
+            },
+            {
+                "x": "2866",
+                "y": "-2416",
+                "biome": "forest"
+            },
+            {
+                "x": "2848",
+                "y": "-2409",
+                "biome": "forest"
+            },
+            {
+                "x": "2708",
+                "y": "-2380",
+                "biome": "forest"
+            },
+            {
+                "x": "2682",
+                "y": "-2386",
+                "label": "Savannah Hut",
+                "biome": "plains"
+            },
+            {
+                "x": "2541",
+                "y": "-2333",
+                "biome": "plains"
+            },
+            {
+                "x": "2497",
+                "y": "-2279",
+                "biome": "plains"
+            },
+            {
+                "x": "2386",
+                "y": "-2181",
+                "biome": "plains"
+            },
+            {
+                "x": "2293",
+                "y": "-2169",
+                "biome": "plains"
+            },
+            {
+                "x": "2246",
+                "y": "-2145",
+                "label": "Fuling Village",
+                "biome": "plains"
+            },
+            {
+                "x": "2019",
+                "y": "-2092",
+                "label": "FOrest/Plains border",
+                "biome": "forest"
+            },
+            {
+                "x": "1867",
+                "y": "-2178",
+                "label": "Square Base",
+                "biome": "forest"
+            },
+            {
+                "x": "1765",
+                "y": "-2098",
+                "biome": "forest"
+            },
+            {
+                "x": "1709",
+                "y": "-2132",
+                "biome": "meadows"
+            },
+            {
+                "x": "1626",
+                "y": "-2167",
+                "biome": "meadows"
+            },
+            {
+                "x": "1556",
+                "y": "-2196",
+                "biome": "meadows"
+            },
+            {
+                "x": "1481",
+                "y": "-2092",
+                "biome": "meadows"
+            },
+            {
+                "x": "1425",
+                "y": "-2010",
+                "label": "Admin Bridge",
+                "biome": "meadows"
+            },
+            {
+                "x": "1449",
+                "y": "-1959",
+                "biome": "meadows"
+            },
+            {
+                "x": "1551",
+                "y": "-1936",
+                "label": "Nice Farm Base",
+                "biome": "meadows"
+            },
+            {
+                "x": "1592",
+                "y": "-1805",
+                "biome": "forest"
+            },
+            {
+                "x": "1622",
+                "y": "-1705",
+                "biome": "forest"
+            },
+            {
+                "x": "1566",
+                "y": "-1609",
+                "biome": "forest"
+            },
+            {
+                "x": "1503",
+                "y": "-1549",
+                "biome": "forest"
+            },
+            {
+                "x": "1442",
+                "y": "-1501",
+                "biome": "forest"
+            },
+            {
+                "x": "1440",
+                "y": "-1426",
+                "biome": "forest"
+            },
+            {
+                "x": "1407",
+                "y": "-1389",
+                "biome": "forest"
+            },
+            {
+                "x": "1315",
+                "y": "-1340",
+                "biome": "forest"
+            },
+            {
+                "x": "1241",
+                "y": "-1294",
+                "biome": "forest"
+            },
+            {
+                "x": "1156",
+                "y": "-1300",
+                "biome": "forest"
+            },
+            {
+                "x": "1071",
+                "y": "-1301",
+                "biome": "forest"
+            },
+            {
+                "x": "1011",
+                "y": "-1266",
+                "biome": "forest"
+            },
+            {
+                "x": "939",
+                "y": "-1199",
+                "biome": "forest"
+            },
+            {
+                "x": "865",
+                "y": "-1143",
+                "biome": "forest"
+            },
+            {
+                "x": "813",
+                "y": "-1097",
+                "label": "Revna's Cave",
+                "biome": "forest"
+            },
+            {
+                "x": "768",
+                "y": "-1046",
+                "biome": "forest"
+            },
+            {
+                "x": "668",
+                "y": "-959",
+                "biome": "forest"
+            },
+            {
+                "x": "587",
+                "y": "-902",
+                "biome": "forest"
+            },
+            {
+                "x": "533",
+                "y": "-852",
+                "biome": "forest"
+            },
+            {
+                "x": "530",
+                "y": "-852",
+                "biome": "forest"
             }
         ]
     },
@@ -2480,6 +2758,95 @@
             {
                 "x": "-2051",
                 "y": "5726"
+            }
+        ]
+    },
+    {
+        "id": "74",
+        "created": "2023-07-23T19:42:47.3959827-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "1016",
+                "y": "-1279",
+                "label": "Rest Stop",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "75",
+        "created": "2023-07-23T19:54:42.2055308-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "1453",
+                "y": "-1418",
+                "label": "Fenrir Village Basecamp",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "76",
+        "created": "2023-07-23T19:58:29.9606889-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "2112",
+                "y": "-1295",
+                "label": "Road between Mountain/Swamp",
+                "biome": "forest"
+            },
+            {
+                "x": "2229",
+                "y": "-1108",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "77",
+        "created": "2023-07-23T20:04:56.8902814-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "2204",
+                "y": "-1617",
+                "label": "Road around swamp",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "78",
+        "created": "2023-07-23T20:13:53.5951469-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "2418",
+                "y": "-1448",
+                "label": "Joshif Bed Hut",
+                "biome": "meadows"
+            }
+        ]
+    },
+    {
+        "id": "79",
+        "created": "2023-07-23T22:23:31.0213347-04:00",
+        "userId": "system",
+        "kind": "track",
+        "points": [
+            {
+                "x": "541",
+                "y": "-597",
+                "label": "Brita's Home",
+                "biome": "meadows"
             }
         ]
     },
