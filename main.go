@@ -3,9 +3,11 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/bmhatfield/kort/app"
+	"github.com/urfave/cli/v2"
 )
 
 var fs = http.FileServer(http.Dir("static"))
@@ -19,17 +21,29 @@ func Logger(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func main() {
-	store := app.NewStore("points.db", "users", "polys")
-	defer store.Cleanup()
+	app := &cli.App{
+		Name:        "kort",
+		Description: "kort is the poly server for the kort app",
+		Flags: []cli.Flag{
+			&cli.StringFlag{Name: "listen", Value: "127.0.0.1:3000", Usage: "address to listen on"},
+			&cli.StringFlag{Name: "db", Value: "points.db", Usage: "database file"},
+		},
+		Action: func(c *cli.Context) error {
+			store := app.NewStore(c.String("db"), "users", "polys")
+			defer store.Cleanup()
 
-	server := app.NewServer(store, Logger)
+			server := app.NewServer(store, Logger)
 
-	mux := http.NewServeMux()
-	mux.Handle("/", Logger(fs.ServeHTTP))
-	server.Serve(mux)
+			mux := http.NewServeMux()
+			mux.Handle("/", Logger(fs.ServeHTTP))
+			server.Serve(mux)
 
-	log.Print("Listening on 127.0.0.1:3000...")
-	if err := http.ListenAndServe("127.0.0.1:3000", mux); err != nil {
+			log.Printf("Listening on %s...", c.String("listen"))
+			return http.ListenAndServe(c.String("listen"), mux)
+		},
+	}
+
+	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -7,7 +7,7 @@ const App = () => {
     const [ptLabel, setPtLabel] = React.useState("");
 
     React.useEffect(() => {
-        fetch("http://localhost:3000/polys").then(res => {
+        fetch("/polys").then(res => {
             return res.json();
         }).then(json => {
             setPolys(json);
@@ -26,7 +26,7 @@ const App = () => {
             points: [point],
         };
 
-        fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "PATCH" })
+        fetch("/poly", { body: JSON.stringify(update), method: "PATCH" })
             .then(res => {
                 setPolys(prev => {
                     let active = prev.find(poly => poly.id === activePolyId)
@@ -43,7 +43,7 @@ const App = () => {
             points: [point],
         };
 
-        fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "POST" }
+        fetch("/poly", { body: JSON.stringify(update), method: "POST" }
         ).then(res => {
             return res.json();
         }).then(json => {
