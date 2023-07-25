@@ -149,7 +149,7 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		t := NewPoly(up)
+		t := NewPoly(up, user.UserID)
 		id, err := s.store.Polys().New(t)
 		s.encode(w, Identifier{ID: id}, err)
 	case http.MethodPatch:

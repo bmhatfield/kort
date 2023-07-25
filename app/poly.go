@@ -23,12 +23,12 @@ func (p *Poly) Add(points ...Point) {
 	p.Points = append(p.Points, points...)
 }
 
-func NewPoly(from PolyUpdate) *Poly {
+func NewPoly(from PolyUpdate, userID string) *Poly {
 	return &Poly{
 		Points:  from.Points,
 		Kind:    from.Kind,
 		Created: time.Now(),
-		UserID:  "system",
+		UserID:  userID,
 	}
 }
 
