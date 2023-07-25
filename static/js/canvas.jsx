@@ -38,11 +38,11 @@ const Cartograph = ({ polys }) => {
             if (intersections.length == 0) continue;
 
             let gridx = new fabric.Line([axis, intersections[0], axis, intersections[1]], {
-                stroke: 'grey'
+                stroke: 'lightgray'
             });
             canvas.add(gridx);
             let gridy = new fabric.Line([intersections[0], axis, intersections[1], axis], {
-                stroke: 'grey'
+                stroke: 'lightgray'
             });
             canvas.add(gridy);
         }
