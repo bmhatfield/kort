@@ -21,15 +21,29 @@ const Cartograph = ({ polys }) => {
 
         const ptRadius = 1;
 
+        const circleRadius = 10000;
         let border = new fabric.Circle({
-            radius: 10000,
+            radius: circleRadius,
             stroke: "slategray",
             fill: "",
-            left: -10000,
-            top: -10000,
+            left: -circleRadius,
+            top: -circleRadius,
             strokeWidth: 1,
         });
         canvas.add(border);
+        for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
+            let intersections = findCircleLineIntersections(circleRadius, axis);
+            if (intersections.length == 0) continue;
+
+            let gridx = new fabric.Line([axis, intersections[0], axis, intersections[1]], {
+                stroke: 'grey'
+            });
+            canvas.add(gridx);
+            let gridy = new fabric.Line([intersections[0], axis, intersections[1], axis], {
+                stroke: 'grey'
+            });
+            canvas.add(gridy);
+        }
 
         // Render polys
         polys.map((poly, i) => {
@@ -54,8 +68,9 @@ const Cartograph = ({ polys }) => {
                         left: 3,
                         fontFamily: "valheim",
                         fontSize: 20,
+                        selectable: true,
                     });
-                    var lp = new fabric.Text(`(${x}, ${-y})`, {
+                    var lp = new fabric.IText(`(${x}, ${-y})`, {
                         fill: 'darkslategray',
                         top: 20,
                         left: 3,
@@ -68,7 +83,7 @@ const Cartograph = ({ polys }) => {
                         strokeWidth: 2,
                         rx: 5,
                         ry: 5,
-                        width: Math.max(l.width, lp.width+5) + 5,
+                        width: Math.max(l.width, lp.width + 5) + 5,
                         height: 32,
                     });
                     var group = new fabric.Group([bg, l, lp], {
@@ -113,6 +128,22 @@ const Cartograph = ({ polys }) => {
         if (ev.buttons === 1) {
             canvas.relativePan({ x: ev.movementX, y: ev.movementY });
         }
+    }
+
+    function sq(v) { return Math.pow(v, 2); }
+
+    function findCircleLineIntersections(r, n) {
+        // r: circle radius
+        // n: y-intercept
+        var c = sq(n) - sq(r);
+        var discriminant = -4 * c;
+        if (discriminant < 0) {
+            return [];
+        }
+        return [
+            (Math.sqrt(-4 * c)) / (2),
+            (-Math.sqrt(-4 * c)) / (2)
+        ];
     }
 
     return (
