@@ -31,6 +31,8 @@ const Cartograph = ({ polys }) => {
             strokeWidth: 1,
         });
         canvas.add(border);
+
+        // Add a grid, inscribed in the border circle.
         for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
             let intersections = findCircleLineIntersections(circleRadius, axis);
             if (intersections.length == 0) continue;
@@ -70,7 +72,7 @@ const Cartograph = ({ polys }) => {
                         fontSize: 20,
                         selectable: true,
                     });
-                    var lp = new fabric.IText(`(${x}, ${-y})`, {
+                    var lp = new fabric.Text(`(${x}, ${-y})`, {
                         fill: 'darkslategray',
                         top: 20,
                         left: 3,
