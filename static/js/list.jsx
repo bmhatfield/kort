@@ -14,7 +14,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId }) => {
 
     let newest;
     if (polys.length > 0) {
-        newest = polys.reduce((a, b) => {return Number(a.id) > Number(b.id) ? a : b});
+        newest = polys.reduce((a, b) => { return Number(a.id) > Number(b.id) ? a : b });
     }
 
     let items = polys.filter(poly => poly.points.length > 1 || poly.id === newest.id).map(poly => {
@@ -36,7 +36,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId }) => {
 
         // Return poly
         return (
-            <li className={"listli"} key={poly.id} onClick={()=>{listliClick(poly.id)}}>
+            <li className={"listli"} key={poly.id} onClick={() => { listliClick(poly.id) }}>
                 <div className={"polyitem"}>
                     <div className={"polysize"}>{poly.points.length}</div>
                     <div>{poly.kind}</div>

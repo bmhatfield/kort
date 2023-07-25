@@ -5,6 +5,7 @@ const App = () => {
     const [activePolyId, setActivePolyId] = React.useState("");
     const [ptLabel, setPtLabel] = React.useState("");
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
+    const [sidebarVisible, setSidebarVisible] = React.useState(true);
 
     const headers = { "Content-Type": "application/json" }
     if (bearer) {
@@ -111,38 +112,38 @@ const App = () => {
     return (
         <div>
             <Cartograph polys={polys} />
-            <div id="pointformcontainer">
-                <form id="pointform" onSubmit={handlePointSubmit}>
-                    <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
-                    <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
-                    <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} /></div>
-                    <div><label htmlFor="biome">biome</label>
-                        <select id="biome" name="biome" defaultValue={"ocean"}>
-                            <option value="">None</option>
-                            <option value="meadows">Meadows</option>
-                            <option value="forest">Black Forest</option>
-                            <option value="swamp">Swamp</option>
-                            <option value="mountain">Mountain</option>
-                            <option value="ocean">Ocean</option>
-                            <option value="plains">Plains</option>
-                            <option value="mistlands">Mistlands</option>
-                            <option value="north">Deep North</option>
-                            <option value="ashlands">Ashlands</option>
-                        </select>
-                    </div>
-                    <div><label htmlFor="polyKind">kind</label>
-                        <select id="polyKind" name="polyKind" defaultValue={"track"}>
-                            <option value="">None</option>
-                            <option value="outline">Outline</option>
-                            <option value="track">Track</option>
-                            <option value="marker">Marker</option>
-                        </select>
-                    </div>
-                    <input type="submit" value="Append" className="sub-mode" disabled={canAppend()} onClick={(() => setMode("append"))} />
-                    <input type="submit" value="New" className="sub-mode" style={{ marginRight: 25 }} onClick={(() => setMode("new"))} />
-                </form>
+            <div id="sidebar">
+                <div id="pointformcontainer">
+                    <form id="pointform" onSubmit={handlePointSubmit}>
+                        <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
+                        <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
+                        <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} /></div>
+                        <div><label htmlFor="biome">biome</label>
+                            <select id="biome" name="biome" defaultValue={"ocean"}>
+                                <option value="meadows">Meadows</option>
+                                <option value="forest">Black Forest</option>
+                                <option value="swamp">Swamp</option>
+                                <option value="mountain">Mountain</option>
+                                <option value="ocean">Ocean</option>
+                                <option value="plains">Plains</option>
+                                <option value="mistlands">Mistlands</option>
+                                <option value="north">Deep North</option>
+                                <option value="ashlands">Ashlands</option>
+                            </select>
+                        </div>
+                        <div><label htmlFor="polyKind">kind</label>
+                            <select id="polyKind" name="polyKind" defaultValue={"track"}>
+                                <option value="outline">Outline</option>
+                                <option value="track">Track</option>
+                                <option value="marker">Marker</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Append" className="sub-mode" disabled={canAppend()} onClick={(() => setMode("append"))} />
+                        <input type="submit" value="New" className="sub-mode" onClick={(() => setMode("new"))} />
+                    </form>
+                </div>
+                <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} />
             </div>
-            <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} />
         </div>
     )
 }

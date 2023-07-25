@@ -31,32 +31,44 @@ body {
     background: radial-gradient(circle, linen 0%, floralwhite 80%);
 }
 
-#pointformcontainer {
-    margin-left: 3%;
-    margin-top: 1%;
-    padding-left: 5px;
+#sidebar {
     position: absolute;
-    font-size: x-large;
-    background-color: rgba(185, 198, 162, 0.5);
-    border: 1px rgb(139, 202, 50) solid;
-    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 220px;
+    backdrop-filter: blur(4px);
+    padding-left: 5px;
+    background-color: rgba(255, 250, 250, 0.7);
+    border-right: 1px white solid;
 }
 
 #pointform {
-    padding: 10px;
+    padding-top: 15px;
+    padding-left: 5px;
+    height: 245px;
+    font-size: 21px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     width: 195px;
 }
 
+#list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px;
+    margin: 0px;
+}
+
 #x,
 #y {
     width: 50px;
+    margin-right: 10px;
 }
 
 #label {
-    width: 120px;
+    width: 122px;
 }
 
 label {
@@ -76,7 +88,6 @@ select {
     background: none;
     font-size: inherit;
     font-family: inherit;
-    margin: 10px;
 }
 
 #token {
@@ -89,18 +100,15 @@ input:required:invalid {
 }
 
 form:invalid>.sub-mode {
-    border-color: salmon;
+    border-color: rgb(236, 187, 182);
     border-width: 1px;
     border-style: solid;
+    background-color: rgb(255, 229, 226);
     color: lightgray;
 }
 
 form:invalid>.sub-mode:hover {
     color: lightgray;
-}
-
-.sub-mode:disabled, .sub-mode:disabled:hover {
-    color: ghostwhite;
 }
 
 input:required:valid {
@@ -114,27 +122,36 @@ label {
 input[type=submit] {
     color: lightslategray;
     border: none;
+    border: 1px slategray solid;
     font-family: valheim-bold;
     background-color: snow;
     border-radius: 5px;
+    height: 30px;
+    width: 75px;
+}
+
+#polyKind {
+    margin-right: 10px;
+}
+
+select:focus,
+input:focus {
+    outline: none;
 }
 
 .sub-mode:focus,
 .sub-mode:hover {
     color: darkslategray;
+    background-color: #f1f1f1;
+}
+
+.sub-mode:disabled,
+.sub-mode:disabled:hover {
+    color: ghostwhite;
 }
 
 .sub-mode:active {
     color: darkblue;
-}
-
-#list {
-    position: absolute;
-    margin-left: 3%;
-    margin-top: 275px;
-    padding-left: 5px;
-    overflow-y: auto;
-    height: 600px;
 }
 
 #list::-webkit-scrollbar {
@@ -161,10 +178,10 @@ input[type=submit] {
 }
 
 .polyitem {
-    width: 195px;
+    width: 200px;
     height: 20px;
     border-radius: 5px;
-    background-color: rgba(255, 250, 240, .7);
+    background-color: rgba(255, 250, 240, .5);
     margin: 3px;
     padding-left: 5px;
     padding-right: 5px;
@@ -174,11 +191,10 @@ input[type=submit] {
     flex-wrap: wrap;
     justify-content: space-between;
     border: 1px snow solid;
-    backdrop-filter: blur(4px);
 }
 
 .polyitem:hover {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .polysize {
@@ -198,20 +214,14 @@ input[type=submit] {
     padding-right: 5px;
 }
 
-input:focus {
-    outline: none;
-}
-
 .pointitem {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     border-radius: 2px;
+    margin-top: 2px;
 }
 
 .pointitem:hover {
-    background-color: lightgray !important;
+    background-color: rgb(238, 239, 233) !important;
 }
-
-.pointitem { background-color: snow; }
-.pointitem:nth-child(odd) { background-color: rgb(255, 252, 245); }
