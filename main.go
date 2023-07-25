@@ -16,7 +16,9 @@ func Logger(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		next(w, r)
-		log.Printf("%s %s (%s)", r.RequestURI, r.Method, time.Since(start))
+		if r.URL.Path != "/" {
+			log.Printf("%s %s (%s)", r.RequestURI, r.Method, time.Since(start))
+		}
 	}
 }
 
