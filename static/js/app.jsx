@@ -7,6 +7,7 @@ const App = () => {
     const [ptLabel, setPtLabel] = React.useState("");
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [sidebarVisible, setSidebarVisible] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     const headers = { "Content-Type": "application/json" }
     if (bearer) {
@@ -35,6 +36,10 @@ const App = () => {
                 let newest = json.reduce((a, b) => { return Number(a.id) > Number(b.id) ? a : b });
                 setActivePolyId(newest.id);
             }
+
+            setTimeout(function () {
+                setIsLoading(false);
+            }, 150);
         })
     }, [bearer]);
 
@@ -174,6 +179,7 @@ const App = () => {
                 </div>
                 <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} />
             </div>
+            {isLoading && <div id="loading"><span className="loader"></span></div>}
         </div>
     )
 }

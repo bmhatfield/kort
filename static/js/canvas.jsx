@@ -4,10 +4,6 @@ const Cartograph = ({ polys, activePoint }) => {
     const cRef = React.useRef();
 
     React.useEffect(() => {
-        if (polys === undefined) {
-            return
-        }
-
         const scale = 0.25;
 
         const height = window.innerHeight;
@@ -43,6 +39,10 @@ const Cartograph = ({ polys, activePoint }) => {
                 stroke: 'lightgray'
             });
             canvas.add(gridy);
+        }
+
+        if (polys === undefined) {
+            return
         }
 
         // Render polys
