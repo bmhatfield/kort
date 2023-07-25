@@ -48,7 +48,6 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     width: 195px;
-    backdrop-filter: blur(4px);
 }
 
 #x,
