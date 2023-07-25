@@ -1,4 +1,4 @@
-const Cartograph = ({ polys }) => {
+const Cartograph = ({ polys, activePoint }) => {
     const [canvas, setCanvas] = React.useState();
 
     const cRef = React.useRef();
@@ -112,6 +112,14 @@ const Cartograph = ({ polys }) => {
                 canvas.add(line);
             }
         });
+
+        // Zoom to the active point
+        if (activePoint !== undefined) {
+            let zm = .6;
+            let px = ((canvas.getWidth() / zm / 2) - (Number(activePoint.x))) * zm;
+            let py = ((canvas.getHeight() / zm / 2) - (-Number(activePoint.y))) * zm;
+            canvas.setViewportTransform([zm, 0, 0, zm, px, py]);
+        }
     }, [polys, cRef]);
 
     function zoom(ev) {
@@ -132,12 +140,10 @@ const Cartograph = ({ polys }) => {
         }
     }
 
-    function sq(v) { return Math.pow(v, 2); }
-
     function findCircleLineIntersections(r, n) {
         // r: circle radius
         // n: y-intercept
-        var c = sq(n) - sq(r);
+        var c = Math.pow(n, 2) - Math.pow(r, 2);
         var discriminant = -4 * c;
         if (discriminant < 0) {
             return [];

@@ -3,6 +3,7 @@ const App = () => {
     const [polys, setPolys] = React.useState();
     const [mode, setMode] = React.useState("new");
     const [activePolyId, setActivePolyId] = React.useState("");
+    const [activePoint, setActivePoint] = React.useState();
     const [ptLabel, setPtLabel] = React.useState("");
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [sidebarVisible, setSidebarVisible] = React.useState(true);
@@ -31,7 +32,6 @@ const App = () => {
             setPolys(json);
 
             if (json.length > 0) {
-                console.log(json);
                 let newest = json.reduce((a, b) => { return Number(a.id) > Number(b.id) ? a : b });
                 setActivePolyId(newest.id);
             }
@@ -83,6 +83,8 @@ const App = () => {
             biome: data.get("biome"),
         };
 
+        setActivePoint(point);
+
         switch (mode) {
             case "new":
                 create(point, data.get("polyKind"));
@@ -111,7 +113,7 @@ const App = () => {
 
     return (
         <div>
-            <Cartograph polys={polys} />
+            <Cartograph polys={polys} activePoint={activePoint} />
             <div id="sidebar">
                 <div id="pointformcontainer">
                     <form id="pointform" onSubmit={handlePointSubmit}>
