@@ -28,11 +28,14 @@ func main() {
 			&cli.StringFlag{Name: "listen", Value: "127.0.0.1:3000", Usage: "address to listen on"},
 			&cli.StringFlag{Name: "db", Value: "points.db", Usage: "database file"},
 		},
+		Commands: []*cli.Command{
+			app.AddUser(),
+		},
 		Action: func(c *cli.Context) error {
 			store := app.NewStore(c.String("db"), "users", "polys")
 			defer store.Cleanup()
 
-			server := app.NewServer(store, Logger)
+			server := app.NewServer(store)
 
 			mux := http.NewServeMux()
 			mux.Handle("/", Logger(fs.ServeHTTP))

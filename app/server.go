@@ -1,8 +1,18 @@
 package app
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
+	"time"
+)
+
+type ContextKey string
+
+const (
+	UserContextKey ContextKey = "user"
 )
 
 type Middleware func(http.HandlerFunc) http.HandlerFunc
@@ -13,16 +23,59 @@ type Server struct {
 	middleware []Middleware
 }
 
-func (s *Server) chain(next http.HandlerFunc) http.HandlerFunc {
-	if len(s.middleware) == 0 {
-		return next
+func (s *Server) auth(next http.HandlerFunc) http.HandlerFunc {
+	logReq := func(start time.Time, u *User, r *http.Request, status int) {
+		base := fmt.Sprintf("%s %s %d (%s)", r.RequestURI, r.Method, status, time.Since(start))
+		if u == nil {
+			log.Print(base)
+			return
+		}
+
+		log.Printf("%s - %s (id:%s)", base, u.Name, u.UserID)
 	}
 
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		h := r.Header.Get("Authorization")
+		if h == "" {
+			logReq(start, nil, r, http.StatusUnauthorized)
+			http.Error(w, "missing authorization header", http.StatusUnauthorized)
+			return
+		}
+
+		b, err := DecodeBearer(h)
+		if err != nil {
+			logReq(start, nil, r, http.StatusUnauthorized)
+			http.Error(w, "bearer token invalid format", http.StatusUnauthorized)
+			return
+		}
+
+		u, err := s.store.Users().Get(b.UserID)
+		if err != nil {
+			logReq(start, nil, r, http.StatusUnauthorized)
+			http.Error(w, "no such user", http.StatusUnauthorized)
+			return
+		}
+
+		if err := u.VerifyToken(b.Token); err != nil {
+			logReq(start, u, r, http.StatusUnauthorized)
+			http.Error(w, "token invalid", http.StatusUnauthorized)
+			return
+		}
+
+		ctx := context.WithValue(r.Context(), UserContextKey, u)
+		next(w, r.WithContext(ctx))
+		logReq(start, u, r, http.StatusOK)
+	}
+}
+
+func (s *Server) chain(next http.HandlerFunc) http.HandlerFunc {
 	c := next
 	for _, m := range s.middleware {
 		c = m(c)
 	}
-	return c
+
+	return s.auth(c)
 }
 
 func (s *Server) encode(w http.ResponseWriter, v any, err error) {
@@ -62,7 +115,9 @@ func (s *Server) User(w http.ResponseWriter, r *http.Request) {
 		u, err := s.store.Users().Get(id)
 		s.encode(w, u, err)
 	case http.MethodPost:
+		http.Error(w, "unimplemented", http.StatusNotImplemented)
 	case http.MethodPatch:
+		http.Error(w, "unimplemented", http.StatusNotImplemented)
 	default:
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}
@@ -79,6 +134,8 @@ func (s *Server) Users(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
+	user := r.Context().Value(UserContextKey).(*User)
+
 	switch r.Method {
 	case http.MethodGet:
 		id := r.FormValue("polyId")
@@ -103,17 +160,23 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		t, err := s.store.Polys().Get(up.PolyID)
+		p, err := s.store.Polys().Get(up.PolyID)
 		if err != nil {
 			s.error(w, err)
 			return
 		}
 
-		t.Add(up.Points...)
-		if err := s.store.Polys().Replace(t); err != nil {
+		if !user.CanUpdate(p) {
+			http.Error(w, "unauthorized", http.StatusUnauthorized)
+		}
+
+		p.Add(up.Points...)
+		if err := s.store.Polys().Replace(p); err != nil {
 			s.error(w, err)
 			return
 		}
+	case http.MethodDelete:
+		http.Error(w, "unimplemented", http.StatusNotImplemented)
 	default:
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}

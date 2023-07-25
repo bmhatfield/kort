@@ -80,6 +80,10 @@ select {
     margin: 10px;
 }
 
+#token {
+    width: 200px;
+}
+
 input:required:invalid {
     border-bottom-color: indianred;
     border-bottom-style: dashed;

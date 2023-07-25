@@ -3,11 +3,28 @@ const App = () => {
     const [polys, setPolys] = React.useState();
     const [mode, setMode] = React.useState("new");
     const [activePolyId, setActivePolyId] = React.useState("");
-
     const [ptLabel, setPtLabel] = React.useState("");
+    const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
+
+    const headers = { "Content-Type": "application/json" }
+    if (bearer) {
+        headers["Authorization"] = `Bearer ${bearer}`;
+    }
+
+    function handleLoginSubmit(e) {
+        e.preventDefault();
+
+        const data = new FormData(e.target);
+        const token = data.get("token");
+
+        if (token) {
+            localStorage.setItem("token", token);
+            setBearer(token);
+        }
+    }
 
     React.useEffect(() => {
-        fetch("/polys").then(res => {
+        fetch("/polys", { headers: headers }).then(res => {
             return res.json();
         }).then(json => {
             setPolys(json);
@@ -18,7 +35,7 @@ const App = () => {
                 setActivePolyId(newest.id);
             }
         })
-    }, []);
+    }, [bearer]);
 
     function append(point) {
         const update = {
@@ -26,7 +43,7 @@ const App = () => {
             points: [point],
         };
 
-        fetch("/poly", { body: JSON.stringify(update), method: "PATCH" })
+        fetch("/poly", { body: JSON.stringify(update), method: "PATCH", headers: headers })
             .then(res => {
                 setPolys(prev => {
                     let active = prev.find(poly => poly.id === activePolyId)
@@ -43,7 +60,7 @@ const App = () => {
             points: [point],
         };
 
-        fetch("/poly", { body: JSON.stringify(update), method: "POST" }
+        fetch("/poly", { body: JSON.stringify(update), method: "POST", headers: headers }
         ).then(res => {
             return res.json();
         }).then(json => {
@@ -54,7 +71,7 @@ const App = () => {
         });
     }
 
-    function handleSubmit(e) {
+    function handlePointSubmit(e) {
         e.preventDefault();
 
         const data = new FormData(e.target);
@@ -79,11 +96,23 @@ const App = () => {
         return activePolyId === undefined || activePolyId === ""
     }
 
+    if (!bearer) {
+        return (
+            <div id="login">
+                <form id="loginform" onSubmit={handleLoginSubmit}>
+                    <label htmlFor="token">Token</label>
+                    <input id="token" name="token" type="text" />
+                    <input type="submit" value="Save" />
+                </form>
+            </div>
+        )
+    }
+
     return (
         <div>
             <Cartograph polys={polys} />
             <div id="pointformcontainer">
-                <form id="pointform" onSubmit={handleSubmit}>
+                <form id="pointform" onSubmit={handlePointSubmit}>
                     <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
                     <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
                     <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} /></div>
