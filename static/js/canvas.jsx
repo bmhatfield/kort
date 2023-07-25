@@ -19,8 +19,6 @@ const Cartograph = ({ polys, activePoint }) => {
         });
         setCanvas(canvas);
 
-        const ptRadius = 1;
-
         const circleRadius = 10000;
         let border = new fabric.Circle({
             radius: circleRadius,
@@ -48,18 +46,22 @@ const Cartograph = ({ polys, activePoint }) => {
         }
 
         // Render polys
+        const ptRadius = 1;
         polys.map((poly, i) => {
             // Draw Points
             let pts = poly.points.map((p, i) => {
                 const x = Number(p.x);
                 const y = -Number(p.y); // Inverted for drawing due to canvas coords
 
+                const isActive = activePoint !== undefined && activePoint.x === p.x && activePoint.y === p.y;
+
                 // Point dot
+                const radius = isActive ? ptRadius * 3 : ptRadius;
                 let pt = new fabric.Circle({
-                    radius: ptRadius,
+                    radius: radius,
                     fill: "slategray",
-                    left: x - ptRadius,
-                    top: y - ptRadius,
+                    left: x - radius,
+                    top: y - radius,
                 });
                 canvas.add(pt);
 
@@ -81,7 +83,7 @@ const Cartograph = ({ polys, activePoint }) => {
                     });
                     var bg = new fabric.Rect({
                         fill: "rgba(255,250,250,.7)",
-                        stroke: "rgba(255,250,250,.9)",
+                        stroke: isActive ? "lightseagreen" : "rgba(255,250,250,.9)",
                         strokeWidth: 2,
                         rx: 5,
                         ry: 5,
@@ -112,15 +114,21 @@ const Cartograph = ({ polys, activePoint }) => {
                 canvas.add(line);
             }
         });
+    }, [polys, activePoint, cRef]);
 
-        // Zoom to the active point
+    React.useEffect(() => {
         if (activePoint !== undefined) {
-            let zm = .6;
-            let px = ((canvas.getWidth() / zm / 2) - (Number(activePoint.x))) * zm;
-            let py = ((canvas.getHeight() / zm / 2) - (-Number(activePoint.y))) * zm;
-            canvas.setViewportTransform([zm, 0, 0, zm, px, py]);
+            // Zoom to active point
+            zoomCanvas(activePoint, .7);
         }
-    }, [polys, cRef]);
+    });
+
+    function zoomCanvas(point, zm) {
+        canvas.setZoom(zm);
+        let px = ((canvas.getWidth() / zm / 2) - (Number(point.x))) * zm;
+        let py = ((canvas.getHeight() / zm / 2) - (-Number(point.y))) * zm;
+        canvas.setViewportTransform([zm, 0, 0, zm, px, py]);
+    }
 
     function zoom(ev) {
         let scale = canvas.getZoom();

@@ -95,6 +95,29 @@ const App = () => {
         };
     }
 
+    function handleSearchSubmit(e) {
+        e.preventDefault();
+
+        const data = new FormData(e.target);
+        const search = data.get("searchbox");
+
+        let matches = polys.filter(poly => {
+            return poly.points.some(point => point.label && labelMatch(point, search))
+        }).map(poly => {
+            return poly.points.filter(point => {
+                return point.label && labelMatch(point, search);
+            });
+        });
+
+        if (matches && matches.length > 0 && matches[0].length > 0) {
+            setActivePoint(matches[0][0]);
+        }
+    }
+
+    function labelMatch(point, search) {
+        return point.label.toLowerCase().includes(search.toLowerCase());
+    }
+
     function canAppend() {
         return activePolyId === undefined || activePolyId === ""
     }
@@ -115,6 +138,11 @@ const App = () => {
         <div>
             <Cartograph polys={polys} activePoint={activePoint} />
             <div id="sidebar">
+                <div id="search">
+                    <form id="searchform" onSubmit={handleSearchSubmit}>
+                        <input type="text" id="searchbox" name="searchbox" placeholder="search" autoComplete="off" />
+                    </form>
+                </div>
                 <div id="pointformcontainer">
                     <form id="pointform" onSubmit={handlePointSubmit}>
                         <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
