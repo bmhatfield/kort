@@ -29,6 +29,10 @@ const App = () => {
 
     React.useEffect(() => {
         fetch("/polys", { headers: headers }).then(res => {
+            if (!res.ok) {
+                throw new Error(res.statusText, res.body);
+            }
+
             return res.json();
         }).then(json => {
             setPolys(json);
@@ -43,7 +47,11 @@ const App = () => {
             }, 150);
         })
 
-        fetch("/users", {headers: headers}).then(res => {
+        fetch("/users", { headers: headers }).then(res => {
+            if (!res.ok) {
+                throw new Error(res.statusText, res.body);
+            }
+
             return res.json();
         }).then(json => {
             setUsers(json);
@@ -58,6 +66,10 @@ const App = () => {
 
         fetch("/poly", { body: JSON.stringify(update), method: "PATCH", headers: headers })
             .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.statusText, res.body);
+                }
+
                 setPolys(prev => {
                     let active = prev.find(poly => poly.id === activePolyId)
                     active.points.push(point);
@@ -75,6 +87,10 @@ const App = () => {
 
         fetch("/poly", { body: JSON.stringify(update), method: "POST", headers: headers }
         ).then(res => {
+            if (!res.ok) {
+                throw new Error(res.statusText, res.body);
+            }
+
             return res.json();
         }).then(json => {
             update.id = json.id;
@@ -82,6 +98,26 @@ const App = () => {
             setActivePolyId(json.id);
             setPtLabel("");
         });
+    }
+
+    function handlePointDelete(e, p, i) {
+        const update = {
+            polyId: p,
+            pointOffset: i,
+        };
+        fetch("/point", { body: JSON.stringify(update), method: "DELETE", headers: headers })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.statusText, res.body);
+                }
+
+                setPolys(prev => {
+                    let active = prev.find(poly => poly.id === activePolyId)
+                    active.points.splice(i, 1);
+                    return [...prev];
+                });
+                setPtLabel("");
+            });
     }
 
     function handlePointSubmit(e) {
@@ -161,9 +197,19 @@ const App = () => {
         )
     }
 
+    const polyListProps = {
+        activePolyId,
+        setActivePolyId,
+        activePoint,
+        setActivePoint,
+        getUser,
+        handlePointDelete,
+    }
+
     return (
         <div>
             <Cartograph polys={polys} activePoint={activePoint} />
+            <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
             <div id="sidebar">
                 <div id="search">
                     <form id="searchform" onSubmit={handleSearchSubmit}>
@@ -199,7 +245,7 @@ const App = () => {
                         <input type="submit" value="New" className="sub-mode" onClick={(() => setMode("new"))} />
                     </form>
                 </div>
-                <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} getUser={getUser} />
+                <PolyList polys={polys} {...polyListProps} />
             </div>
             {isLoading && <div id="loading"><span className="loader"></span></div>}
         </div>

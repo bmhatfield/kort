@@ -1,6 +1,10 @@
 package app
 
-import "time"
+import (
+	"time"
+
+	"golang.org/x/exp/slices"
+)
 
 type Poly struct {
 	PolyID  string    `json:"id"`
@@ -21,6 +25,12 @@ func (p *Poly) SetID(id string) {
 
 func (p *Poly) Add(points ...Point) {
 	p.Points = append(p.Points, points...)
+}
+
+func (p *Poly) Delete(offsets ...int) {
+	for _, o := range offsets {
+		p.Points = slices.Delete(p.Points, o, o+1)
+	}
 }
 
 func NewPoly(from PolyUpdate, userID string) *Poly {

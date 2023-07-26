@@ -103,6 +103,7 @@ func (s *Server) Serve(mux *http.ServeMux) {
 		"/users": s.Users,
 		"/poly":  s.Poly,
 		"/polys": s.Polys,
+		"/point": s.Point,
 	} {
 		mux.HandleFunc(route, s.chain(handler))
 	}
@@ -166,7 +167,7 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !user.CanUpdate(p) {
+		if !user.Can(Update, p) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
 		}
 
@@ -176,7 +177,21 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	case http.MethodDelete:
-		http.Error(w, "unimplemented", http.StatusNotImplemented)
+		id := r.FormValue("polyId")
+		p, err := s.store.Polys().Get(id)
+		if err != nil {
+			s.error(w, err)
+			return
+		}
+
+		if !user.Can(Delete, p) {
+			http.Error(w, "unauthorized", http.StatusUnauthorized)
+		}
+
+		if err := s.store.Polys().Delete(p.PolyID); err != nil {
+			s.error(w, err)
+			return
+		}
 	default:
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}
@@ -187,6 +202,38 @@ func (s *Server) Polys(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 		t, err := s.store.Polys().List()
 		s.encode(w, t, err)
+	default:
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+	}
+}
+
+func (s *Server) Point(w http.ResponseWriter, r *http.Request) {
+	user := r.Context().Value(UserContextKey).(*User)
+
+	switch r.Method {
+	case http.MethodDelete:
+		var de PointDelete
+		err := s.decode(r, &de)
+		if err != nil {
+			s.error(w, err)
+			return
+		}
+
+		p, err := s.store.Polys().Get(de.PolyID)
+		if err != nil {
+			s.error(w, err)
+			return
+		}
+
+		if !user.Can(Update, p) {
+			http.Error(w, "unauthorized", http.StatusUnauthorized)
+		}
+
+		p.Delete(de.PointOffset)
+		if err := s.store.Polys().Replace(p); err != nil {
+			s.error(w, err)
+			return
+		}
 	default:
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}

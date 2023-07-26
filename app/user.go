@@ -52,13 +52,13 @@ func (u *User) VerifyToken(token string) error {
 	return nil
 }
 
-func (u *User) CanUpdate(p *Poly) bool {
+func (u *User) Can(right AccessRight, p *Poly) bool {
 	if p.UserID == u.UserID {
 		return true
 	}
 
 	for _, r := range u.Rights {
-		if r == Update {
+		if r == right {
 			return true
 		}
 	}

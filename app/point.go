@@ -21,3 +21,8 @@ func NewPoint(x, y int, label, biome string) Point {
 		Biome: b,
 	}
 }
+
+type PointDelete struct {
+	PolyID      string `json:"polyId"`
+	PointOffset int    `json:"pointOffset"`
+}

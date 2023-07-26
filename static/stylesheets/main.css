@@ -31,6 +31,22 @@ body {
     background: radial-gradient(circle, linen 0%, floralwhite 80%);
 }
 
+#logout {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 3px;
+    background-color: snow;
+    font-size: 40px;
+    line-height: 25px;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2px;
+    border: 1px slategray solid;
+}
+
 #sidebar {
     position: absolute;
     display: flex;
@@ -140,6 +156,7 @@ input[type=submit] {
     border-radius: 5px;
     height: 30px;
     width: 75px;
+    cursor: pointer;
 }
 
 #polyKind {
@@ -235,5 +252,24 @@ input:focus {
 }
 
 .pointitem:hover {
-    background-color: rgb(238, 239, 233) !important;
+    background-color: rgb(238, 239, 233);
+}
+
+.activepoint {
+    background-color: lightseagreen;
+}
+
+.activepoint:hover {
+    background-color: rgb(147, 202, 199);
+}
+
+.pointdel {
+    background-color: lightgray;
+    padding: 1px;
+    border-radius: 2px;
+}
+
+.pointdel:hover {
+    background-color: moccasin;
+    cursor: pointer;
 }

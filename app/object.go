@@ -107,3 +107,14 @@ func (o *Object[T, P]) List() ([]P, error) {
 
 	return out, nil
 }
+
+func (o *Object[T, P]) Delete(id string) error {
+	return o.db.View(func(tx *bolt.Tx) error {
+		bucket := tx.Bucket(Key(o.bucket))
+		if bucket == nil {
+			return ErrNoBucket
+		}
+
+		return bucket.Delete(Key(id))
+	})
+}
