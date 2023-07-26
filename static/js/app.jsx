@@ -28,6 +28,16 @@ const App = () => {
     }
 
     React.useEffect(() => {
+        fetch("/users", { headers: headers }).then(res => {
+            if (!res.ok) {
+                throw new Error(res.statusText, res.body);
+            }
+
+            return res.json();
+        }).then(json => {
+            setUsers(json);
+        });
+
         fetch("/polys", { headers: headers }).then(res => {
             if (!res.ok) {
                 throw new Error(res.statusText, res.body);
@@ -45,17 +55,7 @@ const App = () => {
             setTimeout(function () {
                 setIsLoading(false);
             }, 150);
-        })
-
-        fetch("/users", { headers: headers }).then(res => {
-            if (!res.ok) {
-                throw new Error(res.statusText, res.body);
-            }
-
-            return res.json();
-        }).then(json => {
-            setUsers(json);
-        })
+        });
     }, [bearer]);
 
     function append(point) {
