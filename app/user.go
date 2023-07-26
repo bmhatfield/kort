@@ -91,6 +91,22 @@ func AddUser() *cli.Command {
 				return err
 			}
 
+			if c.Bool("create") {
+				u.Rights = append(u.Rights, Create)
+			}
+
+			if c.Bool("read") {
+				u.Rights = append(u.Rights, Read)
+			}
+
+			if c.Bool("update") {
+				u.Rights = append(u.Rights, Update)
+			}
+
+			if c.Bool("delete") {
+				u.Rights = append(u.Rights, Delete)
+			}
+
 			id, err := store.Users().New(u)
 			if err != nil {
 				return err

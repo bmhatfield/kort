@@ -169,6 +169,7 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 
 		if !user.Can(Update, p) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
+			return
 		}
 
 		p.Add(up.Points...)
@@ -186,6 +187,7 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 
 		if !user.Can(Delete, p) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
+			return
 		}
 
 		if err := s.store.Polys().Delete(p.PolyID); err != nil {
@@ -227,6 +229,7 @@ func (s *Server) Point(w http.ResponseWriter, r *http.Request) {
 
 		if !user.Can(Update, p) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
+			return
 		}
 
 		p.Delete(de.PointOffset)
