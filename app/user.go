@@ -119,3 +119,46 @@ func AddUser() *cli.Command {
 		},
 	}
 }
+
+func EditPermissions() *cli.Command {
+	return &cli.Command{
+		Name:        "edit-permissions",
+		Description: "edit a user's permissions",
+		Flags: []cli.Flag{
+			&cli.StringFlag{Name: "id", Usage: "user ID to edit"},
+			&cli.BoolFlag{Name: "create", Aliases: []string{"c"}, Value: true, Usage: "user can create any poly"},
+			&cli.BoolFlag{Name: "read", Aliases: []string{"r"}, Value: true, Usage: "user can read any poly"},
+			&cli.BoolFlag{Name: "update", Aliases: []string{"u"}, Usage: "user can update any poly (users can always self-update)"},
+			&cli.BoolFlag{Name: "delete", Aliases: []string{"d"}, Usage: "user can delete any poly (users can always self-delete)"},
+		},
+		Action: func(c *cli.Context) error {
+			store := NewStore(c.String("db"), "users", "polys")
+			defer store.Cleanup()
+
+			u, err := store.Users().Get(c.String("id"))
+			if err != nil {
+				return err
+			}
+
+			u.Rights = make([]AccessRight, 0)
+
+			if c.Bool("create") {
+				u.Rights = append(u.Rights, Create)
+			}
+
+			if c.Bool("read") {
+				u.Rights = append(u.Rights, Read)
+			}
+
+			if c.Bool("update") {
+				u.Rights = append(u.Rights, Update)
+			}
+
+			if c.Bool("delete") {
+				u.Rights = append(u.Rights, Delete)
+			}
+
+			return store.Users().Replace(u)
+		},
+	}
+}
