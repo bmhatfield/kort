@@ -32,6 +32,7 @@ func main() {
 		},
 		Commands: []*cli.Command{
 			app.AddUser(),
+			app.EditPermissions(),
 		},
 		Action: func(c *cli.Context) error {
 			store := app.NewStore(c.String("db"), "users", "polys")
