@@ -1,7 +1,8 @@
 # Migrate Tables
 
 ```js
-fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
+let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
+fetch("/points/desmos-tables.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
     let points = poly.map(pt => ({x: pt[0], y: pt[1]}));
 
     if ([3].includes(i)) return;
@@ -11,14 +12,15 @@ fetch("http://localhost:3000/points/desmos-tables.json").then(res => res.json())
         points: points,
     };
 
-    fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "POST" });
+    fetch("/poly", { headers: headers, body: JSON.stringify(update), method: "POST" });
 }));
 ```
 
 # Migrate Points
 
 ```js
-fetch("http://localhost:3000/points/desmos-points.json").then(res => res.json()).then(pts => pts.map(pt => {
+let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
+fetch("/points/desmos-points.json").then(res => res.json()).then(pts => pts.map(pt => {
     let [x,y] = pt.pos.split(",");
     const point = {
         x: x,
@@ -30,14 +32,15 @@ fetch("http://localhost:3000/points/desmos-points.json").then(res => res.json())
         points: [point],
     };
 
-    fetch("http://localhost:3000/poly", { body: JSON.stringify(update), method: "POST" });
+    fetch("/poly", { headers: headers, body: JSON.stringify(update), method: "POST" });
 }));
 ```
 
 # Export Points
 
 ```js
-fetch("http://localhost:3000/polys").then(res => {
+let headers = {headers: {"Authorization": "Bearer " + localStorage.getItem("token")}};
+fetch("/polys", headers).then(res => {
     return res.json();
 }).then(json => {
     console.log(json);
@@ -46,7 +49,8 @@ fetch("http://localhost:3000/polys").then(res => {
 
 # Restore Points
 ```js
-fetch("http://localhost:3000/points/export.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
-   fetch("http://localhost:3000/poly", { body: JSON.stringify(poly), method: "POST" });
+let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
+fetch("/points/export.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
+   fetch("/poly", { headers: headers, body: JSON.stringify(poly), method: "POST" });
 }));
 ```
