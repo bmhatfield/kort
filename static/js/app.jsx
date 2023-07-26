@@ -8,6 +8,7 @@ const App = () => {
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [sidebarVisible, setSidebarVisible] = React.useState(true);
     const [isLoading, setIsLoading] = React.useState(true);
+    const [users, setUsers] = React.useState()
 
     const headers = { "Content-Type": "application/json" }
     if (bearer) {
@@ -40,6 +41,12 @@ const App = () => {
             setTimeout(function () {
                 setIsLoading(false);
             }, 150);
+        })
+
+        fetch("/users", {headers: headers}).then(res => {
+            return res.json();
+        }).then(json => {
+            setUsers(json);
         })
     }, [bearer]);
 
@@ -127,6 +134,21 @@ const App = () => {
         return activePolyId === undefined || activePolyId === ""
     }
 
+    let userCache = {};
+    function getUser(id) {
+        if (users === undefined) {
+            return
+        }
+        if (id in userCache) {
+            return userCache[id];
+        }
+
+        let filtered = users.filter(user => user.id === id);
+        userCache[id] = filtered;
+
+        return filtered;
+    }
+
     if (!bearer) {
         return (
             <div id="login">
@@ -177,7 +199,7 @@ const App = () => {
                         <input type="submit" value="New" className="sub-mode" onClick={(() => setMode("new"))} />
                     </form>
                 </div>
-                <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} />
+                <PolyList polys={polys} activePolyId={activePolyId} setActivePolyId={setActivePolyId} getUser={getUser} />
             </div>
             {isLoading && <div id="loading"><span className="loader"></span></div>}
         </div>

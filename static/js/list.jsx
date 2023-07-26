@@ -1,4 +1,4 @@
-const PolyList = ({ polys, activePolyId, setActivePolyId }) => {
+const PolyList = ({ polys, activePolyId, setActivePolyId, getUser }) => {
     if (polys === undefined) {
         return
     }
@@ -34,11 +34,14 @@ const PolyList = ({ polys, activePolyId, setActivePolyId }) => {
             })
         }
 
+        const users = getUser(poly.userId);
+
         // Return poly
         return (
             <li className={"listli"} key={poly.id} onClick={() => { listliClick(poly.id) }}>
                 <div className={"polyitem"}>
                     <div className={"polysize"}>{poly.points.length}</div>
+                    <div>{users && users.length > 0 && users[0].name}</div>
                     <div>{poly.kind}</div>
                 </div>
                 {showPoints && <ul className={"pointset"}>{points}</ul>}
