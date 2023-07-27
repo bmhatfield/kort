@@ -27,19 +27,19 @@ const Cartograph = ({ polys, activePoint }) => {
         canvas.add(border);
 
         // Add a grid, inscribed in the border circle.
+        let gridLines = [];
         for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
-            let intersections = findCircleLineIntersections(circleRadius, axis);
-            if (intersections.length == 0) continue;
-
-            let gridx = new fabric.Line([axis, intersections[0], axis, intersections[1]], {
-                stroke: 'lightgray'
-            });
-            canvas.add(gridx);
-            let gridy = new fabric.Line([intersections[0], axis, intersections[1], axis], {
-                stroke: 'lightgray'
-            });
-            canvas.add(gridy);
+            let gridLineStyle = { stroke: 'lightgray' }
+            gridLines.push(new fabric.Line([axis, -circleRadius, axis, circleRadius], gridLineStyle));
+            gridLines.push(new fabric.Line([-circleRadius, axis, circleRadius, axis], gridLineStyle));
         }
+        let gridGroup = new fabric.Group(gridLines);
+        gridGroup.clipPath = new fabric.Circle({
+            radius: circleRadius,
+            left: -circleRadius,
+            top: -circleRadius,
+        });
+        canvas.add(gridGroup);
 
         if (polys === undefined) {
             return
@@ -146,20 +146,6 @@ const Cartograph = ({ polys, activePoint }) => {
         if (ev.buttons === 1) {
             canvas.relativePan({ x: ev.movementX, y: ev.movementY });
         }
-    }
-
-    function findCircleLineIntersections(r, n) {
-        // r: circle radius
-        // n: y-intercept
-        var c = Math.pow(n, 2) - Math.pow(r, 2);
-        var discriminant = -4 * c;
-        if (discriminant < 0) {
-            return [];
-        }
-        return [
-            (Math.sqrt(-4 * c)) / (2),
-            (-Math.sqrt(-4 * c)) / (2)
-        ];
     }
 
     return (
