@@ -27,19 +27,20 @@ const Cartograph = ({ polys, activePoint }) => {
         canvas.add(border);
 
         // Add a grid, inscribed in the border circle.
-        let gridLines = [];
-        for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
-            let gridLineStyle = { stroke: 'lightgray' }
-            gridLines.push(new fabric.Line([axis, -circleRadius, axis, circleRadius], gridLineStyle));
-            gridLines.push(new fabric.Line([-circleRadius, axis, circleRadius, axis], gridLineStyle));
-        }
-        let gridGroup = new fabric.Group(gridLines);
-        gridGroup.clipPath = new fabric.Circle({
+        let gridClipPath = new fabric.Circle({
             radius: circleRadius,
             left: -circleRadius,
             top: -circleRadius,
+            absolutePositioned: true
         });
-        canvas.add(gridGroup);
+        for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
+            let lineParams = {
+                stroke: 'lightgray',
+                clipPath: gridClipPath
+            }
+            canvas.add(new fabric.Line([axis, -circleRadius, axis, circleRadius], lineParams));
+            canvas.add(new fabric.Line([-circleRadius, axis, circleRadius, axis], lineParams));
+        }
 
         if (polys === undefined) {
             return
