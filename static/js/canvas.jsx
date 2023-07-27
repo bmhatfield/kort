@@ -11,7 +11,8 @@ const Cartograph = ({ polys, activePoint }) => {
         var canvas = new fabric.StaticCanvas(cRef.current, {
             height: height,
             width: width,
-            viewportTransform: [scale, 0, 0, scale, (width / 2), (height / 2)]
+            viewportTransform: [scale, 0, 0, scale, (width / 2), (height / 2)],
+            renderOnAddRemove: false,
         });
         setCanvas(canvas);
 
@@ -22,21 +23,17 @@ const Cartograph = ({ polys, activePoint }) => {
             fill: "",
             left: -circleRadius,
             top: -circleRadius,
-            strokeWidth: 1,
+            strokeWidth: 2,
+            objectCaching: false,
+            absolutePositioned: true,
         });
         canvas.add(border);
 
         // Add a grid, inscribed in the border circle.
-        let gridClipPath = new fabric.Circle({
-            radius: circleRadius,
-            left: -circleRadius,
-            top: -circleRadius,
-            absolutePositioned: true
-        });
         for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
             let lineParams = {
                 stroke: 'lightgray',
-                clipPath: gridClipPath
+                clipPath: border
             }
             canvas.add(new fabric.Line([axis, -circleRadius, axis, circleRadius], lineParams));
             canvas.add(new fabric.Line([-circleRadius, axis, circleRadius, axis], lineParams));
@@ -57,14 +54,16 @@ const Cartograph = ({ polys, activePoint }) => {
                 const isActive = activePoint !== undefined && activePoint.x === p.x && activePoint.y === p.y;
 
                 // Point dot
-                const radius = isActive ? ptRadius * 3 : ptRadius;
-                let pt = new fabric.Circle({
-                    radius: radius,
-                    fill: "slategray",
-                    left: x - radius,
-                    top: y - radius,
-                });
-                canvas.add(pt);
+                if (isActive) {
+                    const radius = isActive ? ptRadius * 3 : ptRadius;
+                    let pt = new fabric.Circle({
+                        radius: radius,
+                        fill: "slategray",
+                        left: x - radius,
+                        top: y - radius,
+                    });
+                    canvas.add(pt);
+                }
 
                 // Point label
                 if (p.label !== undefined && p.label.length > 0) {
@@ -111,27 +110,30 @@ const Cartograph = ({ polys, activePoint }) => {
                     strokeDashArray: (poly.kind === "track") ? [6, 3] : undefined,
                     objectCaching: false,
                 });
-
                 canvas.add(line);
             }
         });
+
+        // Force a single render
+        canvas.renderAll();
     }, [polys, activePoint, cRef]);
 
     React.useEffect(() => {
         if (activePoint !== undefined) {
             // Zoom to active point
-            zoomCanvas(activePoint, .7);
+            zoomPoint(activePoint, .7);
         }
     });
 
-    function zoomCanvas(point, zm) {
+    function zoomPoint(point, zm) {
         canvas.setZoom(zm);
         let px = ((canvas.getWidth() / zm / 2) - (Number(point.x))) * zm;
         let py = ((canvas.getHeight() / zm / 2) - (-Number(point.y))) * zm;
         canvas.setViewportTransform([zm, 0, 0, zm, px, py]);
+        canvas.requestRenderAll();
     }
 
-    function zoom(ev) {
+    function zoomWheel(ev) {
         let scale = canvas.getZoom();
         let d = (ev.deltaY > 0) ? -.05 : .03;
         let n = scale + d;
@@ -141,15 +143,17 @@ const Cartograph = ({ polys, activePoint }) => {
         if (n < 0.1) n = 0.1;
 
         canvas.zoomToPoint(pt, n);
+        canvas.requestRenderAll();
     };
 
     function pan(ev) {
         if (ev.buttons === 1) {
             canvas.relativePan({ x: ev.movementX, y: ev.movementY });
+            canvas.requestRenderAll();
         }
     }
 
     return (
-        <canvas ref={cRef} onMouseMove={pan} id="map" onWheel={zoom}></canvas>
+        <canvas ref={cRef} onMouseMove={pan} id="map" onWheel={zoomWheel}></canvas>
     )
 }
