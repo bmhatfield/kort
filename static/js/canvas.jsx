@@ -123,7 +123,8 @@ const Cartograph = ({ polys, activePoint }) => {
             if (pts.length > 1) {
                 let line = new fabric.Polyline(pts, {
                     stroke: "slategray",
-                    strokeWidth: 1,
+                    strokeWidth: (poly.kind === "outline") ? 1.4 : 1,
+                    strokeLineJoin: "round",
                     fill: "",
                     strokeDashArray: (poly.kind === "track") ? [6, 3] : undefined,
                     objectCaching: false,
