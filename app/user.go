@@ -13,7 +13,7 @@ var ErrInvalidToken = errors.New("invalid token")
 
 type User struct {
 	UserID    string `json:"id"`
-	TokenHash string `json:"token"`
+	TokenHash string `json:"-"`
 
 	Name   string        `json:"name"`
 	Rights []AccessRight `json:"rights"`

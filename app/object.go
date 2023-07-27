@@ -1,19 +1,19 @@
 package app
 
 import (
-	"encoding/json"
 	"strconv"
 
+	"github.com/vmihailenco/msgpack/v5"
 	bolt "go.etcd.io/bbolt"
 )
 
-type Identifer[T any] interface {
+type Identifiable[T any] interface {
 	ID() string
 	SetID(string)
 	*T
 }
 
-type Object[T any, P Identifer[T]] struct {
+type Object[T any, P Identifiable[T]] struct {
 	db     *bolt.DB
 	bucket string
 }
@@ -34,7 +34,7 @@ func (o *Object[T, P]) New(obj P) (string, error) {
 		obj.SetID(strconv.Itoa(int(seq)))
 		id = obj.ID()
 
-		b, err := json.Marshal(obj)
+		b, err := msgpack.Marshal(obj)
 		if err != nil {
 			return err
 		}
@@ -54,7 +54,7 @@ func (o *Object[T, P]) Replace(obj P) error {
 			return ErrNoBucket
 		}
 
-		b, err := json.Marshal(obj)
+		b, err := msgpack.Marshal(obj)
 		if err != nil {
 			return err
 		}
@@ -76,7 +76,7 @@ func (o *Object[T, P]) Get(id string) (P, error) {
 			return ErrNotFound
 		}
 
-		return json.Unmarshal(b, &obj)
+		return msgpack.Unmarshal(b, &obj)
 	}); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (o *Object[T, P]) List() ([]P, error) {
 
 		return bucket.ForEach(func(k, v []byte) error {
 			var obj T
-			if err := json.Unmarshal(v, &obj); err != nil {
+			if err := msgpack.Unmarshal(v, &obj); err != nil {
 				return err
 			}
 
