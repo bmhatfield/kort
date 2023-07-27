@@ -43,6 +43,7 @@ func NewPoly(from PolyUpdate, userID string) *Poly {
 }
 
 type PolyUpdate struct {
+	UserID string   `json:"userId,omitempty"`
 	PolyID string   `json:"id,omitempty"`
 	Kind   PolyKind `json:"kind,omitempty"`
 

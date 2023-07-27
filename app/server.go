@@ -84,7 +84,7 @@ func (s *Server) encode(w http.ResponseWriter, v any, err error) {
 		return
 	}
 
-	s.error(w, json.NewEncoder(w).Encode(v))
+	s.error(w, GzipJSON(w, v))
 }
 
 func (s *Server) decode(r *http.Request, v any) error {
@@ -150,7 +150,12 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		t := NewPoly(up, user.UserID)
+		uid := user.UserID
+		if up.UserID != "" && user.Can(Create, up.UserID) {
+			uid = up.UserID
+		}
+
+		t := NewPoly(up, uid)
 		id, err := s.store.Polys().New(t)
 		s.encode(w, Identifier{ID: id}, err)
 	case http.MethodPatch:
