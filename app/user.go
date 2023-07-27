@@ -52,11 +52,15 @@ func (u *User) VerifyToken(token string) error {
 	return nil
 }
 
-func (u *User) Can(right AccessRight, p *Poly) bool {
-	if p.UserID == u.UserID {
+func (u *User) Can(right AccessRight, owner string) bool {
+	// Can perform actions against
+	// self-owned objects
+	if owner == u.UserID {
 		return true
 	}
 
+	// If granted can perform actions
+	// against global objects
 	for _, r := range u.Rights {
 		if r == right {
 			return true
@@ -73,10 +77,6 @@ func AddUser() *cli.Command {
 		Flags: []cli.Flag{
 			&cli.StringFlag{Name: "name", Usage: "user name", Required: true},
 			&cli.StringFlag{Name: "token", Usage: "user token", Required: true},
-			&cli.BoolFlag{Name: "create", Aliases: []string{"c"}, Value: true, Usage: "user can create any poly"},
-			&cli.BoolFlag{Name: "read", Aliases: []string{"r"}, Value: true, Usage: "user can read any poly"},
-			&cli.BoolFlag{Name: "update", Aliases: []string{"u"}, Usage: "user can update any poly (users can always self-update)"},
-			&cli.BoolFlag{Name: "delete", Aliases: []string{"d"}, Usage: "user can delete any poly (users can always self-delete)"},
 		},
 		Action: func(c *cli.Context) error {
 			store := NewStore(c.String("db"), "users", "polys")
@@ -85,26 +85,13 @@ func AddUser() *cli.Command {
 			u := &User{
 				Name:    c.String("name"),
 				Created: time.Now(),
-				Rights:  []AccessRight{},
+				Rights: []AccessRight{
+					Create,
+					Read,
+				},
 			}
 			if err := u.SetToken(c.String("token")); err != nil {
 				return err
-			}
-
-			if c.Bool("create") {
-				u.Rights = append(u.Rights, Create)
-			}
-
-			if c.Bool("read") {
-				u.Rights = append(u.Rights, Read)
-			}
-
-			if c.Bool("update") {
-				u.Rights = append(u.Rights, Update)
-			}
-
-			if c.Bool("delete") {
-				u.Rights = append(u.Rights, Delete)
 			}
 
 			id, err := store.Users().New(u)
@@ -113,7 +100,6 @@ func AddUser() *cli.Command {
 			}
 
 			b := NewBearer(id, c.String("token"))
-
 			fmt.Printf("User %s created with ID %s - bearer: %q\n", u.Name, id, b)
 			return nil
 		},

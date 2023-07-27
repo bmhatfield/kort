@@ -167,7 +167,7 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !user.Can(Update, p) {
+		if !user.Can(Update, p.UserID) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
 			return
 		}
@@ -185,7 +185,7 @@ func (s *Server) Poly(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !user.Can(Delete, p) {
+		if !user.Can(Delete, p.UserID) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
 			return
 		}
@@ -227,7 +227,7 @@ func (s *Server) Point(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !user.Can(Update, p) {
+		if !user.Can(Update, p.UserID) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
 			return
 		}
