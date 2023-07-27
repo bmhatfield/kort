@@ -43,8 +43,18 @@ const Cartograph = ({ polys, activePoint }) => {
             return
         }
 
+        // Settings
+        const opts = {
+            activeRadius: 3,
+            label: {
+                radius: 1.7,
+                height: 34,
+                leftOffset: 8,
+                topOffset: -(34 / 2),
+            }
+        };
+
         // Render polys
-        const ptRadius = 1;
         polys.map((poly, i) => {
             // Draw Points
             let pts = poly.points.map((p, i) => {
@@ -52,47 +62,55 @@ const Cartograph = ({ polys, activePoint }) => {
                 const y = -Number(p.y); // Inverted for drawing due to canvas coords
 
                 const isActive = activePoint !== undefined && activePoint.x === p.x && activePoint.y === p.y;
+                const isLabeled = p.label !== undefined && p.label.length > 0;
 
                 // Point dot
                 if (isActive) {
-                    const radius = isActive ? ptRadius * 3 : ptRadius;
                     let pt = new fabric.Circle({
-                        radius: radius,
-                        fill: "slategray",
-                        left: x - radius,
-                        top: y - radius,
+                        radius: opts.activeRadius,
+                        fill: "lightseagreen",
+                        left: x - opts.activeRadius,
+                        top: y - opts.activeRadius,
                     });
                     canvas.add(pt);
                 }
 
                 // Point label
-                if (p.label !== undefined && p.label.length > 0) {
+                if (isLabeled) {
+                    var pc = new fabric.Circle({
+                        radius: opts.label.radius,
+                        fill: "slategray",
+                        visible: !isActive,
+                    });
                     var l = new fabric.Text(p.label, {
+                        top: opts.label.topOffset,
+                        left: 3 + opts.label.leftOffset,
                         fill: 'black',
-                        left: 3,
                         fontFamily: "valheim",
                         fontSize: 20,
                         selectable: true,
                     });
                     var lp = new fabric.Text(`(${x}, ${-y})`, {
+                        top: 20 + opts.label.topOffset,
+                        left: 3 + opts.label.leftOffset,
                         fill: 'darkslategray',
-                        top: 20,
-                        left: 3,
                         fontFamily: "ptserif",
                         fontSize: 11,
                     });
                     var bg = new fabric.Rect({
+                        top: opts.label.topOffset,
+                        left: opts.label.leftOffset,
                         fill: "rgba(255,250,250,.7)",
                         stroke: isActive ? "lightseagreen" : "rgba(255,250,250,.9)",
                         strokeWidth: 2,
                         rx: 5,
                         ry: 5,
                         width: Math.max(l.width, lp.width + 5) + 5,
-                        height: 32,
+                        height: opts.label.height,
                     });
-                    var group = new fabric.Group([bg, l, lp], {
-                        left: x + 10,
-                        top: y - 20,
+                    var group = new fabric.Group([pc, bg, l, lp], {
+                        top: y + opts.label.topOffset - opts.label.radius,
+                        left: x - opts.label.radius,
                     });
                     canvas.add(group);
                 }
