@@ -32,7 +32,7 @@ const Cartograph = ({ polys, activePoint }) => {
         // Add a grid, inscribed in the border circle.
         for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
             let lineParams = {
-                stroke: 'lightgray',
+                stroke: (axis === 0) ? '#aaaaaa' : 'lightgray',
                 clipPath: border
             }
             canvas.add(new fabric.Line([axis, -circleRadius, axis, circleRadius], lineParams));
