@@ -50,7 +50,9 @@ fetch("/polys", headers).then(res => {
 # Restore Points
 ```js
 let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/points/export.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
-   fetch("/poly", { headers: headers, body: JSON.stringify(poly), method: "POST" });
-}));
+fetch("/points/export.json").then(res => res.json()).then(async (polys) => {
+    for (let poly of polys) {
+       await fetch("/poly", { body: JSON.stringify(poly), method: "POST", headers: headers });
+    }
+});
 ```
