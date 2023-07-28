@@ -3,6 +3,8 @@ const Cartograph = ({ polys, activePoint }) => {
 
     const cRef = React.useRef();
 
+    const noFill = "";
+
     React.useEffect(() => {
         const scale = 0.25;
 
@@ -20,7 +22,7 @@ const Cartograph = ({ polys, activePoint }) => {
         let border = new fabric.Circle({
             radius: circleRadius,
             stroke: "slategray",
-            fill: "",
+            fill: noFill,
             left: -circleRadius,
             top: -circleRadius,
             strokeWidth: 2,
@@ -38,6 +40,21 @@ const Cartograph = ({ polys, activePoint }) => {
             canvas.add(new fabric.Line([axis, -circleRadius, axis, circleRadius], lineParams));
             canvas.add(new fabric.Line([-circleRadius, axis, circleRadius, axis], lineParams));
         }
+
+        // Add a warning circle, for the night spawn danger range
+        const nightSpawnRadius = 2800
+        let warning = new fabric.Circle({
+            radius: nightSpawnRadius,
+            stroke: "#FFC0CB",
+            fill: noFill,
+            left: -nightSpawnRadius,
+            top: -nightSpawnRadius,
+            strokeWidth: 1,
+            strokeDashArray: [6, 15],
+            objectCaching: false,
+            absolutePositioned: true,
+        });
+        canvas.add(warning);
 
         if (polys === undefined) {
             return
@@ -85,7 +102,7 @@ const Cartograph = ({ polys, activePoint }) => {
                     var l = new fabric.Text(p.label, {
                         top: opts.label.topOffset,
                         left: 3 + opts.label.leftOffset,
-                        fill: 'black',
+                        fill: "black",
                         fontFamily: "valheim",
                         fontSize: 20,
                         selectable: true,
@@ -125,7 +142,7 @@ const Cartograph = ({ polys, activePoint }) => {
                     stroke: "slategray",
                     strokeWidth: (poly.kind === "outline") ? 1.4 : 1,
                     strokeLineJoin: "round",
-                    fill: "",
+                    fill: noFill,
                     strokeDashArray: (poly.kind === "track") ? [6, 3] : undefined,
                     objectCaching: false,
                 });
