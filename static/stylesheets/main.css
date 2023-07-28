@@ -47,6 +47,16 @@ body {
     border: 1px slategray solid;
 }
 
+#ping {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    margin: 3px;
+    padding: 5px;
+    background-color: whitesmoke;
+    border-radius: 3px;
+}
+
 #sidebar {
     position: absolute;
     display: flex;

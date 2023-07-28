@@ -4,6 +4,7 @@ const App = () => {
     const [mode, setMode] = React.useState("new");
     const [activePolyId, setActivePolyId] = React.useState("");
     const [activePoint, setActivePoint] = React.useState();
+    const [pingPoint, setPingPoint] = React.useState();
     const [ptLabel, setPtLabel] = React.useState("");
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [sidebarVisible, setSidebarVisible] = React.useState(true);
@@ -162,6 +163,24 @@ const App = () => {
         }
     }
 
+    function handlePingSubmit(e) {
+        e.preventDefault();
+
+        const data = new FormData(e.target);
+        const x = Number(data.get("px"));
+        const y = Number(data.get("py"));
+
+        const point = {
+            x: x,
+            y: y,
+        };
+        setPingPoint(point);
+
+        setTimeout(() => {
+            setPingPoint();
+        }, 5000);
+    }
+
     function labelMatch(point, search) {
         return point.label.toLowerCase().includes(search.toLowerCase());
     }
@@ -208,15 +227,22 @@ const App = () => {
 
     return (
         <div>
-            <Cartograph polys={polys} activePoint={activePoint} />
+            <Cartograph polys={polys} activePoint={activePoint} pingPoint={pingPoint} />
             <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
+            <div id="ping">
+                <form id="pingform" onSubmit={handlePingSubmit}>
+                    <label htmlFor="px">x</label><input id="px" name="px" type="number" min="-10000" max="10000" required />
+                    <label htmlFor="py">y</label><input id="py" name="py" type="number" min="-10000" max="10000" required />
+                    <input type="submit" hidden />
+                </form>
+            </div>
             <div id="sidebar">
                 <div id="search">
                     <form id="searchform" onSubmit={handleSearchSubmit}>
                         <input type="text" id="searchbox" name="searchbox" placeholder="search" autoComplete="off" />
                     </form>
                 </div>
-                <div id="pointformcontainer">
+                <div id="newpoint">
                     <form id="pointform" onSubmit={handlePointSubmit}>
                         <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
                         <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>

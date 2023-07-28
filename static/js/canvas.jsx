@@ -1,4 +1,4 @@
-const Cartograph = ({ polys, activePoint }) => {
+const Cartograph = ({ polys, activePoint, pingPoint }) => {
     const [canvas, setCanvas] = React.useState();
 
     const cRef = React.useRef();
@@ -150,14 +150,56 @@ const Cartograph = ({ polys, activePoint }) => {
             }
         });
 
+        if (pingPoint !== undefined) {
+            const pingRadius = 2;
+
+            const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
+
+            let pp = new fabric.Circle({
+                top: -pingRadius,
+                left: -pingRadius,
+                radius: pingRadius,
+                stroke: "#D80E70",
+                fill: "#6B0848",
+                strokeWidth: 1,
+                absolutePositioned: true,
+            });
+
+            let circles = circleColors.map((color, i) => {
+                let rad = pingRadius * (i+i+3);
+                return new fabric.Circle({
+                    top: -rad,
+                    left: -rad,
+                    radius: rad,
+                    stroke: color,
+                    fill: noFill,
+                    strokeWidth: 1,
+                    absolutePositioned: true,
+                });
+            });
+
+            let pingGroup = new fabric.Group([pp, ...circles], {
+                top: -pingPoint.y-pingRadius,
+                left: pingPoint.x-pingRadius,
+            });
+            canvas.add(pingGroup);
+        }
+
         // Force a single render
         canvas.renderAll();
-    }, [polys, activePoint, cRef]);
+    }, [polys, activePoint, pingPoint, cRef]);
 
     React.useEffect(() => {
+        if (pingPoint !== undefined) {
+            // Zoom to ping point
+            zoomPoint(pingPoint, .8);
+            return
+        }
+
         if (activePoint !== undefined) {
             // Zoom to active point
             zoomPoint(activePoint, .7);
+            return
         }
     });
 
