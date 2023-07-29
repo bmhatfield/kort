@@ -150,15 +150,16 @@ const Cartograph = ({ polys, activePoint, pingPoints }) => {
             }
         });
 
+        // Draw ping points
         if (pingPoints != undefined) {
-            var opacity = 1;
-            for (var i = pingPoints.length - 1; i >= 0; --i, opacity -= .22) {
-                let pingPoint = pingPoints[i];
-                const pingRadius = 2;
+            const opacity = 1;
+            const pingRadius = 2;
+            const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
 
-                const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
+            pingPoints.toReversed().map((pingPoint, i) => {
+                const fade = (opacity - (i*.20));
 
-                let pp = new fabric.Circle({
+                let pingCenter = new fabric.Circle({
                     top: -pingRadius,
                     left: -pingRadius,
                     radius: pingRadius,
@@ -166,10 +167,10 @@ const Cartograph = ({ polys, activePoint, pingPoints }) => {
                     fill: "#6B0848",
                     strokeWidth: 1,
                     absolutePositioned: true,
-                    opacity: opacity
+                    opacity: fade
                 });
 
-                let circles = circleColors.map((color, i) => {
+                let pingRadii = circleColors.slice(i).map((color, i) => {
                     let rad = pingRadius * (i + i + 3);
                     return new fabric.Circle({
                         top: -rad,
@@ -179,16 +180,16 @@ const Cartograph = ({ polys, activePoint, pingPoints }) => {
                         fill: noFill,
                         strokeWidth: 1,
                         absolutePositioned: true,
-                        opacity: opacity
+                        opacity: fade
                     });
                 });
 
-                let pingGroup = new fabric.Group([pp, ...circles], {
+                let pingGroup = new fabric.Group([pingCenter, ...pingRadii], {
                     top: -pingPoint.y - pingRadius,
                     left: pingPoint.x - pingRadius,
                 });
                 canvas.add(pingGroup);
-            };
+            })
         }
 
         // Force a single render
