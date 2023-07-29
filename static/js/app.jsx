@@ -4,7 +4,7 @@ const App = () => {
     const [mode, setMode] = React.useState("new");
     const [activePolyId, setActivePolyId] = React.useState("");
     const [activePoint, setActivePoint] = React.useState();
-    const [pingPoint, setPingPoint] = React.useState();
+    const [pingPoints, setPingPoints] = React.useState([]);
     const [ptLabel, setPtLabel] = React.useState("");
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [sidebarVisible, setSidebarVisible] = React.useState(true);
@@ -174,11 +174,11 @@ const App = () => {
             x: x,
             y: y,
         };
-        setPingPoint(point);
-
-        setTimeout(() => {
-            setPingPoint();
-        }, 5000);
+        setActivePoint(point);
+        setPingPoints([
+            ...pingPoints.slice(-4),  // keep last 4 points
+            point
+        ]);        
     }
 
     function labelMatch(point, search) {
@@ -227,7 +227,7 @@ const App = () => {
 
     return (
         <div>
-            <Cartograph polys={polys} activePoint={activePoint} pingPoint={pingPoint} />
+            <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} />
             <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
             <div id="ping">
                 <form id="pingform" onSubmit={handlePingSubmit}>
