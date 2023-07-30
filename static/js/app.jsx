@@ -60,12 +60,7 @@ const App = () => {
     }, [bearer]);
 
     function append(point) {
-        const update = {
-            id: activePolyId,
-            points: [point],
-        };
-
-        fetch("/poly", { body: JSON.stringify(update), method: "PATCH", headers: headers })
+        fetch(`/points/${activePolyId}`, { body: JSON.stringify([point]), method: "PUT", headers: headers })
             .then(res => {
                 if (!res.ok) {
                     throw new Error(res.statusText, res.body);
@@ -102,11 +97,7 @@ const App = () => {
     }
 
     function handlePointDelete(e, p, i) {
-        const update = {
-            polyId: p,
-            pointOffset: i,
-        };
-        fetch("/point", { body: JSON.stringify(update), method: "DELETE", headers: headers })
+        fetch(`/point/${p}/${i}`, { method: "DELETE", headers: headers })
             .then(res => {
                 if (!res.ok) {
                     throw new Error(res.statusText, res.body);
@@ -178,7 +169,7 @@ const App = () => {
         setPingPoints([
             ...pingPoints.slice(-4),  // keep last 4 points
             point
-        ]);        
+        ]);
     }
 
     function labelMatch(point, search) {

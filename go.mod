@@ -3,6 +3,7 @@ module github.com/bmhatfield/kort
 go 1.20
 
 require (
+	github.com/go-chi/chi/v5 v5.0.10
 	github.com/vmihailenco/msgpack/v5 v5.3.5
 	go.etcd.io/bbolt v1.3.7
 )
@@ -15,6 +16,7 @@ require (
 )
 
 require (
+	github.com/go-chi/chi v1.5.4
 	github.com/urfave/cli/v2 v2.25.7
 	golang.org/x/crypto v0.11.0
 	golang.org/x/exp v0.0.0-20230725093048-515e97ebf090

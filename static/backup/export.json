@@ -918,6 +918,117 @@
         ]
     },
     {
+        "id": "122",
+        "kind": "marker",
+        "created": "2023-07-29T01:32:35.402144253Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-1897",
+                "y": "-397",
+                "label": "Retrop's Riverport",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "123",
+        "kind": "marker",
+        "created": "2023-07-29T01:56:07.230910776Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-1541",
+                "y": "-439",
+                "label": "elder bed",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "124",
+        "kind": "marker",
+        "created": "2023-07-29T02:36:52.998033694Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-3214",
+                "y": "2037",
+                "biome": "swamp"
+            }
+        ]
+    },
+    {
+        "id": "125",
+        "kind": "marker",
+        "created": "2023-07-29T02:37:01.608566553Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-3214",
+                "y": "2037",
+                "label": "Crypt",
+                "biome": "swamp"
+            }
+        ]
+    },
+    {
+        "id": "126",
+        "kind": "marker",
+        "created": "2023-07-29T02:38:24.504999309Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-3284",
+                "y": "2046",
+                "label": "crypt",
+                "biome": "swamp"
+            }
+        ]
+    },
+    {
+        "id": "127",
+        "kind": "marker",
+        "created": "2023-07-29T02:53:26.410616423Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-3267",
+                "y": "2117",
+                "label": "crypt",
+                "biome": "swamp"
+            }
+        ]
+    },
+    {
+        "id": "128",
+        "kind": "marker",
+        "created": "2023-07-29T03:06:36.088913023Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-3399",
+                "y": "2172",
+                "label": "crypt",
+                "biome": "swamp"
+            }
+        ]
+    },
+    {
+        "id": "129",
+        "kind": "marker",
+        "created": "2023-07-29T03:06:58.898958706Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3340",
+                "y": "2190",
+                "label": "crypt",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
         "id": "13",
         "created": "2023-07-27T21:47:01.491879929Z",
         "userId": "1",
@@ -926,6 +1037,34 @@
                 "x": "-1986",
                 "y": "360",
                 "label": "West Swamp"
+            }
+        ]
+    },
+    {
+        "id": "130",
+        "kind": "marker",
+        "created": "2023-07-29T03:56:16.089986699Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "-3131",
+                "y": "1439",
+                "label": "lox island",
+                "biome": "ocean"
+            }
+        ]
+    },
+    {
+        "id": "131",
+        "kind": "marker",
+        "created": "2023-07-30T02:51:59.501654013Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "184",
+                "y": "173",
+                "label": "cool dome house",
+                "biome": "meadows"
             }
         ]
     },

@@ -33,7 +33,7 @@ func (p *Poly) Delete(offsets ...int) {
 	}
 }
 
-func NewPoly(from PolyUpdate, userID string) *Poly {
+func NewPoly(from NewPolyData, userID string) *Poly {
 	return &Poly{
 		Points:  from.Points,
 		Kind:    from.Kind,
@@ -42,12 +42,11 @@ func NewPoly(from PolyUpdate, userID string) *Poly {
 	}
 }
 
-type PolyUpdate struct {
+type NewPolyData struct {
 	UserID string   `json:"userId,omitempty"`
-	PolyID string   `json:"id,omitempty"`
 	Kind   PolyKind `json:"kind,omitempty"`
 
-	Points []Point `json:"points"`
+	Points Points `json:"points"`
 }
 
 const (

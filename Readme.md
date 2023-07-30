@@ -2,7 +2,7 @@
 
 ```js
 let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/points/desmos-tables.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
+fetch("/backup/desmos-tables.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
     let points = poly.map(pt => ({x: pt[0], y: pt[1]}));
 
     if ([3].includes(i)) return;
@@ -20,7 +20,7 @@ fetch("/points/desmos-tables.json").then(res => res.json()).then(polys => polys.
 
 ```js
 let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/points/desmos-points.json").then(res => res.json()).then(pts => pts.map(pt => {
+fetch("/backup/desmos-points.json").then(res => res.json()).then(pts => pts.map(pt => {
     let [x,y] = pt.pos.split(",");
     const point = {
         x: x,
@@ -50,7 +50,7 @@ fetch("/polys", headers).then(res => {
 # Restore Points
 ```js
 let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/points/export.json").then(res => res.json()).then(async (polys) => {
+fetch("/backup/export.json").then(res => res.json()).then(async (polys) => {
     for (let poly of polys) {
        await fetch("/poly", { body: JSON.stringify(poly), method: "POST", headers: headers });
     }

@@ -1,5 +1,7 @@
 package app
 
+type Points []Point
+
 type Point struct {
 	X int `json:"x,string"`
 	Y int `json:"y,string"`
@@ -20,9 +22,4 @@ func NewPoint(x, y int, label, biome string) Point {
 		Label: label,
 		Biome: b,
 	}
-}
-
-type PointDelete struct {
-	PolyID      string `json:"polyId"`
-	PointOffset int    `json:"pointOffset"`
 }

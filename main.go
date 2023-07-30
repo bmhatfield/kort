@@ -4,23 +4,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/bmhatfield/kort/app"
 	"github.com/urfave/cli/v2"
 )
-
-var fs = http.FileServer(http.Dir("static"))
-
-func Logger(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		next(w, r)
-		if r.URL.Path != "/" {
-			log.Printf("%s %s (%s)", r.RequestURI, r.Method, time.Since(start))
-		}
-	}
-}
 
 func main() {
 	app := &cli.App{
@@ -38,14 +25,10 @@ func main() {
 			store := app.NewStore(c.String("db"), "users", "polys")
 			defer store.Cleanup()
 
-			server := app.NewServer(store)
-
-			mux := http.NewServeMux()
-			mux.Handle("/", Logger(fs.ServeHTTP))
-			server.Serve(mux)
+			router := app.NewRouter(app.NewService(store))
 
 			log.Printf("Listening on %s...", c.String("listen"))
-			return http.ListenAndServe(c.String("listen"), mux)
+			return http.ListenAndServe(c.String("listen"), router.Mux())
 		},
 	}
 

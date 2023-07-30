@@ -17,7 +17,16 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         newest = polys.reduce((a, b) => { return Number(a.id) > Number(b.id) ? a : b });
     }
 
-    let items = polys.filter(poly => poly.points.length > 1 || poly.id === newest.id).map(poly => {
+    let items = polys.filter(poly => {
+        return poly.points.length > 1 || poly.id === newest.id;
+    }).toSorted((a, b) => {
+        const an = Number(a.id);
+        const bn = Number(b.id);
+
+        if (an > bn) return 1;
+        if (bn > an) return -1;
+        return 0;
+    }).map(poly => {
         let showPoints = (activePolyId === poly.id);
         let points;
 
@@ -54,7 +63,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
                 </div>
                 {showPoints && <ul className={"pointset"}>{points}</ul>}
             </li>
-        )
+        );
     });
 
     return (
