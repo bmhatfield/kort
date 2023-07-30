@@ -1,4 +1,4 @@
-const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActivePoint, getUser, handlePointDelete }) => {
+const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActivePoint, getUser, remove }) => {
     if (polys === undefined) {
         return
     }
@@ -45,7 +45,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
                     <li className={className} key={i} onClick={(e) => setActivePoint(point)}>
                         <div>{label}</div>
                         <div>({point.x}, {point.y})</div>
-                        <div className={"pointdel"} key={i} onClick={(e) => handlePointDelete(e, poly.id, i)}>delete</div>
+                        <div className={"pointdel"} key={i} onClick={(e) => remove(poly.id, i)}>delete</div>
                     </li>
                 )
             })
