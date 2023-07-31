@@ -7,16 +7,19 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/r3labs/sse/v2"
 )
 
 type ContextKey string
 
 const (
 	UserContextKey ContextKey = "user"
+	PointStream    string     = "points"
 )
 
 type Service struct {
-	store *Store
+	store  *Store
+	events *sse.Server
 }
 
 func (s *Service) auth(next http.Handler) http.Handler {
@@ -206,8 +209,35 @@ func (s *Service) addPoints(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(UserContextKey).(*User)
+	if !ok {
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	var pts Points
+	err := s.decode(r, &pts)
+	if err != nil {
+		s.error(w, err)
+		return
+	}
+
+	for _, pt := range pts {
+		s.events.Publish(PointStream, &sse.Event{Data: PointEvent{
+			UserID: user.UserID,
+			Kind:   PingEvent,
+			Point:  pt,
+		}.Bytes()})
+	}
+}
+
 func NewService(store *Store) *Service {
+	events := sse.New()
+	events.CreateStream(PointStream)
+
 	return &Service{
-		store: store,
+		store:  store,
+		events: events,
 	}
 }

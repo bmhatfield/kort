@@ -1,4 +1,4 @@
-const Cartograph = ({ polys, activePoint, pingPoints }) => {
+const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints }) => {
     const [canvas, setCanvas] = React.useState();
 
     const cRef = React.useRef();
@@ -190,6 +190,25 @@ const Cartograph = ({ polys, activePoint, pingPoints }) => {
                 });
                 canvas.add(pingGroup);
             })
+        }
+
+        if (otherPingPoints != undefined) {
+            const opr = 3;
+            otherPingPoints.map(opp => {
+                const x = Number(opp.point.x);
+                const y = Number(opp.point.y);
+
+                let otherPingPoint = new fabric.Circle({
+                    top: -y-opr,
+                    left: x-opr,
+                    radius: opr,
+                    stroke: "purple",
+                    fill: "purple",
+                    strokeWidth: 1,
+                    absolutePositioned: true,
+                });
+                canvas.add(otherPingPoint);
+            });
         }
 
         // Force a single render

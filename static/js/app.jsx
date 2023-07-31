@@ -4,14 +4,33 @@ const App = () => {
     const [activePolyId, setActivePolyId] = React.useState("");
     const [activePoint, setActivePoint] = React.useState();
     const [pingPoints, setPingPoints] = React.useState([]);
+    const [otherPingPoints, setOtherPingPoints] = React.useState([]);
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [isLoading, setIsLoading] = React.useState(true);
     const [users, setUsers] = React.useState()
+    const [pointStream, setPointStream] = React.useState();
 
     const headers = { "Content-Type": "application/json" }
     if (bearer) {
         headers["Authorization"] = `Bearer ${bearer}`;
     }
+
+    React.useEffect(() => {
+        if (pointStream === undefined) {
+            const strm = new EventSource("/events?stream=points");
+            strm.onmessage = (e) => {
+                const m = JSON.parse(e.data)
+
+                setOtherPingPoints(prev => {
+                    return [ ...prev, m ];
+                });
+            }
+
+            setPointStream(strm);
+            return
+        }
+    }, [pointStream]);
+
 
     function handleLoginSubmit(e) {
         e.preventDefault();
@@ -122,6 +141,8 @@ const App = () => {
             ...pingPoints.slice(-4),  // keep last 4 points
             point
         ]);
+
+        fetch("/ping", { method: "PUT", headers: headers, body: JSON.stringify([{x: data.get("px"), y: data.get("py")}]) });
     }
 
     let userCache = {};
@@ -172,7 +193,7 @@ const App = () => {
 
     return (
         <div>
-            <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} />
+            <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} />
             <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
             <div id="ping">
                 <form id="pingform" onSubmit={handlePingSubmit}>
