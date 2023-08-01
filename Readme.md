@@ -1,58 +1,46 @@
-# Migrate Tables
+# Kort
 
-```js
-let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/backup/desmos-tables.json").then(res => res.json()).then(polys => polys.map((poly, i) => {
-    let points = poly.map(pt => ({x: pt[0], y: pt[1]}));
+A mapping tool for Valheim's nomap mode.
 
-    if ([3].includes(i)) return;
+## Features
 
-    const update = {
-        kind: ([5, 8, 11].includes(i) ) ? "outline" : "track",
-        points: points,
-    };
+- Large pannable/zoomable world map
+- Multi-user support
+- Record Markers, Tracks, and Outlines
+    - Marker: record a point of interest
+    - Track: record a path taken, such a road or sailing voyage
+    - Outline: record the borders of an area, such as an island or lake
+- Point and track list for managing points
+- Ping current location on map
+- Search point labels to find previous markers quickly
 
-    fetch("/poly", { headers: headers, body: JSON.stringify(update), method: "POST" });
-}));
-```
+### Coming Soon
 
-# Migrate Points
+- Multiplayer Ping & Point additions
+- UI improvements
+    - Track kind UX fix
+    - Entry box styling
+    - Point list styling
+    - Active poly highlight styling
+    - Hide/show Tracks and Markers
+    - Biome shading
+- Multi-map support
+- In UI user-management
 
-```js
-let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/backup/desmos-points.json").then(res => res.json()).then(pts => pts.map(pt => {
-    let [x,y] = pt.pos.split(",");
-    const point = {
-        x: x,
-        y: y,
-        label: pt.name,
-    };
+## Screenshot
 
-    const update = {
-        points: [point],
-    };
+![Jotunheim Spawn Map](/doc/Jotunheim.png?raw=true)
 
-    fetch("/poly", { headers: headers, body: JSON.stringify(update), method: "POST" });
-}));
-```
+## Running Kort
 
-# Export Points
+Run the server:
 
-```js
-let headers = {headers: {"Authorization": "Bearer " + localStorage.getItem("token")}};
-fetch("/polys", headers).then(res => {
-    return res.json();
-}).then(json => {
-    console.log(json);
-});
-```
+Run `go build` to produce the `kort` binary.
 
-# Restore Points
-```js
-let headers = {"Authorization": "Bearer " + localStorage.getItem("token")};
-fetch("/backup/export.json").then(res => res.json()).then(async (polys) => {
-    for (let poly of polys) {
-       await fetch("/poly", { body: JSON.stringify(poly), method: "POST", headers: headers });
-    }
-});
-```
+The server can be run with `./kort`, which will automatically start the api/web server.
+
+`kort` can also manage users with `./kort add-user` and `./kort edit-permissions`
+
+See `./kort --help` for more
+
+See also `static/backup/Readme.md` for sample points and backup snippets
