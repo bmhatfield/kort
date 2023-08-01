@@ -1,4 +1,4 @@
-# Kort
+# Kort ᚦᛚ
 
 A mapping tool for Valheim's nomap mode.
 
@@ -13,19 +13,6 @@ A mapping tool for Valheim's nomap mode.
 - Point and track list for managing points
 - Ping current location on map
 - Search point labels to find previous markers quickly
-
-### Coming Soon
-
-- Multiplayer Ping & Point additions
-- UI improvements
-    - Track kind UX fix
-    - Entry box styling
-    - Point list styling
-    - Active poly highlight styling
-    - Hide/show Tracks and Markers
-    - Biome shading
-- Multi-map support
-- In UI user-management
 
 ## Screenshot
 
@@ -44,3 +31,16 @@ The server can be run with `./kort`, which will automatically start the api/web 
 See `./kort --help` for more
 
 See also `static/backup/Readme.md` for sample points and backup snippets
+
+### Coming Soon
+
+- Multiplayer Live Ping & Point additions
+- UI improvements
+    - Track kind UX fix
+    - Entry box styling
+    - Point list styling
+    - Active poly highlight styling
+    - Hide/show Tracks and Markers
+    - Biome shading
+- Multi-map support
+- In UI user-management
