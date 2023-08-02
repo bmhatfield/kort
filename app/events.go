@@ -1,7 +1,5 @@
 package app
 
-import "encoding/json"
-
 const (
 	AppendEvent PointEventKind = "ap"
 	PingEvent   PointEventKind = "pg"
@@ -15,13 +13,4 @@ type PointEvent struct {
 
 	Kind  PointEventKind `json:"kind"`
 	Point Point          `json:"point"`
-}
-
-func (pe PointEvent) Bytes() []byte {
-	b, err := json.Marshal(pe)
-	if err != nil {
-		return nil
-	}
-
-	return b
 }

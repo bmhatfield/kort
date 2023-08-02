@@ -3,11 +3,12 @@ package app
 import (
 	"context"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/bmhatfield/kort/sse"
 	"github.com/go-chi/chi/v5"
-	"github.com/r3labs/sse/v2"
 )
 
 type ContextKey string
@@ -19,7 +20,7 @@ const (
 
 type Service struct {
 	store  *Store
-	events *sse.Server
+	events *sse.EventServer
 }
 
 func (s *Service) auth(next http.Handler) http.Handler {
@@ -224,17 +225,24 @@ func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, pt := range pts {
-		s.events.Publish(PointStream, &sse.Event{Data: PointEvent{
+		event, err := sse.NewJSON("", PointEvent{
 			UserID: user.UserID,
 			Kind:   PingEvent,
 			Point:  pt,
-		}.Bytes()})
+		})
+		if err != nil {
+			log.Printf("failed to create JSONEvent for Ping: %s", err)
+		}
+
+		if err := s.events.Broadcast(PointStream, event); err != nil {
+			log.Printf("failed to broadcast: %s", err)
+		}
 	}
 }
 
 func NewService(store *Store) *Service {
-	events := sse.New()
-	events.CreateStream(PointStream)
+	events := sse.NewEventServer()
+	events.Create(PointStream)
 
 	return &Service{
 		store:  store,

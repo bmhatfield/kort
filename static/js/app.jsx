@@ -19,12 +19,20 @@ const App = () => {
         if (pointStream === undefined) {
             const strm = new EventSource("/events?stream=points");
             strm.onmessage = (e) => {
-                const m = JSON.parse(e.data)
+                const m = JSON.parse(e.data);
 
                 setOtherPingPoints(prev => {
-                    return [ ...prev, m ];
+                    return [ ...prev.slice(-10), m ];
                 });
-            }
+
+                setTimeout(() => {
+                    setOtherPingPoints(prev => {
+                        return [...prev.filter((pt) =>  {
+                            return !(pt.point.x === m.point.x && pt.point.y === m.point.y);
+                        })];
+                    });
+                }, 10000);
+            };
 
             setPointStream(strm);
             return
@@ -193,7 +201,7 @@ const App = () => {
 
     return (
         <div>
-            <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} />
+            <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} getUser={getUser} />
             <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
             <div id="ping">
                 <form id="pingform" onSubmit={handlePingSubmit}>
