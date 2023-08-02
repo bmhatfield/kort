@@ -3,9 +3,11 @@ package app
 import (
 	"context"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/bmhatfield/kort/sse"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -13,10 +15,12 @@ type ContextKey string
 
 const (
 	UserContextKey ContextKey = "user"
+	PointStream    string     = "points"
 )
 
 type Service struct {
-	store *Store
+	store  *Store
+	events *sse.EventServer
 }
 
 func (s *Service) auth(next http.Handler) http.Handler {
@@ -206,8 +210,42 @@ func (s *Service) addPoints(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(UserContextKey).(*User)
+	if !ok {
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	var pts Points
+	err := s.decode(r, &pts)
+	if err != nil {
+		s.error(w, err)
+		return
+	}
+
+	for _, pt := range pts {
+		event, err := sse.NewJSON("", PointEvent{
+			UserID: user.UserID,
+			Kind:   PingEvent,
+			Point:  pt,
+		})
+		if err != nil {
+			log.Printf("failed to create JSONEvent for Ping: %s", err)
+		}
+
+		if err := s.events.Broadcast(PointStream, event); err != nil {
+			log.Printf("failed to broadcast: %s", err)
+		}
+	}
+}
+
 func NewService(store *Store) *Service {
+	events := sse.NewEventServer()
+	events.Create(PointStream)
+
 	return &Service{
-		store: store,
+		store:  store,
+		events: events,
 	}
 }

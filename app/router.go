@@ -61,7 +61,14 @@ func NewRouter(svc *Service) *Router {
 		r.Route("/points", func(r chi.Router) {
 			r.Put("/{polyId}", svc.addPoints)
 		})
+
+		r.Route("/ping", func(r chi.Router) {
+			r.Put("/", svc.pingPoint)
+		})
 	})
+
+	// Event stream. Auth not yet supported
+	r.Mount("/events", svc.events)
 
 	// File server
 	r.Mount("/", http.FileServer(http.Dir("static")))

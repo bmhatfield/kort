@@ -1,4 +1,4 @@
-const Cartograph = ({ polys, activePoint, pingPoints }) => {
+const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }) => {
     const [canvas, setCanvas] = React.useState();
 
     const cRef = React.useRef();
@@ -105,7 +105,6 @@ const Cartograph = ({ polys, activePoint, pingPoints }) => {
                         fill: "black",
                         fontFamily: "valheim",
                         fontSize: 20,
-                        selectable: true,
                     });
                     var lp = new fabric.Text(`(${x}, ${-y})`, {
                         top: 20 + opts.label.topOffset,
@@ -150,59 +149,104 @@ const Cartograph = ({ polys, activePoint, pingPoints }) => {
             }
         });
 
-        // Draw ping points
-        if (pingPoints != undefined) {
-            const opacity = 1;
-            const pingRadius = 2;
-            const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
+        // Force a full single render
+        canvas.renderAll();
+    }, [polys, activePoint, cRef]);
 
-            pingPoints.toReversed().map((pingPoint, i) => {
-                const fade = (opacity - (i*.20));
+    React.useEffect(() => {
+        if (activePoint === undefined) return;
 
-                let pingCenter = new fabric.Circle({
-                    top: -pingRadius,
-                    left: -pingRadius,
-                    radius: pingRadius,
-                    stroke: "#D80E70",
-                    fill: "#6B0848",
+        // Zoom to active point
+        zoomPoint(activePoint, .7);
+    }, [canvas, activePoint]);
+
+    React.useEffect(() => {
+        if (canvas === undefined) return;
+        if (pingPoints === undefined) return;
+
+        const opacity = 1;
+        const pingRadius = 2;
+        const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
+
+        pingPoints.toReversed().map((pingPoint, i) => {
+            const fade = (opacity - (i * .20));
+
+            let pingCenter = new fabric.Circle({
+                top: -pingRadius,
+                left: -pingRadius,
+                radius: pingRadius,
+                stroke: "#D80E70",
+                fill: "#6B0848",
+                strokeWidth: 1,
+                absolutePositioned: true,
+                opacity: fade
+            });
+
+            let rad = pingRadius;
+            let pingRadii = circleColors.slice(i).map((color, i) => {
+                rad = pingRadius * (i + i + 3);
+                return new fabric.Circle({
+                    top: -rad,
+                    left: -rad,
+                    radius: rad,
+                    stroke: color,
+                    fill: noFill,
                     strokeWidth: 1,
                     absolutePositioned: true,
                     opacity: fade
                 });
+            });
 
-                let pingRadii = circleColors.slice(i).map((color, i) => {
-                    let rad = pingRadius * (i + i + 3);
-                    return new fabric.Circle({
-                        top: -rad,
-                        left: -rad,
-                        radius: rad,
-                        stroke: color,
-                        fill: noFill,
-                        strokeWidth: 1,
-                        absolutePositioned: true,
-                        opacity: fade
-                    });
-                });
-
-                let pingGroup = new fabric.Group([pingCenter, ...pingRadii], {
-                    top: -pingPoint.y - pingRadius,
-                    left: pingPoint.x - pingRadius,
-                });
-                canvas.add(pingGroup);
-            })
-        }
+            let pingGroup = new fabric.Group([pingCenter, ...pingRadii], {
+                top: -pingPoint.y - rad,
+                left: pingPoint.x - rad,
+            });
+            canvas.add(pingGroup);
+        });
 
         // Force a single render
-        canvas.renderAll();
-    }, [polys, activePoint, pingPoints, cRef]);
+        canvas.requestRenderAll();
+    }, [canvas, pingPoints]);
 
     React.useEffect(() => {
-        if (activePoint !== undefined) {
-            // Zoom to active point
-            zoomPoint(activePoint, .7);
-            return
-        }
-    });
+        if (canvas === undefined) return;
+        if (otherPingPoints === undefined) return;
+
+        const opr = 3;
+        otherPingPoints.map(opp => {
+            let users = getUser(opp.userId);
+            if (users !== undefined && users.length > 0) {
+                const user = users[0];
+                const x = Number(opp.point.x);
+                const y = Number(opp.point.y);
+
+                let otherPingPoint = new fabric.Circle({
+                    radius: opr,
+                    stroke: "",
+                    fill: "purple",
+                    absolutePositioned: true,
+                });
+
+                let name = new fabric.Text(user.name, {
+                    top: -5,
+                    left: 10,
+                    fill: "black",
+                    fontFamily: "valheim",
+                    fontSize: 15,
+                });
+
+                let otherGroup = new fabric.Group([otherPingPoint, name], {
+                    top: -y-opr-5,
+                    left: x-opr,
+                });
+
+                canvas.add(otherGroup);
+            };
+        });
+
+        // Force a single render
+        canvas.requestRenderAll();
+    }, [canvas, otherPingPoints]);
 
     function zoomPoint(point, zm) {
         canvas.setZoom(zm);
