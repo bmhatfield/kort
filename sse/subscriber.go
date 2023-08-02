@@ -35,6 +35,10 @@ func (s Subscriber) WriteEvents(w http.ResponseWriter) error {
 	w.Header().Set("Connection", "keep-alive")
 	w.Header().Set("Transfer-Encoding", "chunked")
 
+	// Initial write to ensure headers are pushed
+	w.WriteHeader(http.StatusOK)
+	f.Flush()
+
 	// Stream events
 	for event := range s.events {
 		if t := event.Type(); t != "" {
