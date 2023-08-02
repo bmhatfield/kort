@@ -1,5 +1,6 @@
 const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }) => {
     const [canvas, setCanvas] = React.useState();
+    const [otherPingObjects, setOtherPingObjects] = React.useState();
 
     const cRef = React.useRef();
 
@@ -212,8 +213,13 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         if (canvas === undefined) return;
         if (otherPingPoints === undefined) return;
 
+        // clean up other ping objects to ensure no double-draw
+        if (otherPingObjects !== undefined) {
+            otherPingObjects.map((obj) => canvas.remove(obj));
+        }
+
         const opr = 3;
-        otherPingPoints.map(opp => {
+        let groups = otherPingPoints.map(opp => {
             let users = getUser(opp.userId);
             if (users !== undefined && users.length > 0) {
                 const user = users[0];
@@ -241,8 +247,10 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 });
 
                 canvas.add(otherGroup);
+                return otherGroup;
             };
         });
+        setOtherPingObjects(groups);
 
         // Force a single render
         canvas.requestRenderAll();
