@@ -18,20 +18,26 @@ const App = () => {
     React.useEffect(() => {
         if (pointStream === undefined) {
             const strm = new EventSource("/events?stream=points");
+
+            // Message handler.
+            // Note: equivalent to addEventListener("message", (e) => { ... })
+            // TODO: different event types
             strm.onmessage = (e) => {
                 const m = JSON.parse(e.data);
 
+                // Add new point. Keep a max of 20 previous.
                 setOtherPingPoints(prev => {
-                    return [ ...prev.slice(-10), m ];
+                    return [ ...prev.slice(-20), m ];
                 });
 
+                // Clear the point after 90 seconds.
                 setTimeout(() => {
                     setOtherPingPoints(prev => {
                         return [...prev.filter((pt) =>  {
                             return !(pt.point.x === m.point.x && pt.point.y === m.point.y);
                         })];
                     });
-                }, 10000);
+                }, 90000);
             };
 
             setPointStream(strm);
