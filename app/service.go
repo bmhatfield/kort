@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/bmhatfield/kort/sse"
+	"github.com/bmhatfield/sse"
 	"github.com/go-chi/chi/v5"
 )
 
