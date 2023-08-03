@@ -2,27 +2,34 @@ package sse
 
 import "encoding/json"
 
-type jsonEvent struct {
+type event struct {
 	kind string
 	data []byte
 }
 
-func (j jsonEvent) Type() string {
-	return j.kind
+func (e event) Type() string {
+	return e.kind
 }
 
-func (j jsonEvent) Data() []byte {
-	return j.data
+func (e event) Data() []byte {
+	return e.data
 }
 
-func NewJSON(kind string, data any) (Event, error) {
+func JSONEvent(kind string, data any) (Event, error) {
 	b, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
 
-	return jsonEvent{
+	return event{
 		kind: kind,
 		data: b,
 	}, nil
+}
+
+func NewEvent(kind string, data []byte) Event {
+	return event{
+		kind: kind,
+		data: data,
+	}
 }

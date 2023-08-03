@@ -225,7 +225,7 @@ func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, pt := range pts {
-		event, err := sse.NewJSON("", PointEvent{
+		event, err := sse.JSONEvent("", PointEvent{
 			UserID: user.UserID,
 			Kind:   PingEvent,
 			Point:  pt,

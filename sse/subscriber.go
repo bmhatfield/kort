@@ -18,7 +18,7 @@ func (s Subscriber) Push(event Event) error {
 	case s.events <- event:
 		return nil
 	default:
-		return fmt.Errorf("unable to push event - subscriber %s lagging", s.id)
+		return fmt.Errorf("subscriber %s full", s.id)
 	}
 }
 

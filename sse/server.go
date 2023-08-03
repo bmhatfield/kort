@@ -11,8 +11,6 @@ type Event interface {
 }
 
 type EventServer struct {
-	events chan Event
-
 	topics *Topics
 }
 
@@ -43,7 +41,6 @@ func (e *EventServer) Create(name string) {
 
 func NewEventServer() *EventServer {
 	return &EventServer{
-		events: make(chan Event, 100),
 		topics: NewTopics(),
 	}
 }
