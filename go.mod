@@ -3,7 +3,7 @@ module github.com/bmhatfield/kort
 go 1.20
 
 require (
-	github.com/bmhatfield/sse v0.1.0
+	github.com/bmhatfield/sse v0.2.0
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/vmihailenco/msgpack/v5 v5.3.5
 	go.etcd.io/bbolt v1.3.7
