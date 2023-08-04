@@ -1,20 +1,34 @@
 const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }) => {
     const [canvas, setCanvas] = React.useState();
+    const [dimensions, setDimensions] = React.useState({
+        height: window.innerHeight,
+        width: window.innerWidth
+    });
     const [otherPingObjects, setOtherPingObjects] = React.useState();
 
     const cRef = React.useRef();
 
     const noFill = "";
 
+    function resized() {
+        setDimensions({
+            height: window.innerHeight,
+            width: window.innerWidth
+        });
+    };
+
+    React.useEffect(() => {
+        window.addEventListener("resize", resized);
+        return () => window.removeEventListener("resize", resized);
+    }, []);
+
     React.useEffect(() => {
         const scale = 0.25;
 
-        const height = window.innerHeight;
-        const width = window.innerWidth
         var canvas = new fabric.StaticCanvas(cRef.current, {
-            height: height,
-            width: width,
-            viewportTransform: [scale, 0, 0, scale, (width / 2), (height / 2)],
+            height: dimensions.height,
+            width: dimensions.width,
+            viewportTransform: [scale, 0, 0, scale, (dimensions.width / 2), (dimensions.height / 2)],
             renderOnAddRemove: false,
         });
         setCanvas(canvas);
@@ -57,9 +71,12 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         });
         canvas.add(warning);
 
-        if (polys === undefined) {
-            return
-        }
+        // Force a full single render
+        canvas.requestRenderAll();
+    }, [dimensions, cRef]);
+
+    React.useEffect(() => {
+        if (polys === undefined) return
 
         // Settings
         const opts = {
@@ -150,9 +167,8 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             }
         });
 
-        // Force a full single render
-        canvas.renderAll();
-    }, [polys, activePoint, cRef]);
+        canvas.requestRenderAll();
+    }, [canvas, polys]);
 
     React.useEffect(() => {
         if (activePoint === undefined) return;
@@ -242,8 +258,8 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 });
 
                 let otherGroup = new fabric.Group([otherPingPoint, name], {
-                    top: -y-opr-5,
-                    left: x-opr,
+                    top: -y - opr - 5,
+                    left: x - opr,
                 });
 
                 canvas.add(otherGroup);

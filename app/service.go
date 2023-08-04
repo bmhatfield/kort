@@ -225,9 +225,8 @@ func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, pt := range pts {
-		event, err := sse.JSONEvent("", PointEvent{
+		event, err := sse.JSONEvent(EventPing, PingEvent{
 			UserID: user.UserID,
-			Kind:   PingEvent,
 			Point:  pt,
 		})
 		if err != nil {
@@ -238,6 +237,8 @@ func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
 			log.Printf("failed to broadcast: %s", err)
 		}
 	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func NewService(store *Store) *Service {

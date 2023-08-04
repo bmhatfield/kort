@@ -17,12 +17,10 @@ const App = () => {
 
     React.useEffect(() => {
         if (pointStream === undefined) {
-            const strm = new EventSource("/events?stream=points");
+            const stream = new EventSource("/events?stream=points");
 
-            // Message handler.
-            // Note: equivalent to addEventListener("message", (e) => { ... })
-            // TODO: different event types
-            strm.onmessage = (e) => {
+            // Ping handler
+            stream.addEventListener("ping", (e) => {
                 const m = JSON.parse(e.data);
 
                 // Add new point. Keep a max of 20 previous.
@@ -37,10 +35,10 @@ const App = () => {
                             return !(pt.point.x === m.point.x && pt.point.y === m.point.y);
                         })];
                     });
-                }, 90000);
-            };
+                }, 300000);
+            });
 
-            setPointStream(strm);
+            setPointStream(stream);
             return
         }
     }, [pointStream]);

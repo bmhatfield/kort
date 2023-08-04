@@ -1,16 +1,19 @@
 package app
 
 const (
-	AppendEvent PointEventKind = "ap"
-	PingEvent   PointEventKind = "pg"
+	EventAppend = "append"
+	EventPing   = "ping"
 )
 
-type PointEventKind string
-
-type PointEvent struct {
+type PingEvent struct {
 	UserID string `json:"userId"`
-	PolyID string `json:"polyId,omitempty"`
 
-	Kind  PointEventKind `json:"kind"`
-	Point Point          `json:"point"`
+	Point Point `json:"point"`
+}
+
+type AppendEvent struct {
+	UserID string `json:"userId"`
+	PolyID string `json:"polyId"`
+
+	Point Point `json:"point"`
 }
