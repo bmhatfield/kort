@@ -391,6 +391,77 @@
                 "x": "-2481",
                 "y": "535",
                 "biome": "forest"
+            },
+            {
+                "x": "-2532",
+                "y": "543",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2528",
+                "y": "513",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2532",
+                "y": "415",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2539",
+                "y": "357",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2539",
+                "y": "271",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2548",
+                "y": "217",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2541",
+                "y": "176",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2536",
+                "y": "113",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2528",
+                "y": "37",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2511",
+                "y": "-21",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2473",
+                "y": "17",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2446",
+                "y": "67",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2342",
+                "y": "148",
+                "label": "Hut",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2267",
+                "y": "157",
+                "biome": "swamp"
             }
         ]
     },
@@ -857,6 +928,351 @@
                 "x": "975",
                 "y": "-3889",
                 "biome": "plains"
+            },
+            {
+                "x": "952",
+                "y": "-3978",
+                "biome": "plains"
+            },
+            {
+                "x": "945",
+                "y": "-4060",
+                "biome": "plains"
+            },
+            {
+                "x": "965",
+                "y": "-4117",
+                "biome": "plains"
+            },
+            {
+                "x": "947",
+                "y": "-4158",
+                "biome": "plains"
+            },
+            {
+                "x": "901",
+                "y": "-4193",
+                "biome": "plains"
+            },
+            {
+                "x": "838",
+                "y": "-4217",
+                "biome": "plains"
+            },
+            {
+                "x": "770",
+                "y": "-4194",
+                "biome": "plains"
+            },
+            {
+                "x": "704",
+                "y": "-4165",
+                "biome": "plains"
+            },
+            {
+                "x": "626",
+                "y": "-4187",
+                "biome": "plains"
+            },
+            {
+                "x": "579",
+                "y": "-4136",
+                "biome": "plains"
+            },
+            {
+                "x": "541",
+                "y": "-4137",
+                "biome": "plains"
+            },
+            {
+                "x": "457",
+                "y": "-4091",
+                "biome": "plains"
+            },
+            {
+                "x": "393",
+                "y": "-3997",
+                "biome": "plains"
+            },
+            {
+                "x": "359",
+                "y": "-3892",
+                "biome": "plains"
+            },
+            {
+                "x": "343",
+                "y": "-3829",
+                "biome": "forest"
+            },
+            {
+                "x": "341",
+                "y": "-3716",
+                "biome": "forest"
+            },
+            {
+                "x": "370",
+                "y": "-3681",
+                "biome": "forest"
+            },
+            {
+                "x": "446",
+                "y": "-3631",
+                "biome": "forest"
+            },
+            {
+                "x": "522",
+                "y": "-3597",
+                "biome": "forest"
+            },
+            {
+                "x": "629",
+                "y": "-3564",
+                "biome": "forest"
+            },
+            {
+                "x": "694",
+                "y": "-3530",
+                "biome": "forest"
+            },
+            {
+                "x": "730",
+                "y": "-3510",
+                "biome": "plains"
+            },
+            {
+                "x": "781",
+                "y": "-3448",
+                "biome": "plains"
+            },
+            {
+                "x": "820",
+                "y": "-3347",
+                "biome": "plains"
+            },
+            {
+                "x": "820",
+                "y": "-3253",
+                "biome": "plains"
+            },
+            {
+                "x": "823",
+                "y": "-3176",
+                "biome": "plains"
+            },
+            {
+                "x": "850",
+                "y": "-3138",
+                "biome": "swamp"
+            },
+            {
+                "x": "878",
+                "y": "-3038",
+                "biome": "swamp"
+            },
+            {
+                "x": "905",
+                "y": "-3016",
+                "biome": "swamp"
+            },
+            {
+                "x": "990",
+                "y": "-2912",
+                "biome": "swamp"
+            },
+            {
+                "x": "1057",
+                "y": "-2847",
+                "biome": "swamp"
+            },
+            {
+                "x": "1116",
+                "y": "-2696",
+                "biome": "swamp"
+            },
+            {
+                "x": "1121",
+                "y": "-2650",
+                "biome": "swamp"
+            },
+            {
+                "x": "1115",
+                "y": "-2618",
+                "label": "SFB base (c: 10)",
+                "biome": "swamp"
+            },
+            {
+                "x": "1116",
+                "y": "-2529",
+                "biome": "swamp"
+            },
+            {
+                "x": "1072",
+                "y": "-2468",
+                "biome": "meadows"
+            },
+            {
+                "x": "969",
+                "y": "-2475",
+                "biome": "meadows"
+            },
+            {
+                "x": "921",
+                "y": "-2482",
+                "biome": "meadows"
+            },
+            {
+                "x": "867",
+                "y": "-2493",
+                "biome": "meadows"
+            },
+            {
+                "x": "730",
+                "y": "-2554",
+                "label": "Neat Base",
+                "biome": "meadows"
+            },
+            {
+                "x": "649",
+                "y": "-2615",
+                "biome": "forest"
+            },
+            {
+                "x": "532",
+                "y": "-2618",
+                "biome": "forest"
+            },
+            {
+                "x": "491",
+                "y": "-2689",
+                "biome": "forest"
+            },
+            {
+                "x": "437",
+                "y": "-2732",
+                "biome": "forest"
+            },
+            {
+                "x": "387",
+                "y": "-2812",
+                "biome": "forest"
+            },
+            {
+                "x": "244",
+                "y": "-2863",
+                "label": "Fenrir Plains",
+                "biome": "forest"
+            },
+            {
+                "x": "113",
+                "y": "-2878",
+                "biome": "forest"
+            },
+            {
+                "x": "49",
+                "y": "-2930",
+                "label": "Lighthouse",
+                "biome": "forest"
+            },
+            {
+                "x": "-24",
+                "y": "-2829",
+                "biome": "forest"
+            },
+            {
+                "x": "-74",
+                "y": "-2797",
+                "biome": "forest"
+            },
+            {
+                "x": "-130",
+                "y": "-2689",
+                "biome": "forest"
+            },
+            {
+                "x": "-181",
+                "y": "-2641",
+                "biome": "forest"
+            },
+            {
+                "x": "-210",
+                "y": "-2518",
+                "biome": "forest"
+            },
+            {
+                "x": "-246",
+                "y": "-2459",
+                "label": "Nice lil hut",
+                "biome": "forest"
+            },
+            {
+                "x": "-308",
+                "y": "-2400",
+                "biome": "forest"
+            },
+            {
+                "x": "-352",
+                "y": "-2379",
+                "biome": "meadows"
+            },
+            {
+                "x": "-389",
+                "y": "-2363",
+                "biome": "meadows"
+            },
+            {
+                "x": "-397",
+                "y": "-2322",
+                "biome": "meadows"
+            },
+            {
+                "x": "-395",
+                "y": "-2266",
+                "biome": "meadows"
+            },
+            {
+                "x": "-345",
+                "y": "-2224",
+                "biome": "meadows"
+            },
+            {
+                "x": "-313",
+                "y": "-2247",
+                "biome": "meadows"
+            },
+            {
+                "x": "-296",
+                "y": "-2188",
+                "biome": "meadows"
+            },
+            {
+                "x": "-214",
+                "y": "-2163",
+                "biome": "meadows"
+            },
+            {
+                "x": "-174",
+                "y": "-2133",
+                "biome": "swamp"
+            },
+            {
+                "x": "-189",
+                "y": "-2075",
+                "biome": "swamp"
+            },
+            {
+                "x": "-152",
+                "y": "-2014",
+                "biome": "swamp"
+            },
+            {
+                "x": "-77",
+                "y": "-1997",
+                "biome": "swamp"
+            },
+            {
+                "x": "-55",
+                "y": "-1976",
+                "biome": "meadows"
             }
         ]
     },
@@ -1065,6 +1481,605 @@
                 "y": "173",
                 "label": "cool dome house",
                 "biome": "meadows"
+            }
+        ]
+    },
+    {
+        "id": "132",
+        "kind": "marker",
+        "created": "2023-07-31T01:54:19.012893181Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-487",
+                "y": "-2360",
+                "label": "admin bridge",
+                "biome": "ocean"
+            }
+        ]
+    },
+    {
+        "id": "133",
+        "kind": "track",
+        "created": "2023-07-31T02:08:54.498302616Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-218",
+                "y": "-2281",
+                "label": "Huge Admin Bridge",
+                "biome": "meadows"
+            },
+            {
+                "x": "-724",
+                "y": "-2490",
+                "biome": "meadows"
+            }
+        ]
+    },
+    {
+        "id": "134",
+        "kind": "outline",
+        "created": "2023-07-31T02:14:39.90645457Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-848",
+                "y": "-2241",
+                "biome": "meadows"
+            },
+            {
+                "x": "-793",
+                "y": "-2298",
+                "biome": "meadows"
+            },
+            {
+                "x": "-777",
+                "y": "-2313",
+                "biome": "meadows"
+            },
+            {
+                "x": "-727",
+                "y": "-2382",
+                "biome": "meadows"
+            },
+            {
+                "x": "-692",
+                "y": "-2418",
+                "label": "hut",
+                "biome": "meadows"
+            },
+            {
+                "x": "-637",
+                "y": "-2515",
+                "biome": "forest"
+            },
+            {
+                "x": "-592",
+                "y": "-2583",
+                "biome": "forest"
+            },
+            {
+                "x": "-563",
+                "y": "-2624",
+                "biome": "forest"
+            },
+            {
+                "x": "-520",
+                "y": "-2690",
+                "label": "Krash hut",
+                "biome": "forest"
+            },
+            {
+                "x": "-488",
+                "y": "-2749",
+                "biome": "forest"
+            },
+            {
+                "x": "-472",
+                "y": "-2802",
+                "biome": "forest"
+            },
+            {
+                "x": "-446",
+                "y": "-2872",
+                "biome": "forest"
+            },
+            {
+                "x": "-420",
+                "y": "-2940",
+                "label": "Stick House",
+                "biome": "forest"
+            },
+            {
+                "x": "-392",
+                "y": "-2990",
+                "biome": "forest"
+            },
+            {
+                "x": "-393",
+                "y": "-3046",
+                "label": "Field",
+                "biome": "plains"
+            },
+            {
+                "x": "-345",
+                "y": "-3085",
+                "biome": "plains"
+            },
+            {
+                "x": "-339",
+                "y": "-3112",
+                "biome": "plains"
+            },
+            {
+                "x": "-309",
+                "y": "-3123",
+                "biome": "plains"
+            },
+            {
+                "x": "-327",
+                "y": "-3176",
+                "biome": "plains"
+            },
+            {
+                "x": "-344",
+                "y": "-3223",
+                "biome": "plains"
+            },
+            {
+                "x": "-366",
+                "y": "-3371",
+                "biome": "plains"
+            },
+            {
+                "x": "-392",
+                "y": "-3349",
+                "biome": "plains"
+            },
+            {
+                "x": "-427",
+                "y": "-3364",
+                "biome": "plains"
+            },
+            {
+                "x": "-486",
+                "y": "-3404",
+                "biome": "plains"
+            },
+            {
+                "x": "-516",
+                "y": "-3409",
+                "biome": "plains"
+            },
+            {
+                "x": "-521",
+                "y": "-3447",
+                "biome": "swamp"
+            },
+            {
+                "x": "-437",
+                "y": "-3534",
+                "biome": "swamp"
+            },
+            {
+                "x": "-366",
+                "y": "-3553",
+                "biome": "swamp"
+            },
+            {
+                "x": "-326",
+                "y": "-3583",
+                "biome": "swamp"
+            },
+            {
+                "x": "-283",
+                "y": "-3610",
+                "biome": "swamp"
+            },
+            {
+                "x": "-285",
+                "y": "-3659",
+                "biome": "swamp"
+            },
+            {
+                "x": "-283",
+                "y": "-3718",
+                "biome": "swamp"
+            },
+            {
+                "x": "-310",
+                "y": "-3817",
+                "biome": "swamp"
+            },
+            {
+                "x": "-352",
+                "y": "-3905",
+                "biome": "swamp"
+            },
+            {
+                "x": "-384",
+                "y": "-3956",
+                "biome": "swamp"
+            },
+            {
+                "x": "-427",
+                "y": "-4011",
+                "biome": "swamp"
+            },
+            {
+                "x": "-480",
+                "y": "-4009",
+                "biome": "swamp"
+            },
+            {
+                "x": "-570",
+                "y": "-4069",
+                "biome": "swamp"
+            },
+            {
+                "x": "-616",
+                "y": "-4109",
+                "biome": "swamp"
+            },
+            {
+                "x": "-692",
+                "y": "-4084",
+                "biome": "swamp"
+            },
+            {
+                "x": "-850",
+                "y": "-4036",
+                "label": "Giant Swamp Base",
+                "biome": "swamp"
+            },
+            {
+                "x": "-963",
+                "y": "-4046",
+                "biome": "plains"
+            },
+            {
+                "x": "-1024",
+                "y": "-3996",
+                "biome": "plains"
+            },
+            {
+                "x": "-1087",
+                "y": "-3942",
+                "biome": "plains"
+            },
+            {
+                "x": "-1127",
+                "y": "-3870",
+                "biome": "plains"
+            },
+            {
+                "x": "-1166",
+                "y": "-3838",
+                "biome": "plains"
+            },
+            {
+                "x": "-1147",
+                "y": "-3743",
+                "biome": "plains"
+            },
+            {
+                "x": "-1153",
+                "y": "-3643",
+                "biome": "plains"
+            },
+            {
+                "x": "-1140",
+                "y": "-3605",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1146",
+                "y": "-3568",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1150",
+                "y": "-3526",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1183",
+                "y": "-3491",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1212",
+                "y": "-3473",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1209",
+                "y": "-3408",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1221",
+                "y": "-3351",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1268",
+                "y": "-3341",
+                "biome": "plains"
+            },
+            {
+                "x": "-1335",
+                "y": "-3307",
+                "label": "Farm",
+                "biome": "plains"
+            },
+            {
+                "x": "-1396",
+                "y": "-3287",
+                "label": "Diving Board",
+                "biome": "plains"
+            },
+            {
+                "x": "-1404",
+                "y": "-3254",
+                "biome": "forest"
+            },
+            {
+                "x": "-1433",
+                "y": "-3186",
+                "biome": "forest"
+            },
+            {
+                "x": "-1477",
+                "y": "-3079",
+                "biome": "forest"
+            },
+            {
+                "x": "-1510",
+                "y": "-3012",
+                "label": "Future Bridge",
+                "biome": "forest"
+            },
+            {
+                "x": "-1520",
+                "y": "-2915",
+                "biome": "plains"
+            },
+            {
+                "x": "-1508",
+                "y": "-2880",
+                "biome": "plains"
+            },
+            {
+                "x": "-1495",
+                "y": "-2857",
+                "biome": "plains"
+            },
+            {
+                "x": "-1497",
+                "y": "-2811",
+                "biome": "plains"
+            },
+            {
+                "x": "-1497",
+                "y": "-2776",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1480",
+                "y": "-2711",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1403",
+                "y": "-2648",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1372",
+                "y": "-2607",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1282",
+                "y": "-2558",
+                "biome": "swamp"
+            },
+            {
+                "x": "-1222",
+                "y": "-2521",
+                "biome": "forest"
+            },
+            {
+                "x": "-1177",
+                "y": "-2475",
+                "biome": "forest"
+            },
+            {
+                "x": "-1112",
+                "y": "-2408",
+                "label": "Repair",
+                "biome": "forest"
+            },
+            {
+                "x": "-1076",
+                "y": "-2312",
+                "biome": "forest"
+            },
+            {
+                "x": "-998",
+                "y": "-2224",
+                "biome": "forest"
+            },
+            {
+                "x": "-972",
+                "y": "-2183",
+                "biome": "forest"
+            },
+            {
+                "x": "-950",
+                "y": "-2223",
+                "biome": "meadows"
+            },
+            {
+                "x": "-919",
+                "y": "-2229",
+                "biome": "meadows"
+            },
+            {
+                "x": "-848",
+                "y": "-2241",
+                "biome": "meadows"
+            }
+        ]
+    },
+    {
+        "id": "135",
+        "kind": "track",
+        "created": "2023-07-31T02:49:54.89910781Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "668",
+                "y": "-954",
+                "biome": "forest"
+            },
+            {
+                "x": "645",
+                "y": "-902",
+                "biome": "forest"
+            },
+            {
+                "x": "620",
+                "y": "-877",
+                "biome": "forest"
+            },
+            {
+                "x": "619",
+                "y": "-845",
+                "biome": "forest"
+            },
+            {
+                "x": "612",
+                "y": "-824",
+                "biome": "forest"
+            },
+            {
+                "x": "627",
+                "y": "-791",
+                "biome": "forest"
+            },
+            {
+                "x": "658",
+                "y": "-785",
+                "biome": "forest"
+            },
+            {
+                "x": "700",
+                "y": "-797",
+                "biome": "forest"
+            },
+            {
+                "x": "734",
+                "y": "-802",
+                "biome": "forest"
+            },
+            {
+                "x": "759",
+                "y": "-782",
+                "biome": "forest"
+            },
+            {
+                "x": "766",
+                "y": "-755",
+                "biome": "forest"
+            },
+            {
+                "x": "770",
+                "y": "-712",
+                "biome": "forest"
+            },
+            {
+                "x": "752",
+                "y": "-680",
+                "biome": "forest"
+            },
+            {
+                "x": "759",
+                "y": "-642",
+                "biome": "forest"
+            },
+            {
+                "x": "742",
+                "y": "-619",
+                "biome": "forest"
+            },
+            {
+                "x": "741",
+                "y": "-581",
+                "biome": "forest"
+            },
+            {
+                "x": "736",
+                "y": "-552",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "136",
+        "kind": "marker",
+        "created": "2023-07-31T02:56:21.004192786Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "759",
+                "y": "-782",
+                "label": "mountain pass",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "137",
+        "kind": "marker",
+        "created": "2023-07-31T03:08:24.405329367Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "590",
+                "y": "406",
+                "label": "hectic way / shore rd Xing",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "138",
+        "kind": "marker",
+        "created": "2023-07-31T03:10:27.910531086Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "649",
+                "y": "828",
+                "label": "shore rd entrance",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "139",
+        "kind": "marker",
+        "created": "2023-07-31T03:10:58.593035101Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "1102",
+                "y": "-644",
+                "label": "Hut",
+                "biome": "mountain"
             }
         ]
     },
@@ -1599,6 +2614,369 @@
         ]
     },
     {
+        "id": "140",
+        "kind": "track",
+        "created": "2023-07-31T03:10:59.493987727Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "649",
+                "y": "828",
+                "biome": "forest"
+            },
+            {
+                "x": "600",
+                "y": "789",
+                "biome": "forest"
+            },
+            {
+                "x": "576",
+                "y": "766",
+                "biome": "forest"
+            },
+            {
+                "x": "529",
+                "y": "768",
+                "biome": "forest"
+            },
+            {
+                "x": "483",
+                "y": "717",
+                "biome": "forest"
+            },
+            {
+                "x": "438",
+                "y": "658",
+                "biome": "forest"
+            },
+            {
+                "x": "408",
+                "y": "607",
+                "biome": "forest"
+            },
+            {
+                "x": "351",
+                "y": "588",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "141",
+        "kind": "marker",
+        "created": "2023-07-31T03:18:17.910706023Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "486",
+                "y": "539",
+                "label": "jaytex's Place",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "142",
+        "kind": "track",
+        "created": "2023-08-01T01:25:56.09738954Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "842",
+                "y": "-296",
+                "biome": "meadows"
+            },
+            {
+                "x": "872",
+                "y": "-234",
+                "biome": "meadows"
+            },
+            {
+                "x": "887",
+                "y": "-204",
+                "biome": "meadows"
+            },
+            {
+                "x": "869",
+                "y": "-173",
+                "biome": "meadows"
+            },
+            {
+                "x": "870",
+                "y": "-160",
+                "biome": "meadows"
+            },
+            {
+                "x": "831",
+                "y": "-152",
+                "biome": "meadows"
+            },
+            {
+                "x": "784",
+                "y": "-145",
+                "biome": "meadows"
+            },
+            {
+                "x": "742",
+                "y": "-101",
+                "biome": "meadows"
+            },
+            {
+                "x": "709",
+                "y": "-65",
+                "biome": "meadows"
+            },
+            {
+                "x": "664",
+                "y": "-15",
+                "biome": "meadows"
+            },
+            {
+                "x": "674",
+                "y": "68",
+                "biome": "meadows"
+            },
+            {
+                "x": "675",
+                "y": "109",
+                "biome": "meadows"
+            },
+            {
+                "x": "632",
+                "y": "106",
+                "biome": "meadows"
+            },
+            {
+                "x": "614",
+                "y": "158",
+                "biome": "meadows"
+            },
+            {
+                "x": "615",
+                "y": "187",
+                "label": "repair stop",
+                "biome": "meadows"
+            },
+            {
+                "x": "614",
+                "y": "243",
+                "biome": "meadows"
+            },
+            {
+                "x": "609",
+                "y": "361",
+                "biome": "meadows"
+            },
+            {
+                "x": "590",
+                "y": "408",
+                "biome": "meadows"
+            },
+            {
+                "x": "685",
+                "y": "410",
+                "biome": "meadows"
+            },
+            {
+                "x": "712",
+                "y": "428",
+                "biome": "meadows"
+            },
+            {
+                "x": "736",
+                "y": "439",
+                "biome": "meadows"
+            }
+        ]
+    },
+    {
+        "id": "143",
+        "kind": "track",
+        "created": "2023-08-01T01:39:57.697599417Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1167",
+                "y": "-93",
+                "biome": "forest"
+            },
+            {
+                "x": "1133",
+                "y": "-119",
+                "biome": "forest"
+            },
+            {
+                "x": "1139",
+                "y": "-182",
+                "biome": "forest"
+            },
+            {
+                "x": "1139",
+                "y": "-239",
+                "biome": "forest"
+            },
+            {
+                "x": "1157",
+                "y": "-265",
+                "biome": "forest"
+            },
+            {
+                "x": "1125",
+                "y": "-284",
+                "biome": "forest"
+            },
+            {
+                "x": "1177",
+                "y": "-312",
+                "biome": "forest"
+            },
+            {
+                "x": "1201",
+                "y": "-337",
+                "biome": "forest"
+            },
+            {
+                "x": "1255",
+                "y": "-387",
+                "biome": "forest"
+            },
+            {
+                "x": "1313",
+                "y": "-425",
+                "biome": "forest"
+            },
+            {
+                "x": "1318",
+                "y": "-461",
+                "biome": "forest"
+            },
+            {
+                "x": "1308",
+                "y": "-512",
+                "biome": "forest"
+            },
+            {
+                "x": "1324",
+                "y": "-538",
+                "biome": "forest"
+            },
+            {
+                "x": "1319",
+                "y": "-579",
+                "biome": "forest"
+            },
+            {
+                "x": "1357",
+                "y": "-601",
+                "biome": "forest"
+            },
+            {
+                "x": "1399",
+                "y": "-596",
+                "biome": "forest"
+            },
+            {
+                "x": "1410",
+                "y": "-569",
+                "biome": "forest"
+            },
+            {
+                "x": "1457",
+                "y": "-577",
+                "biome": "forest"
+            },
+            {
+                "x": "1483",
+                "y": "-596",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "144",
+        "kind": "marker",
+        "created": "2023-08-01T01:56:07.035746734Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1184",
+                "y": "-841",
+                "label": "copper",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "145",
+        "kind": "marker",
+        "created": "2023-08-01T01:57:34.204656826Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1164",
+                "y": "-915",
+                "label": "hut",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "146",
+        "kind": "marker",
+        "created": "2023-08-01T01:58:46.301907626Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1044",
+                "y": "-1051",
+                "label": "copper",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "147",
+        "kind": "marker",
+        "created": "2023-08-01T01:59:41.503511924Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1068",
+                "y": "-1105",
+                "label": "rest stop",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "148",
+        "kind": "marker",
+        "created": "2023-08-01T02:06:23.258743152Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-385",
+                "y": "-3191",
+                "label": "Tar Pit",
+                "biome": "plains"
+            }
+        ]
+    },
+    {
+        "id": "149",
+        "kind": "marker",
+        "created": "2023-08-01T02:06:50.796400664Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-381",
+                "y": "-3133",
+                "label": "Fueling Village",
+                "biome": "plains"
+            }
+        ]
+    },
+    {
         "id": "15",
         "kind": "outline",
         "created": "2023-07-27T21:47:01.902333425Z",
@@ -1647,6 +3025,793 @@
         ]
     },
     {
+        "id": "150",
+        "kind": "track",
+        "created": "2023-08-02T01:34:55.914495859Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "540",
+                "y": "-604",
+                "biome": "forest"
+            },
+            {
+                "x": "543",
+                "y": "-696",
+                "biome": "forest"
+            },
+            {
+                "x": "542",
+                "y": "-733",
+                "label": "road",
+                "biome": "forest"
+            },
+            {
+                "x": "542",
+                "y": "-817",
+                "biome": "forest"
+            },
+            {
+                "x": "530",
+                "y": "-851",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "151",
+        "kind": "marker",
+        "created": "2023-08-02T01:40:55.699354833Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1115",
+                "y": "-1305",
+                "label": "bulldogge & NithYa House",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "152",
+        "kind": "marker",
+        "created": "2023-08-02T01:44:25.207850826Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1374",
+                "y": "-1354",
+                "label": "crypt",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "153",
+        "kind": "track",
+        "created": "2023-08-02T01:45:29.118651919Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1411",
+                "y": "-1392",
+                "biome": "forest"
+            },
+            {
+                "x": "1451",
+                "y": "-1396",
+                "biome": "forest"
+            },
+            {
+                "x": "1465",
+                "y": "-1388",
+                "biome": "forest"
+            },
+            {
+                "x": "1474",
+                "y": "-1341",
+                "biome": "forest"
+            },
+            {
+                "x": "1528",
+                "y": "-1297",
+                "biome": "forest"
+            },
+            {
+                "x": "1567",
+                "y": "-1251",
+                "biome": "forest"
+            },
+            {
+                "x": "1584",
+                "y": "-1221",
+                "label": "road to moder",
+                "biome": "mountain"
+            }
+        ]
+    },
+    {
+        "id": "154",
+        "kind": "marker",
+        "created": "2023-08-02T02:01:32.310969303Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1890",
+                "y": "-1389",
+                "label": "black forest terraform",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "155",
+        "kind": "marker",
+        "created": "2023-08-02T02:15:06.305451203Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "2131",
+                "y": "-1551",
+                "label": "swamp base",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "156",
+        "kind": "outline",
+        "created": "2023-08-03T00:46:12.705064716Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-2902",
+                "y": "996",
+                "biome": "plains"
+            },
+            {
+                "x": "-2861",
+                "y": "906",
+                "biome": "plains"
+            },
+            {
+                "x": "-2830",
+                "y": "829",
+                "biome": "plains"
+            },
+            {
+                "x": "-2828",
+                "y": "758",
+                "biome": "plains"
+            },
+            {
+                "x": "-2814",
+                "y": "678",
+                "biome": "plains"
+            },
+            {
+                "x": "-2817",
+                "y": "637",
+                "biome": "forest"
+            },
+            {
+                "x": "-2823",
+                "y": "585",
+                "biome": "forest"
+            },
+            {
+                "x": "-2829",
+                "y": "570",
+                "biome": "forest"
+            },
+            {
+                "x": "-2810",
+                "y": "463",
+                "label": "Cosmikat Smokehouse",
+                "biome": "forest"
+            },
+            {
+                "x": "-2779",
+                "y": "383",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2808",
+                "y": "334",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2842",
+                "y": "273",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2855",
+                "y": "225",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2856",
+                "y": "154",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2888",
+                "y": "146",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2924",
+                "y": "197",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2956",
+                "y": "260",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2993",
+                "y": "271",
+                "biome": "meadows"
+            },
+            {
+                "x": "-3035",
+                "y": "286",
+                "label": "Hut",
+                "biome": "meadows"
+            },
+            {
+                "x": "-3109",
+                "y": "316",
+                "biome": "meadows"
+            },
+            {
+                "x": "-3215",
+                "y": "326",
+                "biome": "plains"
+            },
+            {
+                "x": "-3261",
+                "y": "330",
+                "biome": "plains"
+            },
+            {
+                "x": "-3302",
+                "y": "366",
+                "biome": "plains"
+            },
+            {
+                "x": "-3367",
+                "y": "398",
+                "biome": "plains"
+            },
+            {
+                "x": "-3400",
+                "y": "398",
+                "biome": "plains"
+            },
+            {
+                "x": "-3417",
+                "y": "490",
+                "biome": "plains"
+            },
+            {
+                "x": "-3416",
+                "y": "510",
+                "biome": "plains"
+            },
+            {
+                "x": "-3475",
+                "y": "524",
+                "biome": "plains"
+            }
+        ]
+    },
+    {
+        "id": "157",
+        "kind": "track",
+        "created": "2023-08-03T01:30:51.401655561Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-2760",
+                "y": "3493",
+                "label": "Narrows",
+                "biome": "ocean"
+            },
+            {
+                "x": "-2670",
+                "y": "3503",
+                "biome": "ocean"
+            },
+            {
+                "x": "-2611",
+                "y": "3481",
+                "biome": "ocean"
+            },
+            {
+                "x": "-2556",
+                "y": "3516",
+                "biome": "ocean"
+            }
+        ]
+    },
+    {
+        "id": "158",
+        "kind": "marker",
+        "created": "2023-08-03T01:47:43.71533756Z",
+        "userId": "2",
+        "points": [
+            {
+                "x": "1898",
+                "y": "-1358",
+                "label": "crypt",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "159",
+        "kind": "outline",
+        "created": "2023-08-03T02:00:22.296591161Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-2429",
+                "y": "5575",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2477",
+                "y": "5525",
+                "label": "Root",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2450",
+                "y": "5472",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2437",
+                "y": "5448",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2410",
+                "y": "5447",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2394",
+                "y": "5468",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2351",
+                "y": "5499",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2336",
+                "y": "5501",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2341",
+                "y": "5476",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2355",
+                "y": "5466",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2361",
+                "y": "5442",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2371",
+                "y": "5423",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-2355",
+                "y": "5402",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2362",
+                "y": "5352",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2383",
+                "y": "5291",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2369",
+                "y": "5263",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2354",
+                "y": "5240",
+                "biome": "swamp"
+            },
+            {
+                "x": "-2340",
+                "y": "5225",
+                "biome": "plains"
+            },
+            {
+                "x": "-2283",
+                "y": "5178",
+                "biome": "plains"
+            },
+            {
+                "x": "-2256",
+                "y": "5152",
+                "biome": "plains"
+            },
+            {
+                "x": "-2237",
+                "y": "5123",
+                "biome": "plains"
+            },
+            {
+                "x": "-2171",
+                "y": "5022",
+                "biome": "plains"
+            },
+            {
+                "x": "-2119",
+                "y": "4950",
+                "biome": "plains"
+            },
+            {
+                "x": "-2137",
+                "y": "4890",
+                "biome": "plains"
+            },
+            {
+                "x": "-2177",
+                "y": "4830",
+                "biome": "plains"
+            },
+            {
+                "x": "-2180",
+                "y": "4729",
+                "biome": "plains"
+            },
+            {
+                "x": "-2207",
+                "y": "4687",
+                "biome": "plains"
+            },
+            {
+                "x": "-2271",
+                "y": "4670",
+                "biome": "plains"
+            },
+            {
+                "x": "-2346",
+                "y": "4678",
+                "biome": "plains"
+            },
+            {
+                "x": "-2426",
+                "y": "4675",
+                "biome": "plains"
+            },
+            {
+                "x": "-2461",
+                "y": "4627",
+                "label": "Farm",
+                "biome": "plains"
+            },
+            {
+                "x": "-2507",
+                "y": "4574",
+                "label": "Base",
+                "biome": "plains"
+            },
+            {
+                "x": "-2527",
+                "y": "4629",
+                "biome": "forest"
+            },
+            {
+                "x": "-2634",
+                "y": "4577",
+                "biome": "forest"
+            },
+            {
+                "x": "-2677",
+                "y": "4545",
+                "biome": "forest"
+            },
+            {
+                "x": "-2707",
+                "y": "4539",
+                "label": "Big Base",
+                "biome": "forest"
+            },
+            {
+                "x": "-2779",
+                "y": "4558",
+                "biome": "plains"
+            },
+            {
+                "x": "-2847",
+                "y": "4558",
+                "biome": "plains"
+            },
+            {
+                "x": "-2896",
+                "y": "4575",
+                "biome": "plains"
+            },
+            {
+                "x": "-2944",
+                "y": "4599",
+                "biome": "plains"
+            },
+            {
+                "x": "-3010",
+                "y": "4636",
+                "biome": "plains"
+            },
+            {
+                "x": "-3076",
+                "y": "4676",
+                "biome": "plains"
+            },
+            {
+                "x": "-3134",
+                "y": "4699",
+                "biome": "plains"
+            },
+            {
+                "x": "-3160",
+                "y": "4777",
+                "biome": "plains"
+            },
+            {
+                "x": "-3182",
+                "y": "4819",
+                "biome": "plains"
+            },
+            {
+                "x": "-3242",
+                "y": "4904",
+                "biome": "forest"
+            },
+            {
+                "x": "-3294",
+                "y": "4921",
+                "biome": "forest"
+            },
+            {
+                "x": "-3309",
+                "y": "4955",
+                "biome": "forest"
+            },
+            {
+                "x": "-3304",
+                "y": "4978",
+                "label": "Big Base",
+                "biome": "forest"
+            },
+            {
+                "x": "-3379",
+                "y": "5035",
+                "biome": "forest"
+            },
+            {
+                "x": "-3392",
+                "y": "5074",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3424",
+                "y": "5078",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3450",
+                "y": "5106",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3421",
+                "y": "5127",
+                "label": "farm",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3443",
+                "y": "5176",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3476",
+                "y": "5210",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3485",
+                "y": "5257",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3529",
+                "y": "5276",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3560",
+                "y": "5283",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3497",
+                "y": "5309",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3470",
+                "y": "5312",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3477",
+                "y": "5363",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3500",
+                "y": "5388",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3512",
+                "y": "5407",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3504",
+                "y": "5436",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3461",
+                "y": "5461",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3442",
+                "y": "5487",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3410",
+                "y": "5492",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3423",
+                "y": "5534",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3378",
+                "y": "5539",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3388",
+                "y": "5566",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3409",
+                "y": "5585",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3488",
+                "y": "5470",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3509",
+                "y": "5475",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3530",
+                "y": "5452",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3565",
+                "y": "5450",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3590",
+                "y": "5462",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3624",
+                "y": "5446",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3661",
+                "y": "5431",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3679",
+                "y": "5400",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3727",
+                "y": "5389",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3753",
+                "y": "5435",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3785",
+                "y": "5457",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3752",
+                "y": "5484",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3738",
+                "y": "5439",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3697",
+                "y": "5448",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3672",
+                "y": "5470",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3626",
+                "y": "5515",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3614",
+                "y": "5533",
+                "label": "died",
+                "biome": "mistlands"
+            }
+        ]
+    },
+    {
         "id": "16",
         "kind": "marker",
         "created": "2023-07-27T21:47:02.101442137Z",
@@ -1657,6 +3822,138 @@
                 "y": "1391",
                 "label": "Haldor",
                 "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "160",
+        "kind": "marker",
+        "created": "2023-08-03T02:19:31.209913808Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-2424",
+                "y": "5360",
+                "label": "crypt",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "161",
+        "kind": "marker",
+        "created": "2023-08-03T03:13:36.299919955Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3460",
+                "y": "5669",
+                "label": "skull",
+                "biome": "mistlands"
+            }
+        ]
+    },
+    {
+        "id": "162",
+        "kind": "marker",
+        "created": "2023-08-03T03:17:39.504679443Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3455",
+                "y": "5565",
+                "label": "mine",
+                "biome": "mistlands"
+            }
+        ]
+    },
+    {
+        "id": "163",
+        "kind": "marker",
+        "created": "2023-08-03T03:43:44.800356783Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3897",
+                "y": "5596",
+                "label": "skull",
+                "biome": "mistlands"
+            }
+        ]
+    },
+    {
+        "id": "164",
+        "kind": "marker",
+        "created": "2023-08-03T03:48:25.512953204Z",
+        "userId": "1",
+        "points": [
+            {
+                "x": "-3360",
+                "y": "5884",
+                "label": "flaminj tomb",
+                "biome": "mistlands"
+            }
+        ]
+    },
+    {
+        "id": "165",
+        "kind": "marker",
+        "created": "2023-08-04T00:08:28.902235271Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3658",
+                "y": "5570",
+                "label": "Dverger Camp/skull",
+                "biome": "forest"
+            }
+        ]
+    },
+    {
+        "id": "166",
+        "kind": "marker",
+        "created": "2023-08-04T01:08:56.704751339Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3315",
+                "y": "5573",
+                "label": "lighted area boat landing",
+                "biome": "ocean"
+            }
+        ]
+    },
+    {
+        "id": "167",
+        "kind": "track",
+        "created": "2023-08-04T01:21:31.204649171Z",
+        "userId": "3",
+        "points": [
+            {
+                "x": "-3658",
+                "y": "5570",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3573",
+                "y": "5570",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3602",
+                "y": "5631",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3532",
+                "y": "5557",
+                "biome": "mistlands"
+            },
+            {
+                "x": "-3405",
+                "y": "5607",
+                "label": "mountain top",
+                "biome": "mistlands"
             }
         ]
     },
