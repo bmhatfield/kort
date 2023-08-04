@@ -35,7 +35,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
             points = poly.points.map((point, i) => {
                 const isActive = activePoint !== undefined && activePoint.x === point.x && activePoint.y === point.y;
 
-                let className = "pointitem listli";
+                let className = "pointitem";
                 if (isActive) {
                     className += " activepoint";
                 }
@@ -55,7 +55,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
 
         // Return poly
         return (
-            <li className={"listli"} key={poly.id}>
+            <li key={poly.id}>
                 <div className={"polyitem"} onClick={() => { listliClick(poly.id) }}>
                     <div className={"polysize"}>{poly.points.length}</div>
                     <div>{users && users.length > 0 && users[0].name}</div>

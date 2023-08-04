@@ -18,10 +18,18 @@
     src: url("/type/PTSerif-Regular.ttf");
 }
 
-
 body {
     font-family: valheim;
     margin: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
 }
 
 #map {
@@ -85,7 +93,7 @@ body {
 #pointform {
     padding-top: 15px;
     padding-left: 5px;
-    height: 245px;
+    height: 175px;
     font-size: 21px;
     display: flex;
     flex-wrap: wrap;
@@ -175,10 +183,6 @@ form:invalid>.sub-mode {
     color: lightgray;
 }
 
-form:invalid>.sub-mode:hover {
-    color: lightgray;
-}
-
 input:required:valid {
     border-bottom-color: olivedrab;
 }
@@ -197,6 +201,7 @@ input[type=submit] {
     height: 30px;
     width: 75px;
     cursor: pointer;
+    line-height: 30px;
 }
 
 #polyKind {
@@ -240,10 +245,6 @@ input:focus {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-.listli {
-    list-style-type: none;
 }
 
 .polyitem {
