@@ -41,8 +41,12 @@
 
 /* form:valid>.dropdown:hover .dropdown-menu */
 
-.dropdown a:focus + .dropdown-menu,
-.dropdown a:active + .dropdown-menu {
+form:valid .dropbtn:focus+ul.dropdown-menu,
+form:valid .dropbtn:active+ul.dropdown-menu {
+    display: block;
+}
+
+ul.dropdown-menu:active {
     display: block;
 }
 
@@ -54,4 +58,5 @@ form:invalid>*>.dropbtn {
     background-color: rgb(255, 229, 226);
     border-color: rgb(236, 187, 182);
     color: lightgray;
+    cursor: default;
 }

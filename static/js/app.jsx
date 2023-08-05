@@ -7,13 +7,21 @@ const App = () => {
     const [otherPingPoints, setOtherPingPoints] = React.useState([]);
     const [bearer, setBearer] = React.useState(localStorage.getItem("token"));
     const [isLoading, setIsLoading] = React.useState(true);
-    const [users, setUsers] = React.useState()
+    const [users, setUsers] = React.useState();
+    const [userId, setUserId] = React.useState();
     const [pointStream, setPointStream] = React.useState();
 
     const headers = { "Content-Type": "application/json" }
     if (bearer) {
         headers["Authorization"] = `Bearer ${bearer}`;
     }
+
+    React.useEffect(() => {
+        if (bearer === undefined) return
+        const token = JSON.parse(atob(localStorage.getItem("token")))
+
+        setUserId(token.i);
+    }, [bearer]);
 
     React.useEffect(() => {
         if (pointStream === undefined) {
@@ -117,6 +125,7 @@ const App = () => {
             return res.json();
         }).then(json => {
             update.id = json.id;
+            update.userId = userId;
             setPolys([...polys, update]);
             setActivePolyId(json.id);
         });

@@ -5,6 +5,8 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         width: window.innerWidth
     });
     const [otherPingObjects, setOtherPingObjects] = React.useState();
+    const [activePointObject, setActivePointObject] = React.useState();
+    const [pingObjects, setPingObjects] = React.useState();
 
     const cRef = React.useRef();
 
@@ -80,7 +82,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
         // Settings
         const opts = {
-            activeRadius: 3,
             label: {
                 radius: 1.7,
                 height: 34,
@@ -98,17 +99,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
                 const isActive = activePoint !== undefined && activePoint.x === p.x && activePoint.y === p.y;
                 const isLabeled = p.label !== undefined && p.label.length > 0;
-
-                // Point dot
-                if (isActive) {
-                    let pt = new fabric.Circle({
-                        radius: opts.activeRadius,
-                        fill: "lightseagreen",
-                        left: x - opts.activeRadius,
-                        top: y - opts.activeRadius,
-                    });
-                    canvas.add(pt);
-                }
 
                 // Point label
                 if (isLabeled) {
@@ -173,6 +163,24 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
     React.useEffect(() => {
         if (activePoint === undefined) return;
 
+        if (activePointObject !== undefined) {
+            canvas.remove(activePointObject);
+        }
+
+        const activeRadius = 3;
+        const x = Number(activePoint.x);
+        const y = -Number(activePoint.y);
+
+        // Point dot
+        let pt = new fabric.Circle({
+            radius: activeRadius,
+            fill: "lightseagreen",
+            left: x - activeRadius,
+            top: y - activeRadius,
+        });
+        canvas.add(pt);
+        setActivePointObject(pt);
+
         // Zoom to active point
         zoomPoint(activePoint, .7);
     }, [canvas, activePoint]);
@@ -181,11 +189,16 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         if (canvas === undefined) return;
         if (pingPoints === undefined) return;
 
+        // clean up other ping objects to ensure no double-draw
+        if (pingObjects !== undefined) {
+            pingObjects.map((obj) => canvas.remove(obj));
+        }
+
         const opacity = 1;
         const pingRadius = 2;
         const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
 
-        pingPoints.toReversed().map((pingPoint, i) => {
+        const objs = pingPoints.toReversed().map((pingPoint, i) => {
             const fade = (opacity - (i * .20));
 
             let pingCenter = new fabric.Circle({
@@ -219,7 +232,9 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 left: pingPoint.x - rad,
             });
             canvas.add(pingGroup);
+            return pingGroup
         });
+        setPingObjects(objs);
 
         // Force a single render
         canvas.requestRenderAll();

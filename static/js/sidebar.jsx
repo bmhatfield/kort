@@ -55,8 +55,6 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
     function handlePolyCreate(kind) {
         const point = toPoint(pform.current);
 
-        console.log(pform.current);
-
         setActivePoint(point);
         create(point, kind).then(() => { setPtLabel("") });
     }
@@ -102,15 +100,13 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
                         </select>
                     </div>
                     <input type="submit" value="Append" name="append" className="sub-mode" disabled={canAppend()} />
-                    <div tabIndex={100} className="dropdown">
-                        <div className="dropbtn">
-                            <a href="#">New</a>
-                            <ul className="dropdown-menu">
-                                <li><a onClick={(e) => { e.preventDefault(); handlePolyCreate("marker")} } href="#">Marker</a></li>
-                                <li onClick={(e) => handlePolyCreate("track")}><a href="#">Track</a></li>
-                                <li onClick={(e) => handlePolyCreate("outline")}><a href="#">Outline</a></li>
-                            </ul>
-                        </div>
+                    <div className="dropdown">
+                        <button className="dropbtn" onClick={(e) => e.preventDefault()}>New</button>
+                        <ul className="dropdown-menu">
+                            <li onClick={(e) => handlePolyCreate("marker")}>Marker</li>
+                            <li onClick={(e) => handlePolyCreate("track")}>Track</li>
+                            <li onClick={(e) => handlePolyCreate("outline")}>Outline</li>
+                        </ul>
                     </div>
                 </form>
             </div>

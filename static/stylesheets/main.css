@@ -109,8 +109,8 @@ ul {
 }
 
 #sidebarshrink {
-    left:225px;
-    position:absolute;
+    left: 225px;
+    position: absolute;
     width: 25px;
     height: 25px;
     background-color: rgba(255, 250, 250, 0.9);
@@ -181,6 +181,7 @@ form:invalid>.sub-mode {
     border-style: solid;
     background-color: rgb(255, 229, 226);
     color: lightgray;
+    cursor: default;
 }
 
 input:required:valid {
@@ -261,10 +262,20 @@ input:focus {
     flex-wrap: wrap;
     justify-content: space-between;
     border: 1px snow solid;
+    cursor: zoom-in;
 }
 
 .polyitem:hover {
     background-color: rgba(255, 255, 255, 0.7);
+}
+
+.activepolyitem {
+    background-color: bisque;
+    cursor: zoom-out;
+}
+
+.activepolyitem:hover {
+    background-color: blanchedalmond;
 }
 
 .polysize {
@@ -290,6 +301,7 @@ input:focus {
     justify-content: space-between;
     border-radius: 2px;
     margin-top: 2px;
+    cursor: pointer;
 }
 
 .pointitem:hover {
