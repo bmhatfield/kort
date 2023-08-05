@@ -135,6 +135,10 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 return {x: Number(pt.x), y: -Number(pt.y)}
             });
 
+            // hack: fill lake with blue
+            // TODO: make this be a config for a poly
+            const polyColor = (pts[0].x === 809 && pts[0].y === 400) ? "aliceblue" : "snow"
+
             switch (poly.kind) {
                 case "outline":
                 case "area":
@@ -142,7 +146,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                         stroke: "slategray",
                         strokeWidth: 1.4,
                         strokeLineJoin: "round",
-                        fill: "snow",
+                        fill: polyColor,
                         objectCaching: false,
                     });
                 case "track":
