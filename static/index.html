@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/loader.css">
     <link rel="stylesheet" href="/stylesheets/dropdown.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script type="application/javascript" src="/js/third-party/polygons.js"></script>
     <script type="application/javascript" src="/js/third-party/react-18.2.dev.js"></script>
     <script type="application/javascript" src="/js/third-party/react-dom-18.2.dev.js"></script>
     <script type="application/javascript" src="/js/third-party/babel-6.26.js"></script>
@@ -23,6 +24,8 @@
 </body>
 
 <script type="text/babel">
+    fabric.perfLimitSizeTotal = 16777216;
+
     const container = document.getElementById('app')
     const root = ReactDOM.createRoot(container);
     root.render(<App />)

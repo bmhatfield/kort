@@ -129,36 +129,35 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             });
         });
 
-        // Create polygons / polylines.
-        const polygons = polys.filter((poly) => poly.points.length > 1).map((poly) => {
+        // Create polygons
+        const polygons = polys.filter((poly) => poly.points.length > 1 && poly.kind === "outline").map((poly) => {
             let pts = poly.points.map((pt) => {
-                return {x: Number(pt.x), y: -Number(pt.y)}
+                return { x: Number(pt.x), y: -Number(pt.y) }
             });
 
-            // hack: fill lake with blue
-            // TODO: make this be a config for a poly
-            const polyColor = (pts[0].x === 809 && pts[0].y === 400) ? "aliceblue" : "snow"
+            return new fabric.Polygon(pts, {
+                stroke: "slategray",
+                strokeWidth: 1.4,
+                strokeLineJoin: "round",
+                fill: "snow",
+                objectCaching: false,
+            });
+        });
 
-            switch (poly.kind) {
-                case "outline":
-                case "area":
-                    return new fabric.Polygon(pts, {
-                        stroke: "slategray",
-                        strokeWidth: 1.4,
-                        strokeLineJoin: "round",
-                        fill: polyColor,
-                        objectCaching: false,
-                    });
-                case "track":
-                    return new fabric.Polyline(pts, {
-                        stroke: "slategray",
-                        strokeWidth: 1,
-                        strokeLineJoin: "round",
-                        fill: noFill,
-                        strokeDashArray: [6, 3],
-                        objectCaching: false,
-                    });
-            }
+        // Create polylines
+        const lines = polys.filter((poly) => poly.points.length > 1 && poly.kind === "track").map((poly) => {
+            let pts = poly.points.map((pt) => {
+                return { x: Number(pt.x), y: -Number(pt.y) }
+            });
+
+            return new fabric.Polyline(pts, {
+                stroke: "slategray",
+                strokeWidth: 1,
+                strokeLineJoin: "round",
+                fill: noFill,
+                strokeDashArray: [6, 3],
+                objectCaching: false,
+            });
         });
 
         // Add a warning circle, for the night spawn danger range
@@ -176,12 +175,34 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         });
 
         // Place smaller objects atop larger objects
-        polygons.sort((x,y) => (x.width * x.height < y.width * y.height) ? 1 : -1);
+        polygons.sort((x, y) => (x.width * x.height < y.width * y.height) ? 1 : -1);
 
         // Flatten object arrays and add to canvas in batch
         const llf = labels.flat();
-        canvas.add(...polygons, ...llf, warning);
-        setPolyObjects([...polygons, ...llf, warning]);
+        canvas.add(...polygons, ...lines, ...llf, warning);
+
+        // Once added to canvas, we can examine object intersections
+        // Clip smaller objects out of bigger objects when intersecting
+        polygons.toReversed().forEach((poly, i, others) => {
+            let under = others.slice(i+1).find((other) => {
+                if (other === undefined) return false;
+
+                // rough intersection in fabric.js first
+                if (poly.isContainedWithinObject(other, true)) {
+                    // fine intersection in polygons.js to confirm
+                    return intersect(poly.points, other.points).length > 0;
+                };
+            });
+
+            if (under === undefined) return;
+
+            poly.fill = noFill;
+            poly.absolutePositioned = true;
+            poly.inverted = true;
+            under.clipPath = poly;
+        });
+
+        setPolyObjects([...polygons, ...lines, ...llf, warning]);
 
         // Rerender
         canvas.requestRenderAll();
