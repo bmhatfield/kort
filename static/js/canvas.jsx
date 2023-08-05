@@ -26,6 +26,8 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
     }, []);
 
     React.useEffect(() => {
+        if (dimensions === undefined) return;
+
         const scale = 0.25;
         var canvas = new fabric.StaticCanvas(cRef.current, {
             height: dimensions.height,
@@ -64,7 +66,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
     }, [dimensions, cRef]);
 
     React.useEffect(() => {
-        if (polys === undefined) return
+        if (polys === undefined || polys.length === 0) return
 
         // Remove all existing objects
         // This fixes double (or worse...) drawing
@@ -184,7 +186,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         // Once added to canvas, we can examine object intersections
         // Clip smaller objects out of bigger objects when intersecting
         polygons.toReversed().forEach((poly, i, others) => {
-            let under = others.slice(i+1).find((other) => {
+            let under = others.slice(i + 1).find((other) => {
                 if (other === undefined) return false;
 
                 // rough intersection in fabric.js first
@@ -238,7 +240,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
     React.useEffect(() => {
         if (canvas === undefined) return;
-        if (pingPoints === undefined) return;
+        if (pingPoints === undefined || pingPoints.length === 0) return;
 
         // Remove all existing objects
         // This fixes double (or worse...) drawing
@@ -294,7 +296,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
     React.useEffect(() => {
         if (canvas === undefined) return;
-        if (otherPingPoints === undefined) return;
+        if (otherPingPoints === undefined || otherPingPoints.length === 0) return;
 
         // Remove all existing objects
         // This fixes double (or worse...) drawing
