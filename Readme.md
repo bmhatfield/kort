@@ -30,7 +30,7 @@ The server can be run with `./kort`, which will automatically start the api/web 
 
 See `./kort --help` for more
 
-See also `static/backup/Readme.md` for sample points and backup snippets
+See the [Point Exports](static/backup/Readme.md) page for sample points and backup snippets.
 
 ### Coming Soon
 
