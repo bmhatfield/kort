@@ -17,8 +17,10 @@ const App = () => {
     }
 
     React.useEffect(() => {
-        if (bearer === undefined) return
-        const token = JSON.parse(atob(localStorage.getItem("token")))
+        if (bearer === undefined) return;
+        const tokenStorage = localStorage.getItem("token");
+        if (tokenStorage == null) return;
+        const token = JSON.parse(atob(tokenStorage));
 
         setUserId(token.i);
     }, [bearer]);
