@@ -7,6 +7,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
     const [otherPingObjects, setOtherPingObjects] = React.useState();
     const [activePointObject, setActivePointObject] = React.useState();
     const [pingObjects, setPingObjects] = React.useState();
+    const [polyObjects, setPolyObjects] = React.useState();
 
     const cRef = React.useRef();
 
@@ -26,7 +27,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
     React.useEffect(() => {
         const scale = 0.25;
-
         var canvas = new fabric.StaticCanvas(cRef.current, {
             height: dimensions.height,
             width: dimensions.width,
@@ -36,42 +36,28 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         setCanvas(canvas);
 
         const circleRadius = 10000;
-        let border = new fabric.Circle({
+        let world = new fabric.Circle({
             radius: circleRadius,
             stroke: "slategray",
-            fill: noFill,
+            fill: "aliceblue",
             left: -circleRadius,
             top: -circleRadius,
             strokeWidth: 2,
             objectCaching: false,
             absolutePositioned: true,
         });
-        canvas.add(border);
+        canvas.add(world);
 
         // Add a grid, inscribed in the border circle.
         for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
             let lineParams = {
                 stroke: (axis === 0) ? '#aaaaaa' : 'lightgray',
-                clipPath: border
+                clipPath: world
             }
-            canvas.add(new fabric.Line([axis, -circleRadius, axis, circleRadius], lineParams));
-            canvas.add(new fabric.Line([-circleRadius, axis, circleRadius, axis], lineParams));
+            const x = new fabric.Line([-circleRadius, axis, circleRadius, axis], lineParams);
+            const y = new fabric.Line([axis, -circleRadius, axis, circleRadius], lineParams);
+            canvas.add(x, y);
         }
-
-        // Add a warning circle, for the night spawn danger range
-        const nightSpawnRadius = 2800
-        let warning = new fabric.Circle({
-            radius: nightSpawnRadius,
-            stroke: "#FFC0CB",
-            fill: noFill,
-            left: -nightSpawnRadius,
-            top: -nightSpawnRadius,
-            strokeWidth: 1,
-            strokeDashArray: [6, 15],
-            objectCaching: false,
-            absolutePositioned: true,
-        });
-        canvas.add(warning);
 
         // Force a full single render
         canvas.requestRenderAll();
@@ -79,6 +65,13 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
     React.useEffect(() => {
         if (polys === undefined) return
+
+        // Remove all existing objects
+        // This fixes double (or worse...) drawing
+        // objects as things change.
+        if (polyObjects !== undefined) {
+            canvas.remove(...polyObjects);
+        }
 
         // Settings
         const opts = {
@@ -90,79 +83,112 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             }
         };
 
-        // Render polys
-        polys.map((poly, i) => {
-            // Draw Points
-            let pts = poly.points.map((p, i) => {
+        // Create label objects
+        const labels = polys.map((poly, i) => {
+            return poly.points.filter((p => p.label !== undefined && p.label.length > 0)).map((p) => {
                 const x = Number(p.x);
-                const y = -Number(p.y); // Inverted for drawing due to canvas coords
+                const y = -Number(p.y);
 
                 const isActive = activePoint !== undefined && activePoint.x === p.x && activePoint.y === p.y;
-                const isLabeled = p.label !== undefined && p.label.length > 0;
 
-                // Point label
-                if (isLabeled) {
-                    var pc = new fabric.Circle({
-                        radius: opts.label.radius,
-                        fill: "slategray",
-                        visible: !isActive,
-                    });
-                    var l = new fabric.Text(p.label, {
-                        top: opts.label.topOffset,
-                        left: 3 + opts.label.leftOffset,
-                        fill: "black",
-                        fontFamily: "valheim",
-                        fontSize: 20,
-                    });
-                    var lp = new fabric.Text(`(${x}, ${-y})`, {
-                        top: 20 + opts.label.topOffset,
-                        left: 3 + opts.label.leftOffset,
-                        fill: 'darkslategray',
-                        fontFamily: "ptserif",
-                        fontSize: 11,
-                    });
-                    var bg = new fabric.Rect({
-                        top: opts.label.topOffset,
-                        left: opts.label.leftOffset,
-                        fill: "rgba(255,250,250,.7)",
-                        stroke: isActive ? "lightseagreen" : "rgba(255,250,250,.9)",
-                        strokeWidth: 2,
-                        rx: 5,
-                        ry: 5,
-                        width: Math.max(l.width, lp.width + 5) + 5,
-                        height: opts.label.height,
-                    });
-                    var group = new fabric.Group([pc, bg, l, lp], {
-                        top: y + opts.label.topOffset - opts.label.radius,
-                        left: x - opts.label.radius,
-                    });
-                    canvas.add(group);
-                }
+                var pc = new fabric.Circle({
+                    radius: opts.label.radius,
+                    fill: "slategray",
+                    visible: !isActive,
+                });
+                var l = new fabric.Text(p.label, {
+                    top: opts.label.topOffset,
+                    left: 3 + opts.label.leftOffset,
+                    fill: "black",
+                    fontFamily: "valheim",
+                    fontSize: 20,
+                });
+                var lp = new fabric.Text(`(${x}, ${-y})`, {
+                    top: 20 + opts.label.topOffset,
+                    left: 3 + opts.label.leftOffset,
+                    fill: 'darkslategray',
+                    fontFamily: "ptserif",
+                    fontSize: 11,
+                });
+                var bg = new fabric.Rect({
+                    top: opts.label.topOffset,
+                    left: opts.label.leftOffset,
+                    fill: "rgba(255,250,250,.9)",
+                    stroke: isActive ? "lightseagreen" : "rgba(255,250,250,.95)",
+                    strokeWidth: 2,
+                    rx: 5,
+                    ry: 5,
+                    width: Math.max(l.width, lp.width + 5) + 5,
+                    height: opts.label.height,
+                });
 
-                // For line drawing
-                return { x: x, y: y };
+                return new fabric.Group([pc, bg, l, lp], {
+                    top: y + opts.label.topOffset - opts.label.radius,
+                    left: x - opts.label.radius,
+                });
+            });
+        });
+
+        // Create polygons / polylines.
+        const polygons = polys.filter((poly) => poly.points.length > 1).map((poly) => {
+            let pts = poly.points.map((pt) => {
+                return {x: Number(pt.x), y: -Number(pt.y)}
             });
 
-            // Draw lines
-            if (pts.length > 1) {
-                let line = new fabric.Polyline(pts, {
-                    stroke: "slategray",
-                    strokeWidth: (poly.kind === "outline") ? 1.4 : 1,
-                    strokeLineJoin: "round",
-                    fill: noFill,
-                    strokeDashArray: (poly.kind === "track") ? [6, 3] : undefined,
-                    objectCaching: false,
-                });
-                canvas.add(line);
+            switch (poly.kind) {
+                case "outline":
+                case "area":
+                    return new fabric.Polygon(pts, {
+                        stroke: "slategray",
+                        strokeWidth: 1.4,
+                        strokeLineJoin: "round",
+                        fill: "snow",
+                        objectCaching: false,
+                    });
+                case "track":
+                    return new fabric.Polyline(pts, {
+                        stroke: "slategray",
+                        strokeWidth: 1,
+                        strokeLineJoin: "round",
+                        fill: noFill,
+                        strokeDashArray: [6, 3],
+                        objectCaching: false,
+                    });
             }
         });
 
+        // Add a warning circle, for the night spawn danger range
+        const nightSpawnRadius = 2800
+        const warning = new fabric.Circle({
+            radius: nightSpawnRadius,
+            stroke: "#FFC0CB",
+            fill: noFill,
+            left: -nightSpawnRadius,
+            top: -nightSpawnRadius,
+            strokeWidth: 1,
+            strokeDashArray: [5, 7],
+            objectCaching: false,
+            absolutePositioned: true,
+        });
+
+        // Place smaller objects atop larger objects
+        polygons.sort((x,y) => (x.width * x.height < y.width * y.height) ? 1 : -1);
+
+        // Flatten object arrays and add to canvas in batch
+        const llf = labels.flat();
+        canvas.add(...polygons, ...llf, warning);
+        setPolyObjects([...polygons, ...llf, warning]);
+
+        // Rerender
         canvas.requestRenderAll();
     }, [canvas, polys]);
 
     React.useEffect(() => {
         if (activePoint === undefined) return;
 
+        // Remove all existing objects
+        // This fixes double (or worse...) drawing
+        // objects as things change.
         if (activePointObject !== undefined) {
             canvas.remove(activePointObject);
         }
@@ -189,19 +215,21 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         if (canvas === undefined) return;
         if (pingPoints === undefined) return;
 
-        // clean up other ping objects to ensure no double-draw
+        // Remove all existing objects
+        // This fixes double (or worse...) drawing
+        // objects as things change.
         if (pingObjects !== undefined) {
-            pingObjects.map((obj) => canvas.remove(obj));
+            canvas.remove(...pingObjects);
         }
 
         const opacity = 1;
         const pingRadius = 2;
         const circleColors = ["#D14D72", "#FFABAB", "#FCC8D1", "#fcdae0"];
 
-        const objs = pingPoints.toReversed().map((pingPoint, i) => {
+        const pings = pingPoints.toReversed().map((pingPoint, i) => {
             const fade = (opacity - (i * .20));
 
-            let pingCenter = new fabric.Circle({
+            let center = new fabric.Circle({
                 top: -pingRadius,
                 left: -pingRadius,
                 radius: pingRadius,
@@ -213,7 +241,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             });
 
             let rad = pingRadius;
-            let pingRadii = circleColors.slice(i).map((color, i) => {
+            let radii = circleColors.slice(i).map((color, i) => {
                 rad = pingRadius * (i + i + 3);
                 return new fabric.Circle({
                     top: -rad,
@@ -227,14 +255,13 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 });
             });
 
-            let pingGroup = new fabric.Group([pingCenter, ...pingRadii], {
+            return new fabric.Group([center, ...radii], {
                 top: -pingPoint.y - rad,
                 left: pingPoint.x - rad,
             });
-            canvas.add(pingGroup);
-            return pingGroup
         });
-        setPingObjects(objs);
+        canvas.add(...pings);
+        setPingObjects(pings);
 
         // Force a single render
         canvas.requestRenderAll();
@@ -244,9 +271,11 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         if (canvas === undefined) return;
         if (otherPingPoints === undefined) return;
 
-        // clean up other ping objects to ensure no double-draw
+        // Remove all existing objects
+        // This fixes double (or worse...) drawing
+        // objects as things change.
         if (otherPingObjects !== undefined) {
-            otherPingObjects.map((obj) => canvas.remove(obj));
+            canvas.remove(...otherPingObjects);
         }
 
         const opr = 3;
@@ -272,15 +301,13 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                     fontSize: 15,
                 });
 
-                let otherGroup = new fabric.Group([otherPingPoint, name], {
+                return new fabric.Group([otherPingPoint, name], {
                     top: -y - opr - 5,
                     left: x - opr,
                 });
-
-                canvas.add(otherGroup);
-                return otherGroup;
             };
         });
+        canvas.add(...groups);
         setOtherPingObjects(groups);
 
         // Force a single render
