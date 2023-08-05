@@ -3,8 +3,16 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         return
     }
 
+    function isActivePoly(polyId) {
+        return (activePolyId === polyId);
+    }
+
+    function isActivePoint(point) {
+        return (activePoint !== undefined && activePoint.x === point.x && activePoint.y === point.y);
+    }
+
     function listliClick(polyId) {
-        if (activePolyId === polyId) {
+        if (isActivePoly(polyId)) {
             setActivePolyId("");
             return
         }
@@ -33,19 +41,14 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         // Get list of points, if active for this poly
         if (showPoints) {
             points = poly.points.map((point, i) => {
-                const isActive = activePoint !== undefined && activePoint.x === point.x && activePoint.y === point.y;
-
-                let className = "pointitem listli";
-                if (isActive) {
-                    className += " activepoint";
-                }
+                const pointClass = isActivePoint(point) ? "pointitem activepoint" : "pointitem"
 
                 let label = (point.label !== undefined) ? <div>{point.label}</div> : null;
                 return (
-                    <li className={className} key={i} onClick={(e) => setActivePoint(point)}>
+                    <li className={pointClass} key={i} onClick={() => setActivePoint(point)}>
                         <div>{label}</div>
                         <div>({point.x}, {point.y})</div>
-                        <div className={"pointdel"} key={i} onClick={(e) => remove(poly.id, i)}>delete</div>
+                        <div className={"pointdel"} key={i} onClick={() => remove(poly.id, i)}>delete</div>
                     </li>
                 )
             })
@@ -53,10 +56,12 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
 
         const users = getUser(poly.userId);
 
+        const itemClass = isActivePoly(poly.id) ? "polyitem activepolyitem" : "polyitem";
+
         // Return poly
         return (
-            <li className={"listli"} key={poly.id}>
-                <div className={"polyitem"} onClick={() => { listliClick(poly.id) }}>
+            <li key={poly.id}>
+                <div className={itemClass} onClick={() => { listliClick(poly.id) }}>
                     <div className={"polysize"}>{poly.points.length}</div>
                     <div>{users && users.length > 0 && users[0].name}</div>
                     <div>{poly.kind}</div>

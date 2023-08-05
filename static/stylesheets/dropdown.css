@@ -1,0 +1,62 @@
+.dropbtn {
+    color: lightslategray;
+    background-color: snow;
+    font-size: inherit;
+    font-family: valheim-bold;
+    border: none;
+    height: 30px;
+    width: 75px;
+    border: 1px slategray solid;
+    border-radius: 5px;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 75px;
+}
+
+.dropdown-menu li {
+    color: darkslategrey;
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+.dropdown-menu li:hover {
+    background-color: snow;
+    cursor: pointer;
+}
+
+/* form:valid>.dropdown:hover .dropdown-menu */
+
+form:valid .dropbtn:focus+ul.dropdown-menu,
+form:valid .dropbtn:active+ul.dropdown-menu {
+    display: block;
+}
+
+ul.dropdown-menu:active {
+    display: block;
+}
+
+form:valid>.dropdown:hover .dropbtn {
+    background-color: white;
+}
+
+form:invalid>*>.dropbtn {
+    background-color: rgb(255, 229, 226);
+    border-color: rgb(236, 187, 182);
+    color: lightgray;
+    cursor: default;
+}
