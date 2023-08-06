@@ -4,6 +4,8 @@
 
 A mapping tool for Valheim's hardcore / nomap mode.
 
+![Jotunheim Spawn Map](/doc/Jotunheim.png?raw=true)
+
 ## Features
 
 - Large pannable/zoomable world map
@@ -17,11 +19,9 @@ A mapping tool for Valheim's hardcore / nomap mode.
     - With live pings from other kortographers
 - Search point labels to find previous markers quickly
 
-## Screenshot
-
-![Jotunheim Spawn Map](/doc/Jotunheim.png?raw=true)
-
 ## Running Kort
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/bmhatfield/kort)
 
 Run the server:
 
