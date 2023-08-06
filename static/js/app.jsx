@@ -35,13 +35,13 @@ const App = () => {
 
                 // Add new point. Keep a max of 20 previous.
                 setOtherPingPoints(prev => {
-                    return [ ...prev.slice(-20), m ];
+                    return [...prev.slice(-20), m];
                 });
 
                 // Clear the point after 90 seconds.
                 setTimeout(() => {
                     setOtherPingPoints(prev => {
-                        return [...prev.filter((pt) =>  {
+                        return [...prev.filter((pt) => {
                             return !(pt.point.x === m.point.x && pt.point.y === m.point.y);
                         })];
                     });
@@ -165,7 +165,7 @@ const App = () => {
             point
         ]);
 
-        fetch("/ping", { method: "PUT", headers: headers, body: JSON.stringify([{x: data.get("px"), y: data.get("py")}]) });
+        fetch("/ping", { method: "PUT", headers: headers, body: JSON.stringify([{ x: data.get("px"), y: data.get("py") }]) });
     }
 
     let userCache = {};
@@ -218,6 +218,9 @@ const App = () => {
         <div>
             <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} getUser={getUser} />
             <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
+            <div id="compass">
+                <img id="compass" src="/images/compass.png" width="100%" style={{filter: "saturate(50%)"}}></img>
+            </div>
             <div id="ping">
                 <form id="pingform" onSubmit={handlePingSubmit}>
                     <label htmlFor="px">x</label><input id="px" name="px" type="number" min="-10000" max="10000" required />

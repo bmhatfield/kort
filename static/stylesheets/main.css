@@ -62,7 +62,16 @@ ul {
     margin: 3px;
     padding: 5px;
     background-color: whitesmoke;
-    border-radius: 3px;
+    border-radius: 8px;
+    border: 2px white solid;
+}
+
+#compass {
+    position: absolute;
+    right: 11px;
+    bottom: 25px;
+    width: 100px;
+    border-radius: 60px;
 }
 
 #sidebar {
