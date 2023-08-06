@@ -1,6 +1,8 @@
+<img src="static/images/compass.png" height="100">
+
 # Kort ᚦᛚ
 
-A mapping tool for Valheim's nomap mode.
+A mapping tool for Valheim's hardcore / nomap mode.
 
 ## Features
 
@@ -12,6 +14,7 @@ A mapping tool for Valheim's nomap mode.
     - Outline: record the borders of an area, such as an island or lake
 - Point and track list for managing points
 - Ping current location on map
+    - With live pings from other kortographers
 - Search point labels to find previous markers quickly
 
 ## Screenshot
@@ -30,17 +33,19 @@ The server can be run with `./kort`, which will automatically start the api/web 
 
 See `./kort --help` for more
 
-See the [Point Exports](static/backup/Readme.md) page for sample points and backup snippets.
+See the [Point Exports](static/backup/Readme.md) page for sample points and backup `js` snippets.
 
-### Coming Soon
+## Coming Soon
 
-- Multiplayer Live Ping & Point additions
+- Multiplayer Live Point additions
 - UI improvements
-    - Track kind UX fix
-    - Entry box styling
     - Point list styling
     - Active poly highlight styling
     - Hide/show Tracks and Markers
     - Biome shading
 - Multi-map support
 - In UI user-management
+
+## See also
+
+HTTP Server-sent-events: https://github.com/bmhatfield/sse
