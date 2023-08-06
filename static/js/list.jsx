@@ -1,6 +1,5 @@
 const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActivePoint, getUser, remove }) => {
-    const [listClass, setListClass] = React.useState("list-open");
-    const [shrinkListButton, setShrinkListButton] = React.useState("➖")
+    const [listOpen, setListOpen] = React.useState(true);
 
     if (polys === undefined) {
         return
@@ -34,8 +33,9 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         const an = Number(a.id);
         const bn = Number(b.id);
 
-        if (an > bn) return 1;
-        if (bn > an) return -1;
+        // Reversed
+        if (an > bn) return -1;
+        if (bn > an) return 1;
         return 0;
     }).map(poly => {
         let showPoints = (activePolyId === poly.id);
@@ -59,12 +59,10 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
 
         const users = getUser(poly.userId);
 
-        const itemClass = isActivePoly(poly.id) ? "polyitem activepolyitem" : "polyitem";
-
         // Return poly
         return (
             <li key={poly.id}>
-                <div className={itemClass} onClick={() => { listliClick(poly.id) }}>
+                <div className={"polyitem" + (isActivePoly(poly.id) ? " activepolyitem" : "")} onClick={() => { listliClick(poly.id) }}>
                     <div className={"polysize"}>{poly.points.length}</div>
                     <div>{users && users.length > 0 && users[0].name}</div>
                     <div>{poly.kind}</div>
@@ -74,21 +72,12 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         );
     });
 
-    function handleShrinkList(e) {
-        if (listClass == "list-open") {
-            setShrinkListButton("➕");
-            setListClass("list-closed");
-            return
-        }
-
-        setShrinkListButton("➖");
-        setListClass("list-open");
-    }
-
     return (
         <div id="listcontainer">
-            <div id="listshrink" onClick={handleShrinkList}>{shrinkListButton}</div>
-            <ul id="list" className={listClass}>
+            <div id="listshrink" onClick={() => setListOpen(!listOpen)}>
+                <img id="shrinkarrow" className={listOpen ? "flipY" : ""} src="/images/down-arrow.png" height="8px"></img>
+            </div>
+            <ul id="list" className={"thinscroll" + (listOpen ? " list-open" : " list-closed")}>
                 {items}
             </ul>
         </div>

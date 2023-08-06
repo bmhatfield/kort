@@ -1,8 +1,6 @@
 const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) => {
-    const [sidebarVisible, setSidebarVisible] = React.useState(true);
+    const [sidebarOpen, setSidebarOpen] = React.useState(true);
     const [ptLabel, setPtLabel] = React.useState("");
-    const [sidebarClass, setSidebarClass] = React.useState("sidebar-open");
-    const [shrinkButton, setShrinkButton] = React.useState("«")
 
     const pform = React.useRef(null);
 
@@ -59,22 +57,9 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
         create(point, kind).then(() => { setPtLabel("") });
     }
 
-    function handleShrink(e) {
-        if (sidebarVisible) {
-            setSidebarVisible(false);
-            setShrinkButton("»");
-            setSidebarClass("sidebar-closed");
-            return
-        }
-
-        setSidebarVisible(true);
-        setShrinkButton("«");
-        setSidebarClass("sidebar-open");
-    }
-
     return (
-        <div id="sidebar" className={sidebarClass}>
-            <div id="sidebarshrink" onClick={handleShrink}>{shrinkButton}</div>
+        <div id="sidebar" className={sidebarOpen ? "sidebar-open" : "sidebar-closed"}>
+            <div id="sidebarshrink" onClick={() => { setSidebarOpen(!sidebarOpen) }}>{sidebarOpen ? "«" : "»"}</div>
             <div id="search">
                 <form id="searchform" onSubmit={handleSearchSubmit}>
                     <input type="text" id="searchbox" name="searchbox" placeholder="search" autoComplete="off" />
@@ -82,8 +67,10 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
             </div>
             <div id="newpoint">
                 <form ref={pform} id="pointform" onSubmit={handlePolyAppend}>
-                    <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
-                    <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
+                    <div id="pointrow">
+                        <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
+                        <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
+                    </div>
                     <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} /></div>
                     <div>
                         <label htmlFor="biome">biome</label>
@@ -99,14 +86,16 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
                             <option value="ashlands">Ashlands</option>
                         </select>
                     </div>
-                    <input type="submit" value="Append" name="append" className="sub-mode" disabled={canAppend()} />
-                    <div className="dropdown">
-                        <button className="dropbtn" onClick={(e) => e.preventDefault()}>New</button>
-                        <ul className="dropdown-menu">
-                            <li onClick={(e) => handlePolyCreate("marker")}>Marker</li>
-                            <li onClick={(e) => handlePolyCreate("track")}>Track</li>
-                            <li onClick={(e) => handlePolyCreate("outline")}>Outline</li>
-                        </ul>
+                    <div id="buttonrow">
+                        <input type="submit" value="Append" name="append" className="append-btn" disabled={canAppend()} />
+                        <div className="dropdown">
+                            <button className="dropbtn" onClick={(e) => e.preventDefault()}>New</button>
+                            <ul className="dropdown-menu">
+                                <li onClick={(e) => handlePolyCreate("marker")}>Marker</li>
+                                <li onClick={(e) => handlePolyCreate("track")}>Track</li>
+                                <li onClick={(e) => handlePolyCreate("outline")}>Outline</li>
+                            </ul>
+                        </div>
                     </div>
                 </form>
             </div>

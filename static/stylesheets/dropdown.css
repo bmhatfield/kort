@@ -50,11 +50,11 @@ ul.dropdown-menu:active {
     display: block;
 }
 
-form:valid>.dropdown:hover .dropbtn {
+form:valid .dropdown:hover .dropbtn {
     background-color: white;
 }
 
-form:invalid>*>.dropbtn {
+form:invalid .dropbtn {
     background-color: rgb(255, 229, 226);
     border-color: rgb(236, 187, 182);
     color: lightgray;

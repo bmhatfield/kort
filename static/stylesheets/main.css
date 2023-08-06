@@ -80,7 +80,7 @@ ul {
     flex-direction: column;
     max-height: 100%;
     width: 220px;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(5px);
     padding-left: 5px;
     background-color: rgba(255, 250, 250, 0.7);
     border-right: 1px white solid;
@@ -100,33 +100,28 @@ ul {
 }
 
 #pointform {
-    padding-top: 15px;
+    padding-top: 10px;
     padding-left: 5px;
-    height: 175px;
+    padding-bottom: 5px;
+    height: 150px;
     font-size: 21px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 195px;
+    width: 205px;
 }
 
-#listcontainer {
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0px;
-    margin: 0px;
+#pointrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-#list {
-    clear: both;
-}
-
-#listshrink {
-    border: 1px white solid;
-    float: right;
-    cursor: pointer;
-    color: transparent;
-    text-shadow: 0 0 0 darkslategrey;
+#buttonrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #sidebarshrink {
@@ -158,14 +153,6 @@ ul {
     left: -225px;
 }
 
-.list-open {
-    display: block;
-}
-
-.list-closed {
-    display: none;
-}
-
 #x,
 #y {
     width: 50px;
@@ -173,7 +160,7 @@ ul {
 }
 
 #label {
-    width: 122px;
+    width: 150px;
 }
 
 label {
@@ -202,15 +189,6 @@ select {
 input:required:invalid {
     border-bottom-color: indianred;
     border-bottom-style: dashed;
-}
-
-form:invalid>.sub-mode {
-    border-color: rgb(236, 187, 182);
-    border-width: 1px;
-    border-style: solid;
-    background-color: rgb(255, 229, 226);
-    color: lightgray;
-    cursor: default;
 }
 
 input:required:valid {
@@ -243,38 +221,28 @@ input:focus {
     outline: none;
 }
 
-.sub-mode:focus,
-.sub-mode:hover {
+.append-btn:focus,
+.append-btn:hover {
     color: darkslategray;
     background-color: #f1f1f1;
 }
 
-.sub-mode:disabled,
-.sub-mode:disabled:hover {
+.append-btn:disabled,
+.append-btn:disabled:hover {
     color: ghostwhite;
 }
 
-.sub-mode:active {
+.append-btn:active {
     color: darkblue;
 }
 
-#listcontainer::-webkit-scrollbar {
-    width: 2px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
+form:invalid .append-btn {
+    border-color: rgb(236, 187, 182);
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgb(255, 229, 226);
+    color: lightgray;
+    cursor: default;
 }
 
 .polyitem {
@@ -354,4 +322,47 @@ input:focus {
 .pointdel:hover {
     background-color: moccasin;
     cursor: pointer;
+}
+
+#listcontainer {
+    padding: 0px;
+    margin: 0px;
+}
+
+#list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: height 300ms ease-out;
+}
+
+.list-open {
+    display: block;
+    height: calc(100vh - (29px + 165px + 25px));
+}
+
+.list-closed {
+    height: 0px;
+}
+
+#listshrink {
+    border: 1px white solid;
+    cursor: pointer;
+    color: transparent;
+    background-color: snow;
+    margin-right: 4px;
+    height: 15px;
+    border-radius: 3px;
+}
+
+#listshrink:hover {
+    background-color: gainsboro;
+}
+
+#shrinkarrow {
+    margin-left: 103px;
+    margin-bottom: 2px;
+}
+
+.flipY {
+    transform: scaleY(-1);
 }
