@@ -1,4 +1,7 @@
 const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActivePoint, getUser, remove }) => {
+    const [listClass, setListClass] = React.useState("list-open");
+    const [shrinkListButton, setShrinkListButton] = React.useState("➖")
+
     if (polys === undefined) {
         return
     }
@@ -71,9 +74,23 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         );
     });
 
+    function handleShrinkList(e) {
+        if (listClass == "list-open") {
+            setShrinkListButton("➕");
+            setListClass("list-closed");
+            return
+        }
+
+        setShrinkListButton("➖");
+        setListClass("list-open");
+    }
+
     return (
-        <ul id="list">
-            {items}
-        </ul>
+        <div id="listcontainer">
+            <div id="listshrink" onClick={handleShrinkList}>{shrinkListButton}</div>
+            <ul id="list" className={listClass}>
+                {items}
+            </ul>
+        </div>
     )
 }

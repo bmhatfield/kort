@@ -78,7 +78,7 @@ ul {
     position: absolute;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    max-height: 100%;
     width: 220px;
     backdrop-filter: blur(4px);
     padding-left: 5px;
@@ -110,11 +110,23 @@ ul {
     width: 195px;
 }
 
-#list {
+#listcontainer {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0px;
     margin: 0px;
+}
+
+#list {
+    clear: both;
+}
+
+#listshrink {
+    border: 1px white solid;
+    float: right;
+    cursor: pointer;
+    color: transparent;
+    text-shadow: 0 0 0 darkslategrey;
 }
 
 #sidebarshrink {
@@ -144,6 +156,14 @@ ul {
 
 .sidebar-closed {
     left: -225px;
+}
+
+.list-open {
+    display: block;
+}
+
+.list-closed {
+    display: none;
 }
 
 #x,
@@ -238,7 +258,7 @@ input:focus {
     color: darkblue;
 }
 
-#list::-webkit-scrollbar {
+#listcontainer::-webkit-scrollbar {
     width: 2px;
 }
 
