@@ -1,5 +1,7 @@
 const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) => {
-    const [sidebarOpen, setSidebarOpen] = React.useState(true);
+    const sidebarOpenKey = "sidebar-open";
+    const sidebarInit = localStorage.getItem(sidebarOpenKey);
+    const [sidebarOpen, setSidebarOpen] = React.useState((sidebarInit === null || sidebarInit === 'true'));
     const [ptLabel, setPtLabel] = React.useState("");
 
     const pform = React.useRef(null);
@@ -59,7 +61,7 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
 
     return (
         <div id="sidebar" className={sidebarOpen ? "sidebar-open" : "sidebar-closed"}>
-            <div id="sidebarshrink" onClick={() => { setSidebarOpen(!sidebarOpen) }}>{sidebarOpen ? "«" : "»"}</div>
+            <div id="sidebarshrink" onClick={() => { localStorage.setItem(sidebarOpenKey, !sidebarOpen); setSidebarOpen(!sidebarOpen) }}>{sidebarOpen ? "«" : "»"}</div>
             <div id="search">
                 <form id="searchform" onSubmit={handleSearchSubmit}>
                     <input type="text" id="searchbox" name="searchbox" placeholder="search" autoComplete="off" />

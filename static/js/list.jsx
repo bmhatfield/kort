@@ -1,5 +1,7 @@
 const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActivePoint, getUser, remove }) => {
-    const [listOpen, setListOpen] = React.useState(true);
+    const listOpenKey = "list-open";
+    const listOpenInit = localStorage.getItem(listOpenKey);
+    const [listOpen, setListOpen] = React.useState((listOpenInit === null || listOpenInit === 'true'));
 
     if (polys === undefined) {
         return
@@ -74,7 +76,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
 
     return (
         <div id="listcontainer">
-            <div id="listshrink" onClick={() => setListOpen(!listOpen)}>
+            <div id="listshrink" onClick={() => { localStorage.setItem(listOpenKey, !listOpen); setListOpen(!listOpen); }}>
                 <img id="shrinkarrow" className={listOpen ? "flipY" : ""} src="/images/down-arrow.png" height="8px"></img>
             </div>
             <ul id="list" className={"thinscroll" + (listOpen ? " list-open" : " list-closed")}>
