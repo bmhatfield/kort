@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/bmhatfield/sse"
 	"github.com/go-chi/chi/v5"
@@ -241,12 +242,22 @@ func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+func (s *Service) logEventStats(d time.Duration) {
+	ticker := time.NewTicker(d)
+	for range ticker.C {
+		log.Printf("%+v", s.events.Stats())
+	}
+}
+
 func NewService(store *Store) *Service {
 	events := sse.NewEventServer()
 	events.Create(PointStream)
 
-	return &Service{
+	svc := &Service{
 		store:  store,
 		events: events,
 	}
+	go svc.logEventStats(1 * time.Minute)
+
+	return svc
 }
