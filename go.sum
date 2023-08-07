@@ -1,5 +1,5 @@
-github.com/bmhatfield/sse v0.2.0 h1:C7GlkUz/Cn8/5qkN2JUTvTrhaj6CT5pMLOcb9zGsUVU=
-github.com/bmhatfield/sse v0.2.0/go.mod h1:vr1uR9zVyA9c+5fvDTvqp+mc+PeqeuSXLioAk0Fos4s=
+github.com/bmhatfield/sse v0.3.0 h1:FenYYjVlIAwa3iZAm6Qi7duWvh044YXU99f+TV91dPA=
+github.com/bmhatfield/sse v0.3.0/go.mod h1:vr1uR9zVyA9c+5fvDTvqp+mc+PeqeuSXLioAk0Fos4s=
 github.com/cpuguy83/go-md2man/v2 v2.0.2 h1:p1EgwI/C7NhT0JmVkwCD2ZBK8j4aeHQX2pMHHBfMQ6w=
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
