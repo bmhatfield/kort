@@ -257,7 +257,7 @@ func NewService(store *Store) *Service {
 		store:  store,
 		events: events,
 	}
-	go svc.logEventStats(1 * time.Minute)
+	go svc.logEventStats(10 * time.Minute)
 
 	return svc
 }
