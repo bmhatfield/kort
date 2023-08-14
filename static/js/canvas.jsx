@@ -45,7 +45,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             left: -circleRadius,
             top: -circleRadius,
             strokeWidth: 2,
-            objectCaching: false,
             absolutePositioned: true,
         });
         canvas.add(world);
@@ -142,7 +141,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 strokeWidth: 1.4,
                 strokeLineJoin: "round",
                 fill: "snow",
-                objectCaching: false,
             });
         });
 
@@ -158,7 +156,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 strokeLineJoin: "round",
                 fill: noFill,
                 strokeDashArray: [6, 3],
-                objectCaching: false,
             });
         });
 
@@ -172,7 +169,6 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             top: -nightSpawnRadius,
             strokeWidth: 1,
             strokeDashArray: [5, 7],
-            objectCaching: false,
             absolutePositioned: true,
         });
 
@@ -201,6 +197,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             poly.fill = noFill;
             poly.absolutePositioned = true;
             poly.inverted = true;
+            poly.objectCaching = false;
             under.clipPath = poly;
         });
 
