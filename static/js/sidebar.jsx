@@ -1,4 +1,4 @@
-const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) => {
+const Sidebar = ({ children, create, append, polys, activePolyId, setActivePoint }) => {
     const sidebarOpenKey = "sidebar-open";
     const sidebarInit = localStorage.getItem(sidebarOpenKey);
     const [sidebarOpen, setSidebarOpen] = React.useState((sidebarInit === null || sidebarInit === 'true'));
@@ -101,7 +101,7 @@ const Sidebar = ({ list, create, append, polys, activePolyId, setActivePoint }) 
                     </div>
                 </form>
             </div>
-            {list}
+            {children}
         </div>
     )
 }

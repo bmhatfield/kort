@@ -148,26 +148,6 @@ const App = () => {
             });
     }
 
-    function handlePingSubmit(e) {
-        e.preventDefault();
-
-        const data = new FormData(e.target);
-        const x = Number(data.get("px"));
-        const y = Number(data.get("py"));
-
-        const point = {
-            x: x,
-            y: y,
-        };
-        setActivePoint(point);
-        setPingPoints([
-            ...pingPoints.slice(-4),  // keep last 4 points
-            point
-        ]);
-
-        fetch("/ping", { method: "PUT", headers: headers, body: JSON.stringify([{ x: data.get("px"), y: data.get("py") }]) });
-    }
-
     let userCache = {};
     function getUser(id) {
         if (users === undefined) {
@@ -204,8 +184,6 @@ const App = () => {
         remove,
     }
 
-    let list = <PolyList polys={polys} {...polyListProps} />;
-
     const sidebarProps = {
         create,
         append,
@@ -214,21 +192,22 @@ const App = () => {
         setActivePoint,
     }
 
+    const pingProps = {
+        setActivePoint,
+        setPingPoints,
+        pingPoints,
+        headers,
+    }
+
     return (
         <div>
             <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} getUser={getUser} />
             <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
-            <div id="compass">
-                <img id="compass" src="/images/compass.png" width="100%" style={{filter: "saturate(50%)"}}></img>
-            </div>
-            <div id="ping">
-                <form id="pingform" onSubmit={handlePingSubmit}>
-                    <label htmlFor="px">x</label><input id="px" name="px" type="number" min="-10000" max="10000" required />
-                    <label htmlFor="py">y</label><input id="py" name="py" type="number" min="-10000" max="10000" required />
-                    <input type="submit" hidden />
-                </form>
-            </div>
-            <Sidebar list={list} {...sidebarProps} />
+            <Compass />
+            <Ping {...pingProps} />
+            <Sidebar {...sidebarProps}>
+                <PolyList polys={polys} {...polyListProps} />
+            </Sidebar>
             {isLoading && <div id="loading"><span className="loader"></span></div>}
         </div>
     )

@@ -366,7 +366,20 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         }
     }
 
+    function saveImage() {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL({
+            multiplier: 4,
+        });
+        link.download = "world.png";
+        link.click();
+        link.remove();
+    }
+
     return (
-        <canvas ref={cRef} onMouseMove={pan} id="map" onWheel={zoomWheel}></canvas>
+        <div>
+            <canvas ref={cRef} onMouseMove={pan} id="map" onWheel={zoomWheel} />
+            <img id="image" src="images/image.svg" onClick={saveImage} />
+        </div>
     )
 }
