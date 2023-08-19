@@ -47,10 +47,13 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
         if (showPoints) {
             points = poly.points.map((point, i) => {
                 const pointClass = isActivePoint(point) ? "pointitem activepoint" : "pointitem"
+                const pointStyle = {
+                    "backgroundColor": `color-mix(in srgb, ${biomeColor(point.biome)} 15%, white)`,
+                };
 
                 let label = (point.label !== undefined) ? <div>{point.label}</div> : null;
                 return (
-                    <li className={pointClass} key={i} onClick={() => setActivePoint(point)}>
+                    <li style={pointStyle} className={pointClass} key={i} onClick={() => setActivePoint(point)}>
                         <div>{label}</div>
                         <div>({point.x}, {point.y})</div>
                         <div className={"pointdel"} key={i} onClick={() => remove(poly.id, i)}>delete</div>

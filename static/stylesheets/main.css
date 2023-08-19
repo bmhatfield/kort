@@ -302,15 +302,11 @@ form:invalid .append-btn {
 }
 
 .pointitem:hover {
-    background-color: rgb(238, 239, 233);
+    background-color: color-mix(in srgb, lightseagreen 50%, white) !important;
 }
 
 .activepoint {
-    background-color: lightseagreen;
-}
-
-.activepoint:hover {
-    background-color: rgb(147, 202, 199);
+    background-color: lightseagreen !important;
 }
 
 .pointdel {
