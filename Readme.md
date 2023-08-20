@@ -10,19 +10,19 @@ A mapping tool for Valheim's hardcore / nomap mode.
 
 Kort was developed during [Jotunheim's](https://valheimservers.net/listing/jotunheim) "hardcore" nomap/noportal era, as a support tool for the adventures of a small group of Viking friends.
 
-The core mapping loop is very simple: move to a location, press F5, type `pos`, and enter coordinates into kort. Move a ways along the shore, and repeat.
+The core mapping loop is very simple: move to a location, press F5, type `pos`, and enter coordinates into kort. Move a ways along the shore, repeat.
 
 As kortographers run this loop, regions of the Valheim World will begin to emerge.
 
-If players make use of Outlines (for regions), Tracks (for roads, bridges, sailing courses), and Markers (for standalone labels), the emerging world will be rich and add a strong sense of place in the otherwise mapless experience.
+If players make use of Outlines (for regions), Tracks (for roads, bridges, sailing courses), and Markers (for standalone labels), the emerging world will be rich and offer a strong sense of place.
 
-In more difficult biomes (swamp, plains, mistlands, etc), we begin to spend more time mapping as pairs; one to manage coordinates and the other as defense and support. Often we'd bring two longships with food and as storage for the many materials we'd incidentally pick up. We died. Often. I've never had more fun in Valheim.
+In more difficult biomes (swamp, plains, mistlands, etc), we spent more time mapping as pairs; one to manage coordinates and the other as defense and support. Often we'd bring two longships with food and as storage for the many materials we'd incidentally pick up. We died. Often. I've never had more fun in Valheim.
 
 For multiple players working together, kort's ping feature (bottom right) is real-time - other players will see your pings on their map. This supports collaborative navigation on boats - one player to ping coordinates, and another to actually pilot the craft.
 
 On Jotunheim, mapping serves the additional role as motivation to get out and see the world, and to experience all the wonderful things the community has created.
 
-"bustedclutch" on Steam has written [a very in-depth guide](https://steamcommunity.com/sharedfiles/filedetails/?id=2906268064) to having fun in a nomap Valheim seed. There's lots to the experience - kortography is just one small part.
+For thoughts on `nomap` more generally, "bustedclutch" on Steam has written [a very in-depth guide](https://steamcommunity.com/sharedfiles/filedetails/?id=2906268064) to having fun in a nomap Valheim seed. There's lots to the experience - kortography is just one small part.
 
 ## Features
 
