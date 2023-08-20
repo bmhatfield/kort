@@ -237,7 +237,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             under.clipPath = poly;
         });
 
-        setPolyObjects([...polygons, ...lines, ...llf, warning]);
+        setPolyObjects([...polygons, ...lines, ...polyLines, ...llf, warning]);
 
         // Rerender
         canvas.requestRenderAll();
