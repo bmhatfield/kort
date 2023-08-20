@@ -202,7 +202,7 @@ const App = () => {
     return (
         <div>
             <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} getUser={getUser} />
-            <div id="logout" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }}>×</div>
+            <img id="logout" src="images/xmark.svg" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }} />
             <Compass />
             <Ping {...pingProps} />
             <Sidebar {...sidebarProps}>

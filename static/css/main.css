@@ -30,6 +30,8 @@ li {
 ul {
     padding: 0px;
     margin: 0px;
+    margin-block: 0px;
+    padding-inline: 0px;
 }
 
 #map {
@@ -45,12 +47,9 @@ ul {
     right: 0px;
     margin: 3px;
     background-color: snow;
-    font-size: 40px;
-    line-height: 25px;
     height: 25px;
     width: 25px;
     cursor: pointer;
-    text-align: center;
     border-radius: 2px;
     border: 1px slategray solid;
 }
@@ -86,6 +85,7 @@ ul {
 }
 
 #sidebar {
+    font-family: "ptserif";
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -115,7 +115,7 @@ ul {
     padding-left: 5px;
     padding-bottom: 5px;
     height: 150px;
-    font-size: 21px;
+    font-size: 18px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -144,9 +144,9 @@ ul {
     border: 1px white solid;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
-    line-height: 24px;
+    line-height: 22px;
     margin: 3px;
     margin-left: 0px;
     cursor: pointer;
@@ -193,6 +193,11 @@ select {
     font-family: inherit;
 }
 
+#biome {
+    width: 142px;
+    padding-left: 3px;
+}
+
 #token {
     width: 200px;
 }
@@ -214,7 +219,6 @@ input[type=submit] {
     color: lightslategray;
     border: none;
     border: 1px slategray solid;
-    font-family: valheim-bold;
     background-color: snow;
     border-radius: 5px;
     height: 30px;
@@ -257,13 +261,15 @@ form:invalid .append-btn {
 }
 
 .polyitem {
-    width: 200px;
+    width: 205px;
     height: 20px;
     border-radius: 5px;
     background-color: rgba(255, 250, 240, .5);
     margin: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
     padding-left: 5px;
-    padding-right: 5px;
+    padding-right: 3px;
     padding-top: 3px;
     padding-bottom: 3px;
     display: flex;
@@ -271,6 +277,7 @@ form:invalid .append-btn {
     justify-content: space-between;
     border: 1px snow solid;
     cursor: zoom-in;
+    font-size: 12px;
 }
 
 .polyitem:hover {
@@ -288,19 +295,31 @@ form:invalid .append-btn {
 
 .polysize {
     background-color: lightgrey;
-    width: 25px;
+    width: 27px;
     border-radius: 10px;
     text-align: center;
-    padding-top: 2px;
+    line-height: 19px;
+}
+
+.polykind {
+    background-color: rgb(238, 243, 244);
+    width: 38px;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 15px;
+    font-size: 10px;
+    height: 16px;
+    margin-top: 2px;
+    text-transform: capitalize;
 }
 
 .pointset {
-    font-size: 0.7em;
+    font-size: 0.6em;
     display: block;
     margin-right: 5px;
     margin-left: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .pointitem {
@@ -320,9 +339,23 @@ form:invalid .append-btn {
     background-color: lightseagreen !important;
 }
 
+.pointxy {
+    padding-left: 3px;
+}
+
+.pointlabel {
+    width: 108px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    text-transform: capitalize;
+}
+
 .pointdel {
     background-color: lightgray;
     padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
     border-radius: 2px;
 }
 
@@ -344,7 +377,7 @@ form:invalid .append-btn {
 
 .list-open {
     display: block;
-    height: calc(100vh - (29px + 165px + 25px));
+    height: calc(100vh - (34px + 165px + 25px));
 }
 
 .list-closed {

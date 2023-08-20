@@ -25,14 +25,13 @@
 
 <body>
     <div id="app"></div>
+
+    <script type="text/babel">
+        fabric.perfLimitSizeTotal = 16777216;
+
+        const container = document.getElementById('app');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
 </body>
-
-<script type="text/babel">
-    fabric.perfLimitSizeTotal = 16777216;
-
-    const container = document.getElementById('app')
-    const root = ReactDOM.createRoot(container);
-    root.render(<App />)
-</script>
-
 </html>

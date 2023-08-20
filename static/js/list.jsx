@@ -51,11 +51,11 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
                     "backgroundColor": `color-mix(in srgb, ${biomeColor(point.biome)} 15%, white)`,
                 };
 
-                let label = (point.label !== undefined) ? <div>{point.label}</div> : null;
+                let label = (point.label !== undefined) ? <div>{point.label.toLowerCase()}</div> : null;
                 return (
                     <li style={pointStyle} className={pointClass} key={i} onClick={() => setActivePoint(point)}>
-                        <div>{label}</div>
-                        <div>({point.x}, {point.y})</div>
+                        <div className={"pointxy"}>({point.x}, {point.y})</div>
+                        <div className={"pointlabel"}>{label}</div>
                         <div className={"pointdel"} key={i} onClick={() => remove(poly.id, i)}>delete</div>
                     </li>
                 )
@@ -70,7 +70,7 @@ const PolyList = ({ polys, activePolyId, setActivePolyId, activePoint, setActive
                 <div className={"polyitem" + (isActivePoly(poly.id) ? " activepolyitem" : "")} onClick={() => { listliClick(poly.id) }}>
                     <div className={"polysize"}>{poly.points.length}</div>
                     <div>{users && users.length > 0 && users[0].name}</div>
-                    <div>{poly.kind}</div>
+                    <div className={"polykind"}>{poly.kind}</div>
                 </div>
                 {showPoints && <ul className={"pointset"}>{points}</ul>}
             </li>

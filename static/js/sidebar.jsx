@@ -64,7 +64,7 @@ const Sidebar = ({ children, create, append, polys, activePolyId, setActivePoint
             <div id="sidebarshrink" onClick={() => { localStorage.setItem(sidebarOpenKey, !sidebarOpen); setSidebarOpen(!sidebarOpen) }}>{sidebarOpen ? "«" : "»"}</div>
             <div id="search">
                 <form id="searchform" onSubmit={handleSearchSubmit}>
-                    <input type="text" id="searchbox" name="searchbox" placeholder="search" autoComplete="off" />
+                    <input type="text" id="searchbox" name="searchbox" placeholder="Search" autoComplete="off" />
                 </form>
             </div>
             <div id="newpoint">
@@ -73,9 +73,9 @@ const Sidebar = ({ children, create, append, polys, activePolyId, setActivePoint
                         <div><label htmlFor="x">x</label><input id="x" name="x" type="number" min="-10000" max="10000" required /></div>
                         <div><label htmlFor="y">y</label><input id="y" name="y" type="number" min="-10000" max="10000" required /></div>
                     </div>
-                    <div><label htmlFor="label">label</label><input type="text" id="label" name="label" autoComplete="off" value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} /></div>
+                    <div><label htmlFor="label">Label</label><input type="text" id="label" name="label" autoComplete="off" value={ptLabel} onChange={(e) => setPtLabel(e.target.value)} /></div>
                     <div>
-                        <label htmlFor="biome">biome</label>
+                        <label htmlFor="biome">Biome</label>
                         <select id="biome" name="biome" defaultValue={"ocean"}>
                             <option value="meadows">Meadows</option>
                             <option value="forest">Black Forest</option>
