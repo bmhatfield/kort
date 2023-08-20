@@ -8,6 +8,7 @@ const biomeColors = {
     "mistlands": "orchid",
     "north": "lightsteelblue",
     "ashlands": "crimson",
+    undefined: "slategray",
 };
 
 function biomeColor(name) {
