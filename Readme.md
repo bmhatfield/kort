@@ -39,10 +39,8 @@ See the [Point Exports](static/backup/Readme.md) page for sample points and back
 
 - Multiplayer Live Point additions
 - UI improvements
-    - Point list styling
     - Active poly highlight styling
     - Hide/show Tracks and Markers
-    - Biome shading
 - Multi-map support
 - In UI user-management
 
