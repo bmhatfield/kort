@@ -130,21 +130,46 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             });
         });
 
-        // Create polygons
-        const polygons = polys.filter((poly) => poly.points.length > 1 && poly.kind === "outline").map((poly) => {
+        // Create polygons and poly line segments around the polygon.
+        let polygons = [];
+        let polyLines = [];
+        polys.forEach((poly) => {
+            if (poly.points.length < 2) return;
+            if (poly.kind !== "outline") return;
+
+            let lastBiome = undefined;
+            let currentPolyLine = [];
+            poly.points.forEach((pt) => {
+                if ((pt.biome !== lastBiome) && currentPolyLine.length > 0) {
+                    polyLines.push(new fabric.Polyline(currentPolyLine, {
+                        stroke: biomeColor(lastBiome),
+                        strokeWidth: 2,
+                        strokeLineJoin: "round",
+                        fill: noFill,
+                    }));
+                    currentPolyLine = [currentPolyLine[currentPolyLine.length - 1]];
+                    lastBiome = pt.biome;
+                }
+                currentPolyLine.push({ x: Number(pt.x), y: -Number(pt.y) });
+            });
+            if (currentPolyLine.length > 0) {
+                polyLines.push(new fabric.Polyline(currentPolyLine, {
+                    stroke: biomeColor(lastBiome),
+                    strokeWidth: 2,
+                    strokeLineJoin: "round",
+                    fill: noFill,
+                }));
+            }
+
             let pts = poly.points.map((pt) => {
                 return { x: Number(pt.x), y: -Number(pt.y) }
             });
-
-            return new fabric.Polygon(pts, {
-                stroke: "slategray",
-                strokeWidth: 1.4,
-                strokeLineJoin: "round",
+            polygons.push(new fabric.Polygon(pts, {
                 fill: "snow",
-            });
+            }));
         });
 
-        // Create polylines
+        // Create track polylines.
         const lines = polys.filter((poly) => poly.points.length > 1 && poly.kind === "track").map((poly) => {
             let pts = poly.points.map((pt) => {
                 return { x: Number(pt.x), y: -Number(pt.y) }
@@ -177,7 +202,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
         // Flatten object arrays and add to canvas in batch
         const llf = labels.flat();
-        canvas.add(...polygons, ...lines, ...llf, warning);
+        canvas.add(...polygons, ...lines, ...polyLines, ...llf, warning);
 
         // Once added to canvas, we can examine object intersections
         // Clip smaller objects out of bigger objects when intersecting
