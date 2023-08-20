@@ -153,6 +153,17 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 currentPolyLine.push({ x: Number(pt.x), y: -Number(pt.y) });
             });
             if (currentPolyLine.length > 0) {
+                // If the last point and first point are close enough, link them up.
+                const lastPt = currentPolyLine[currentPolyLine.length - 1];
+                const firstPt = { x: Number(poly.points[0].x), y: -Number(poly.points[0].y) }
+                const xD = lastPt.x - firstPt.x;
+                const yD = lastPt.y - lastPt.y;
+                const dist = Math.sqrt(xD*xD + yD*yD);
+                // Distance of 100 threshold somewhat arbitrary.
+                if (dist < 100) {
+                    currentPolyLine.push(firstPt);
+                }
+
                 polyLines.push(new fabric.Polyline(currentPolyLine, {
                     stroke: biomeColor(lastBiome),
                     strokeWidth: 2,
