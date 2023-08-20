@@ -130,41 +130,38 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             });
         });
 
-        // Create polygons and poly line segments around the polygon.
-        let polygons = [];
-        let polyLines = [];
-        polys.forEach((poly) => {
-            if (poly.points.length < 2) return;
-            if (poly.kind !== "outline") return;
-
+        // Create area polygons and outline segments around the area polygon.
+        let areas = [];
+        let outlines = [];
+        polys.filter((poly) => poly.points.length > 1 && poly.kind === "outline").forEach((poly) => {
             let lastBiome = undefined;
-            let currentPolyLine = [];
+            let currentOutline = [];
             poly.points.forEach((pt) => {
-                if ((pt.biome !== lastBiome) && currentPolyLine.length > 0) {
-                    polyLines.push(new fabric.Polyline(currentPolyLine, {
+                if ((pt.biome !== lastBiome) && currentOutline.length > 0) {
+                    outlines.push(new fabric.Polyline(currentOutline, {
                         stroke: biomeColor(lastBiome),
                         strokeWidth: 2,
                         strokeLineJoin: "round",
                         fill: noFill,
                     }));
-                    currentPolyLine = [currentPolyLine[currentPolyLine.length - 1]];
+                    currentOutline = [currentOutline[currentOutline.length - 1]];
                     lastBiome = pt.biome;
                 }
-                currentPolyLine.push({ x: Number(pt.x), y: -Number(pt.y) });
+                currentOutline.push({ x: Number(pt.x), y: -Number(pt.y) });
             });
-            if (currentPolyLine.length > 0) {
+            if (currentOutline.length > 0) {
                 // If the last point and first point are close enough, link them up.
-                const lastPt = currentPolyLine[currentPolyLine.length - 1];
+                const lastPt = currentOutline[currentOutline.length - 1];
                 const firstPt = { x: Number(poly.points[0].x), y: -Number(poly.points[0].y) }
                 const xD = lastPt.x - firstPt.x;
                 const yD = lastPt.y - lastPt.y;
-                const dist = Math.sqrt(xD*xD + yD*yD);
+                const dist = Math.sqrt(xD * xD + yD * yD);
                 // Distance of 100 threshold somewhat arbitrary.
                 if (dist < 100) {
-                    currentPolyLine.push(firstPt);
+                    currentOutline.push(firstPt);
                 }
 
-                polyLines.push(new fabric.Polyline(currentPolyLine, {
+                outlines.push(new fabric.Polyline(currentOutline, {
                     stroke: biomeColor(lastBiome),
                     strokeWidth: 2,
                     strokeLineJoin: "round",
@@ -175,13 +172,13 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             let pts = poly.points.map((pt) => {
                 return { x: Number(pt.x), y: -Number(pt.y) }
             });
-            polygons.push(new fabric.Polygon(pts, {
+            areas.push(new fabric.Polygon(pts, {
                 fill: "snow",
             }));
         });
 
         // Create track polylines.
-        const lines = polys.filter((poly) => poly.points.length > 1 && poly.kind === "track").map((poly) => {
+        const tracks = polys.filter((poly) => poly.points.length > 1 && poly.kind === "track").map((poly) => {
             let pts = poly.points.map((pt) => {
                 return { x: Number(pt.x), y: -Number(pt.y) }
             });
@@ -209,15 +206,15 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         });
 
         // Place smaller objects atop larger objects
-        polygons.sort((x, y) => (x.width * x.height < y.width * y.height) ? 1 : -1);
+        areas.sort((x, y) => (x.width * x.height < y.width * y.height) ? 1 : -1);
 
         // Flatten object arrays and add to canvas in batch
-        const llf = labels.flat();
-        canvas.add(...polygons, ...lines, ...polyLines, ...llf, warning);
+        const flatlabels = labels.flat();
+        canvas.add(...areas, ...outlines, ...tracks, ...flatlabels, warning);
 
         // Once added to canvas, we can examine object intersections
         // Clip smaller objects out of bigger objects when intersecting
-        polygons.toReversed().forEach((poly, i, others) => {
+        areas.toReversed().forEach((poly, i, others) => {
             let under = others.slice(i + 1).find((other) => {
                 if (other === undefined) return false;
 
@@ -237,7 +234,10 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
             under.clipPath = poly;
         });
 
-        setPolyObjects([...polygons, ...lines, ...polyLines, ...llf, warning]);
+        // Insert into the polyObjects state.
+        // This tracks objects so we can remove them before beginning
+        // the next drawing loop (when `polys` changes).
+        setPolyObjects([...areas, ...outlines, ...tracks, ...flatlabels, warning]);
 
         // Rerender
         canvas.requestRenderAll();
