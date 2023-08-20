@@ -65,6 +65,20 @@ ul {
     cursor: pointer;
 }
 
+#debug {
+    position: absolute;
+    bottom: 0px;
+    right: 45%;
+    background-color: snow;
+    font-size: 9px;
+    padding: 2px;
+    padding-bottom: 3px;
+    font-family: "ptserif";
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid white;
+}
+
 #ping {
     position: absolute;
     right: 0px;

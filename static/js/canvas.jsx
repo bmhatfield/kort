@@ -416,6 +416,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         <div>
             <canvas ref={cRef} onMouseMove={pan} id="map" onWheel={zoomWheel} />
             <img id="image" src="images/image.svg" onClick={saveImage} />
+            <div id="debug">count: {canvas && canvas.getObjects().length}</div>
         </div>
     )
 }
