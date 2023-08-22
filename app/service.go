@@ -81,6 +81,14 @@ func (s *Service) getUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Service) getUsers(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(UserContextKey).(*User)
+	if !ok {
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	log.Printf("getUsers authorized for %q (id: %s)", user.Name, user.ID())
+
 	u, err := s.store.Users().List()
 	s.encode(w, u, err)
 }
