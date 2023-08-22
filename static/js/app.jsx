@@ -76,6 +76,8 @@ const App = () => {
     }
 
     React.useEffect(() => {
+        if (!bearer) return;
+
         fetch("/users", { headers: headers }).then(res => {
             if (!res.ok) {
                 throw new Error(res.statusText, res.body);
