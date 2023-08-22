@@ -8,9 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-var (
-	_ = mime.AddExtensionType(".force", "force-init-mime")
-)
+var _ = mime.AddExtensionType(".force", "force-init-mime")
 
 type Router struct {
 	mux *chi.Mux
@@ -42,10 +40,6 @@ func NewRouter(svc *Service) *Router {
 			r.Delete("/{polyId}", svc.deletePoly)
 		})
 
-		r.Route("/polys", func(r chi.Router) {
-			r.Get("/", svc.getPolys)
-		})
-
 		r.Route("/user", func(r chi.Router) {
 			r.Get("/{userId}", svc.getUser)
 		})
@@ -64,6 +58,17 @@ func NewRouter(svc *Service) *Router {
 
 		r.Route("/ping", func(r chi.Router) {
 			r.Put("/", svc.pingPoint)
+		})
+	})
+
+	// Unauthenticated routes
+	r.Group(func(r chi.Router) {
+		r.Use(
+			middleware.Logger,
+		)
+
+		r.Route("/polys", func(r chi.Router) {
+			r.Get("/", svc.getPolys)
 		})
 	})
 

@@ -54,6 +54,19 @@ ul {
     border: 1px slategray solid;
 }
 
+#login {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: snow;
+    margin: 5px;
+    padding: 5px;
+}
+
+#login input[type=submit] {
+    margin-left: 5px;
+}
+
 #image {
     position: absolute;
     top: 1px;

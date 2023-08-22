@@ -35,6 +35,8 @@ const App = () => {
     }, [bearer]);
 
     React.useEffect(() => {
+        if (!bearer) return;
+
         if (pointStream === undefined) {
             const stream = new EventSource("/events?stream=points");
 
@@ -60,7 +62,7 @@ const App = () => {
             setPointStream(stream);
             return
         }
-    }, [pointStream]);
+    }, [pointStream, bearer]);
 
 
     function handleLoginSubmit(e) {
@@ -87,7 +89,9 @@ const App = () => {
         }).then(json => {
             setUsers(json);
         });
+    }, [bearer]);
 
+    React.useEffect(() => {
         fetch("/polys", { headers: headers }).then(res => {
             if (!res.ok) {
                 throw new Error(res.statusText, res.body);
@@ -174,18 +178,6 @@ const App = () => {
         return filtered;
     }
 
-    if (!bearer) {
-        return (
-            <div id="login">
-                <form id="loginform" onSubmit={handleLoginSubmit}>
-                    <label htmlFor="token">Token</label>
-                    <input id="token" name="token" type="text" />
-                    <input type="submit" value="Save" />
-                </form>
-            </div>
-        )
-    }
-
     const polyListProps = {
         activePolyId,
         setActivePolyId,
@@ -215,10 +207,18 @@ const App = () => {
             <Cartograph polys={polys} activePoint={activePoint} pingPoints={pingPoints} otherPingPoints={otherPingPoints} getUser={getUser} />
             <img id="logout" src="images/xmark.svg" onClick={(e) => { localStorage.removeItem("token"); setPolys(); setBearer(); }} />
             <Compass />
-            <Ping {...pingProps} />
-            <Sidebar {...sidebarProps}>
+            {bearer && <Ping {...pingProps} />}
+            {bearer && <Sidebar {...sidebarProps}>
                 <PolyList polys={polys} {...polyListProps} />
-            </Sidebar>
+            </Sidebar>}
+            {!bearer &&
+                <div id="login">
+                    <form id="loginform" onSubmit={handleLoginSubmit}>
+                        <label htmlFor="token">Token</label>
+                        <input id="token" name="token" type="text" autoComplete="off" />
+                        <input type="submit" value="Login" />
+                    </form>
+                </div>}
             {isLoading && <div id="loading"><span className="loader"></span></div>}
         </div>
     )
