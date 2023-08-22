@@ -3,7 +3,7 @@ module github.com/bmhatfield/kort
 go 1.20
 
 require (
-	github.com/bmhatfield/sse v0.3.0
+	github.com/bmhatfield/sse v0.4.0
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/urfave/cli/v2 v2.25.7
@@ -15,7 +15,7 @@ require (
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
-	github.com/google/uuid v1.3.0 // indirect
+	github.com/google/uuid v1.3.1 // indirect
 	github.com/lithammer/shortuuid/v4 v4.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect

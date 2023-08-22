@@ -250,10 +250,14 @@ func (s *Service) pingPoint(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func (s *Service) logEventStats(d time.Duration) {
+func (s *Service) logActiveStreams(d time.Duration) {
 	ticker := time.NewTicker(d)
 	for range ticker.C {
-		log.Printf("%+v", s.events.Stats())
+		stats := s.events.Stats()
+
+		if !stats.Empty() {
+			log.Printf("%+v", stats)
+		}
 	}
 }
 
@@ -265,7 +269,7 @@ func NewService(store *Store) *Service {
 		store:  store,
 		events: events,
 	}
-	go svc.logEventStats(10 * time.Minute)
+	go svc.logActiveStreams(1 * time.Minute)
 
 	return svc
 }
