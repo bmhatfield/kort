@@ -20,7 +20,16 @@ const App = () => {
         if (bearer === undefined) return;
         const tokenStorage = localStorage.getItem("token");
         if (tokenStorage == null) return;
-        const token = JSON.parse(atob(tokenStorage));
+
+        let token;
+        try {
+            token = JSON.parse(atob(tokenStorage.trim()));
+        } catch (err) {
+            console.log("removing bad token");
+            localStorage.removeItem("token");
+            return;
+        }
+
 
         setUserId(token.i);
     }, [bearer]);
@@ -61,8 +70,8 @@ const App = () => {
         const token = data.get("token");
 
         if (token) {
-            localStorage.setItem("token", token);
-            setBearer(token);
+            localStorage.setItem("token", token.trim());
+            setBearer(token.trim());
         }
     }
 
