@@ -41,18 +41,35 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
         let world = new fabric.Circle({
             radius: circleRadius,
             stroke: "slategray",
-            fill: "aliceblue",
             left: -circleRadius,
             top: -circleRadius,
             strokeWidth: 2,
             absolutePositioned: true,
         });
+        world.set("fill", new fabric.Gradient({
+            type: "radial",
+
+            coords: {
+                x1: world.width / 2,
+                y1: world.height / 2,
+                x2: world.width / 2,
+                y2: world.height / 2,
+                r1: world.width / 50, // inner
+                r2: world.width / 2, // outer
+            },
+            colorStops: [
+                { offset: 0, color: "#E5F3FF" },
+                { offset: 0.9, color: "aliceblue" },
+                { offset: 1, color: "#E5F3FF" },
+            ],
+        }));
         canvas.add(world);
 
         // Add a grid, inscribed in the border circle.
         for (var axis = -circleRadius; axis <= circleRadius; axis += circleRadius / 10) {
             let lineParams = {
                 stroke: (axis === 0) ? '#aaaaaa' : 'lightgray',
+                strokeWidth: (axis === 0) ? 1.3 : 1,
                 clipPath: world
             }
             const x = new fabric.Line([-circleRadius, axis, circleRadius, axis], lineParams);
@@ -114,9 +131,9 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 var bg = new fabric.Rect({
                     top: opts.label.topOffset,
                     left: opts.label.leftOffset,
-                    fill: "rgba(255,250,250,.9)",
-                    stroke: isActive ? "lightseagreen" : "rgba(255,250,250,.95)",
-                    strokeWidth: 2,
+                    fill: "rgba(255,250,250,.97)",
+                    stroke: isActive ? "lightseagreen" : "white",
+                    strokeWidth: 2.5,
                     rx: 5,
                     ry: 5,
                     width: Math.max(l.width, lp.width + 5) + 5,
@@ -140,7 +157,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 if ((pt.biome !== lastBiome) && currentOutline.length > 0) {
                     outlines.push(new fabric.Polyline(currentOutline, {
                         stroke: biomeColor(lastBiome),
-                        strokeWidth: 2,
+                        strokeWidth: 4,
                         strokeLineJoin: "round",
                         fill: noFill,
                     }));
@@ -163,7 +180,7 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
 
                 outlines.push(new fabric.Polyline(currentOutline, {
                     stroke: biomeColor(lastBiome),
-                    strokeWidth: 2,
+                    strokeWidth: 4,
                     strokeLineJoin: "round",
                     fill: noFill,
                 }));
@@ -173,7 +190,10 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 return { x: Number(pt.x), y: -Number(pt.y) }
             });
             areas.push(new fabric.Polygon(pts, {
-                fill: "snow",
+                fill: "#FCFBFB",
+                stroke: "#A9A9A9",
+                strokeWidth: 5.3, // underlaps outline stroke
+                strokeLineJoin: "round",
             }));
         });
 
