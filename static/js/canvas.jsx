@@ -170,11 +170,9 @@ const Cartograph = ({ polys, activePoint, pingPoints, otherPingPoints, getUser }
                 // If the last point and first point are close enough, link them up.
                 const lastPt = currentOutline[currentOutline.length - 1];
                 const firstPt = { x: Number(poly.points[0].x), y: -Number(poly.points[0].y) }
-                const xD = lastPt.x - firstPt.x;
-                const yD = lastPt.y - lastPt.y;
-                const dist = Math.sqrt(xD * xD + yD * yD);
+
                 // Distance of 100 threshold somewhat arbitrary.
-                if (dist < 100) {
+                if (distance(firstPt, lastPt) < 100) {
                     currentOutline.push(firstPt);
                 }
 

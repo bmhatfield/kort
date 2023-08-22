@@ -14,3 +14,9 @@ const biomeColors = {
 function biomeColor(name) {
     return biomeColors[name];
 };
+
+function distance(p1, p2) {
+    const xD = Math.abs(p1.x - p2.x);
+    const yD = Math.abs(p1.y - p2.y);
+    return Math.sqrt(xD * xD + yD * yD);
+}
