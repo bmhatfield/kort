@@ -9,17 +9,15 @@ import (
 
 type Identifiable[T any] interface {
 	ID() string
-	SetID(string)
-	*T
+	WithID(string) T
 }
 
-type Object[T any, P Identifiable[T]] struct {
+type Object[T Identifiable[T]] struct {
 	db     *bolt.DB
 	bucket string
 }
 
-func (o *Object[T, P]) New(obj P) (string, error) {
-	id := ""
+func (o *Object[T]) New(obj T) (T, error) {
 	if err := o.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
 		if bucket == nil {
@@ -31,8 +29,7 @@ func (o *Object[T, P]) New(obj P) (string, error) {
 			return err
 		}
 
-		obj.SetID(strconv.Itoa(int(seq)))
-		id = obj.ID()
+		obj = obj.WithID(strconv.Itoa(int(seq)))
 
 		b, err := msgpack.Marshal(obj)
 		if err != nil {
@@ -41,13 +38,13 @@ func (o *Object[T, P]) New(obj P) (string, error) {
 
 		return bucket.Put(Key(obj.ID()), b)
 	}); err != nil {
-		return id, err
+		return obj, err
 	}
 
-	return id, nil
+	return obj, nil
 }
 
-func (o *Object[T, P]) Replace(obj P) error {
+func (o *Object[T]) Replace(obj T) error {
 	return o.db.Update(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
 		if bucket == nil {
@@ -63,7 +60,7 @@ func (o *Object[T, P]) Replace(obj P) error {
 	})
 }
 
-func (o *Object[T, P]) Get(id string) (P, error) {
+func (o *Object[T]) Get(id string) (T, error) {
 	var obj T
 	if err := o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
@@ -78,14 +75,14 @@ func (o *Object[T, P]) Get(id string) (P, error) {
 
 		return msgpack.Unmarshal(b, &obj)
 	}); err != nil {
-		return nil, err
+		return obj, err
 	}
 
-	return &obj, nil
+	return obj, nil
 }
 
-func (o *Object[T, P]) List() ([]P, error) {
-	out := make([]P, 0)
+func (o *Object[T]) List() ([]T, error) {
+	out := make([]T, 0)
 	if err := o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
 		if bucket == nil {
@@ -98,7 +95,7 @@ func (o *Object[T, P]) List() ([]P, error) {
 				return err
 			}
 
-			out = append(out, &obj)
+			out = append(out, obj)
 			return nil
 		})
 	}); err != nil {
@@ -108,7 +105,7 @@ func (o *Object[T, P]) List() ([]P, error) {
 	return out, nil
 }
 
-func (o *Object[T, P]) Delete(id string) error {
+func (o *Object[T]) Delete(id string) error {
 	return o.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket(Key(o.bucket))
 		if bucket == nil {

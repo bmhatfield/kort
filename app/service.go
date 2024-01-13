@@ -119,8 +119,8 @@ func (s *Service) newPoly(w http.ResponseWriter, r *http.Request) {
 	}
 
 	t := NewPoly(up, uid)
-	id, err := s.store.Polys().New(t)
-	s.encode(w, Identifier{ID: id}, err)
+	t, err = s.store.Polys().New(t)
+	s.encode(w, Identifier{ID: t.PolyID}, err)
 }
 
 func (s *Service) deletePoly(w http.ResponseWriter, r *http.Request) {

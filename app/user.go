@@ -21,12 +21,13 @@ type User struct {
 	Created time.Time `json:"created"`
 }
 
-func (u *User) ID() string {
+func (u User) ID() string {
 	return u.UserID
 }
 
-func (u *User) SetID(id string) {
+func (u User) WithID(id string) *User {
 	u.UserID = id
+	return &u
 }
 
 func (u *User) SetToken(token string) error {
@@ -94,13 +95,13 @@ func AddUser() *cli.Command {
 				return err
 			}
 
-			id, err := store.Users().New(u)
+			u, err := store.Users().New(u)
 			if err != nil {
 				return err
 			}
 
-			b := NewBearer(id, c.String("token"))
-			fmt.Printf("User %s created with ID %s - bearer: %q\n", u.Name, id, b)
+			b := NewBearer(u.UserID, c.String("token"))
+			fmt.Printf("User %s created with ID %s - bearer: %q\n", u.Name, u.UserID, b)
 			return nil
 		},
 	}

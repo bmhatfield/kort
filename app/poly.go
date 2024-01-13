@@ -15,12 +15,13 @@ type Poly struct {
 	Points []Point `json:"points"`
 }
 
-func (p *Poly) ID() string {
+func (p Poly) ID() string {
 	return p.PolyID
 }
 
-func (p *Poly) SetID(id string) {
+func (p Poly) WithID(id string) *Poly {
 	p.PolyID = id
+	return &p
 }
 
 func (p *Poly) Add(points ...Point) {
